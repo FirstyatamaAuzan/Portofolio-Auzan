@@ -1,14 +1,15 @@
 /* =====================================================================
-   A24 3D DISC ROW SHOWCASE
+   A24 3D PHYSICAL DISC ROW SHOWCASE
    Inspired by Ravi Klaassens (A24) & Animorio
    Three.js WebGL physical discs with iridescent backs & spring physics
+   Reusable for Projects and Experience
    ===================================================================== */
 
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
-export function createDiscsGallery(rootEl, projects, onOpenDetail) {
-  const S = window.SITE;
+export function createDiscsGallery(rootEl, items, onOpenDetail, options = {}) {
+  const type = options.type || 'projects';
   const RIDOTTO = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const TONDO = Math.PI * 2;
 
@@ -32,23 +33,32 @@ export function createDiscsGallery(rootEl, projects, onOpenDetail) {
   const elKind = rootEl.querySelector('[data-kind]');
   const elTitle = rootEl.querySelector('[data-title]');
   const elDesc = rootEl.querySelector('[data-desc]');
-  const elRole = rootEl.querySelector('[data-role]');
-  const elContext = rootEl.querySelector('[data-context]');
-  const elYear = rootEl.querySelector('[data-year]');
-  const elStack = rootEl.querySelector('[data-stack]');
-  const elGithub = rootEl.querySelector('[data-github-btn]');
+  const elActionLink = rootEl.querySelector('[data-link-btn]');
   const elDots = rootEl.querySelector('[data-dots]');
   const btnPrev = rootEl.querySelector('[data-prev]');
   const btnNext = rootEl.querySelector('[data-next]');
   const btnFlip = rootEl.querySelector('[data-flip-btn]');
   const btnDetail = rootEl.querySelector('[data-detail-btn]');
 
+  const elDts = [
+    rootEl.querySelector('[data-dt1]'),
+    rootEl.querySelector('[data-dt2]'),
+    rootEl.querySelector('[data-dt3]'),
+    rootEl.querySelector('[data-dt4]'),
+  ];
+  const elMds = [
+    rootEl.querySelector('[data-m1]'),
+    rootEl.querySelector('[data-m2]'),
+    rootEl.querySelector('[data-m3]'),
+    rootEl.querySelector('[data-m4]'),
+  ];
+
   // Build dots
-  elDots.innerHTML = projects.map((_, i) => `<button type="button" class="a24-dot ${i === 0 ? 'on' : ''}" data-i="${i}" aria-label="Proyek ${i + 1}"></button>`).join('');
+  elDots.innerHTML = items.map((_, i) => `<button type="button" class="a24-dot ${i === 0 ? 'on' : ''}" data-i="${i}" aria-label="Item ${i + 1}"></button>`).join('');
   const dotBtns = [...elDots.children];
   dotBtns.forEach((b) => b.addEventListener('click', () => vai(+b.dataset.i)));
 
-  // Helper text along rim
+  // Text along perimeter
   function scriviIntorno(g, testo, r, inizio) {
     let a = inizio;
     for (const ch of testo) {
@@ -71,23 +81,35 @@ export function createDiscsGallery(rootEl, projects, onOpenDetail) {
     c.height = N;
     const g = c.getContext('2d');
 
-    // Palettes per project
-    const themes = [
-      { bg1: '#131B2E', bg2: '#080E1C', accent: '#38BDF8', glow: '#0284C7', text: '#F8FAFC', sub: '#94A3B8', style: 'cohive' },
-      { bg1: '#261338', bg2: '#10071C', accent: '#C084FC', glow: '#9333EA', text: '#FAF5FF', sub: '#A855F7', style: 'semsim' },
-      { bg1: '#092B22', bg2: '#031410', accent: '#34D399', glow: '#059669', text: '#ECFDF5', sub: '#6EE7B7', style: 'chatbot' },
-      { bg1: '#361D09', bg2: '#170B02', accent: '#F59E0B', glow: '#D97706', text: '#FFFBEB', sub: '#FBBF24', style: 'green' }
-    ];
-    const th = themes[idx % themes.length];
+    // Color palettes & styles
+    let th;
+    if (type === 'projects') {
+      const themes = [
+        { bg1: '#131B2E', bg2: '#080E1C', accent: '#38BDF8', glow: '#0284C7', text: '#F8FAFC', sub: '#94A3B8', style: 'cohive' },
+        { bg1: '#261338', bg2: '#10071C', accent: '#C084FC', glow: '#9333EA', text: '#FAF5FF', sub: '#A855F7', style: 'semsim' },
+        { bg1: '#092B22', bg2: '#031410', accent: '#34D399', glow: '#059669', text: '#ECFDF5', sub: '#6EE7B7', style: 'chatbot' },
+        { bg1: '#361D09', bg2: '#170B02', accent: '#F59E0B', glow: '#D97706', text: '#FFFBEB', sub: '#FBBF24', style: 'green' }
+      ];
+      th = themes[idx % themes.length];
+    } else {
+      // Experience themes
+      const expThemes = [
+        { bg1: '#0C1E36', bg2: '#050D18', accent: '#38BDF8', glow: '#0284C7', text: '#F8FAFC', sub: '#7DD3FC', style: 'btp' },
+        { bg1: '#22152F', bg2: '#0A050F', accent: '#F43F5E', glow: '#E11D48', text: '#FFF1F2', sub: '#FDA4AF', style: 'cmlabs' },
+        { bg1: '#240B1A', bg2: '#0F030B', accent: '#FB7185', glow: '#E11D48', text: '#FFF1F2', sub: '#F43F5E', style: 'riset' },
+        { bg1: '#2D1B05', bg2: '#120A02', accent: '#F59E0B', glow: '#D97706', text: '#FEF3C7', sub: '#FCD34D', style: 'hima' }
+      ];
+      th = expThemes[idx % expThemes.length];
+    }
 
-    // Rich radial background
+    // Radial gradient background
     const bgGrad = g.createRadialGradient(m, m * 0.7, 40, m, m, N * 0.72);
     bgGrad.addColorStop(0, th.bg1);
     bgGrad.addColorStop(1, th.bg2);
     g.fillStyle = bgGrad;
     g.fillRect(0, 0, N, N);
 
-    // Subtle optical grooves (simulating physical vinyl / disc ridges)
+    // Optical disc micro-grooves
     g.save();
     for (let r = 210; r < 495; r += 7) {
       g.beginPath();
@@ -98,12 +120,12 @@ export function createDiscsGallery(rootEl, projects, onOpenDetail) {
     }
     g.restore();
 
-    // Procedural graphic motif per project
+    // Procedural graphic motif
     g.save();
-    if (th.style === 'cohive') {
-      // Hexagonal cooperative mesh & network links
+    if (th.style === 'cohive' || th.style === 'btp') {
+      // Hexagonal cooperative incubator mesh
       const hexS = 36;
-      g.strokeStyle = 'rgba(56, 189, 248, 0.28)';
+      g.strokeStyle = 'rgba(56, 189, 248, 0.3)';
       g.lineWidth = 2;
       for (let ring = 1; ring <= 3; ring++) {
         for (let a = 0; a < 6; a++) {
@@ -140,15 +162,25 @@ export function createDiscsGallery(rootEl, projects, onOpenDetail) {
         }
         g.stroke();
       }
-      // Vector coordinate points
-      g.fillStyle = th.accent;
-      for (let k = 0; k < 5; k++) {
-        const x = N * (0.28 + k * 0.11);
-        const y = m * 0.78 + Math.sin(k * 1.3) * 28;
+    } else if (th.style === 'cmlabs') {
+      // Plagiarism detection matrix & SEO radar curves
+      g.strokeStyle = 'rgba(244, 63, 94, 0.3)';
+      g.lineWidth = 1.8;
+      for (let arc = 1; arc <= 4; arc++) {
         g.beginPath();
-        g.arc(x, y, 4, 0, TONDO);
-        g.fill();
+        g.arc(m, m * 0.78, arc * 34, 0, Math.PI);
+        g.stroke();
       }
+      for (let k = -3; k <= 3; k++) {
+        g.beginPath();
+        g.moveTo(m + k * 28, m * 0.78 - 60);
+        g.lineTo(m + k * 28, m * 0.78 + 40);
+        g.stroke();
+      }
+      g.fillStyle = th.accent;
+      g.beginPath();
+      g.arc(m, m * 0.78, 6, 0, TONDO);
+      g.fill();
     } else if (th.style === 'chatbot') {
       // Attention graph / circular orbital network
       for (let r = 1; r <= 3; r++) {
@@ -174,6 +206,35 @@ export function createDiscsGallery(rootEl, projects, onOpenDetail) {
         g.arc(x2, y2, 4, 0, TONDO);
         g.fill();
       }
+    } else if (th.style === 'riset') {
+      // Computer vision OCR scanning crosshairs
+      g.strokeStyle = 'rgba(251, 113, 133, 0.35)';
+      g.lineWidth = 2;
+      g.strokeRect(m - 90, m * 0.78 - 45, 180, 90);
+      g.beginPath();
+      g.moveTo(m - 110, m * 0.78);
+      g.lineTo(m + 110, m * 0.78);
+      g.stroke();
+      g.strokeStyle = th.accent;
+      g.beginPath();
+      g.arc(m, m * 0.78, 28, 0, TONDO);
+      g.stroke();
+    } else if (th.style === 'hima') {
+      // Leadership crest with concentric empowerment rings
+      for (let r = 1; r <= 3; r++) {
+        g.beginPath();
+        g.arc(m, m * 0.76, r * 38, 0, TONDO);
+        g.strokeStyle = 'rgba(245, 158, 11, 0.35)';
+        g.lineWidth = 2;
+        g.stroke();
+      }
+      for (let k = 0; k < 6; k++) {
+        const a = (k / 6) * TONDO;
+        g.fillStyle = th.accent;
+        g.beginPath();
+        g.arc(m + Math.cos(a) * 76, m * 0.76 + Math.sin(a) * 76, 5, 0, TONDO);
+        g.fill();
+      }
     } else {
       // Circular Möbius eco loop
       g.lineWidth = 3;
@@ -193,7 +254,7 @@ export function createDiscsGallery(rootEl, projects, onOpenDetail) {
     }
     g.restore();
 
-    // Circular rim line & bounding track
+    // Circular rim boundaries
     g.strokeStyle = 'rgba(255, 255, 255, 0.2)';
     g.lineWidth = 2;
     g.beginPath();
@@ -206,14 +267,14 @@ export function createDiscsGallery(rootEl, projects, onOpenDetail) {
     g.arc(m, m, N * 0.21, 0, TONDO);
     g.stroke();
 
-    // Typography: Main Title
+    // Title Typography
     g.fillStyle = th.text;
     g.textAlign = 'center';
     g.textBaseline = 'middle';
-    let fs = 120;
+    let fs = 110;
     g.font = `italic 500 ${fs}px "Instrument Serif", Georgia, serif`;
     const tw = g.measureText(p.title).width;
-    if (tw > N * 0.64) fs *= (N * 0.64) / tw;
+    if (tw > N * 0.65) fs *= (N * 0.65) / tw;
     g.font = `italic 500 ${fs}px "Instrument Serif", Georgia, serif`;
     g.fillText(p.title, m, N * 0.32);
 
@@ -223,18 +284,21 @@ export function createDiscsGallery(rootEl, projects, onOpenDetail) {
     g.letterSpacing = '3px';
     g.fillText(`${p.kind.toUpperCase()} · ${p.year}`, m, N * 0.39);
 
-    // Inner Catalog Spec Stamp
+    // Inner Catalog Stamp
     g.font = '400 13px "JetBrains Mono", monospace';
     g.fillStyle = 'rgba(255, 255, 255, 0.55)';
-    g.fillText(`FA-ARCHIVE · DISC 0${idx + 1} · ${p.tags[0] || 'ENGINEERING'}`, m, N * 0.72);
+    const tagSpec = p.tags && p.tags[0] ? p.tags[0].toUpperCase() : 'PORTFOLIO';
+    const catPrefix = type === 'projects' ? 'PROJECT' : 'EXP';
+    g.fillText(`FA-ARCHIVE · ${catPrefix} 0${idx + 1} · ${tagSpec}`, m, N * 0.72);
     g.fillText('TELKOM UNIVERSITY SURABAYA · 2026', m, N * 0.75);
 
-    // Perimeter Circular Text (Vinyl Rim)
+    // Perimeter Circular Text
     g.save();
     g.translate(m, m);
     g.font = '600 21px "Inter Tight", system-ui, sans-serif';
     g.fillStyle = 'rgba(255, 255, 255, 0.75)';
-    const perimeterStr = `FIRSTYATAMA AUZAN FARHADI     ${p.title.toUpperCase()}     ${p.year}     ${p.tags.join(' · ').toUpperCase()}     `;
+    const tagsStr = p.tags ? p.tags.join(' · ').toUpperCase() : '';
+    const perimeterStr = `FIRSTYATAMA AUZAN FARHADI     ${p.title.toUpperCase()}     ${p.year}     ${tagsStr}     `;
     scriviIntorno(g, perimeterStr, N * 0.445, -Math.PI * 0.85);
     g.restore();
 
@@ -244,11 +308,11 @@ export function createDiscsGallery(rootEl, projects, onOpenDetail) {
     return tex;
   }
 
-  // Disc geometry dimensions
-  const R_BUCO = 0.075;   // spindle hole
-  const R_MOZZO = 0.165;  // acrylic clear hub
-  const R_ANELLO = 0.2;   // metal clamp ring
-  const R_FUORI = 0.988;  // outer edge
+  // Dimensions
+  const R_BUCO = 0.075;
+  const R_MOZZO = 0.165;
+  const R_ANELLO = 0.2;
+  const R_FUORI = 0.988;
   const SPESSORE = 0.014;
 
   const geoFaccia = new THREE.RingGeometry(R_ANELLO, R_FUORI, 160, 1);
@@ -384,51 +448,53 @@ export function createDiscsGallery(rootEl, projects, onOpenDetail) {
     sg.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  // Update Project Card HUD with sliding transitions
+  // Update HUD Card with masked slide transitions
   function aggiornaScheda(i) {
-    const p = projects[i];
+    const p = items[i];
     if (!p) return;
 
     dotBtns.forEach((b, j) => b.classList.toggle('on', j === i));
-    elBadge.textContent = `0${i + 1} / 0${projects.length}`;
+    elBadge.textContent = `0${i + 1} / 0${items.length}`;
     elKind.textContent = p.kind;
     elDesc.textContent = p.summary;
 
-    const metaMap = {};
-    p.meta.forEach((m) => { metaMap[m[0].toLowerCase()] = m[1]; });
-
-    const role = metaMap['peran'] || 'Developer';
-    const context = metaMap['konteks'] || metaMap['bidang'] || 'Project';
-    const year = metaMap['tahun'] || p.year;
-    const stack = metaMap['stack'] || p.tags.join(', ');
-
-    if (p.links && p.links[0]) {
-      elGithub.href = p.links[0][1];
-      elGithub.style.display = 'inline-flex';
-    } else {
-      elGithub.style.display = 'none';
+    if (p.links && p.links[0] && elActionLink) {
+      elActionLink.href = p.links[0][1];
+      const span = elActionLink.querySelector('span');
+      if (span) span.textContent = `${p.links[0][0]} ↗`;
+      elActionLink.style.display = 'inline-flex';
+    } else if (elActionLink) {
+      elActionLink.style.display = 'none';
     }
 
+    const metaList = p.meta.slice(0, 4);
+    const metaEntries = metaList.map((m, idx) => ({
+      dt: elDts[idx],
+      dtVal: m[0],
+      dd: elMds[idx],
+      ddVal: m[1]
+    }));
+
     if (window.gsap && !RIDOTTO) {
-      const items = [
-        [elTitle, p.title],
-        [elRole, role],
-        [elContext, context],
-        [elYear, year],
-        [elStack, stack]
-      ];
-      items.forEach(([el, val], idx) => {
+      window.gsap.timeline()
+        .to(elTitle, { yPercent: -110, duration: 0.22, ease: 'power2.in' })
+        .add(() => { elTitle.textContent = p.title; })
+        .fromTo(elTitle, { yPercent: 110 }, { yPercent: 0, duration: 0.5, ease: 'expo.out', immediateRender: false });
+
+      metaEntries.forEach((entry, idx) => {
+        if (!entry.dt || !entry.dd) return;
+        entry.dt.textContent = entry.dtVal;
         window.gsap.timeline()
-          .to(el, { yPercent: -110, duration: 0.22, ease: 'power2.in', delay: idx * 0.03 })
-          .add(() => { el.textContent = val; })
-          .fromTo(el, { yPercent: 110 }, { yPercent: 0, duration: 0.5, ease: 'expo.out', immediateRender: false });
+          .to(entry.dd, { yPercent: -110, duration: 0.22, ease: 'power2.in', delay: (idx + 1) * 0.03 })
+          .add(() => { entry.dd.textContent = entry.ddVal; })
+          .fromTo(entry.dd, { yPercent: 110 }, { yPercent: 0, duration: 0.5, ease: 'expo.out', immediateRender: false });
       });
     } else {
       elTitle.textContent = p.title;
-      elRole.textContent = role;
-      elContext.textContent = context;
-      elYear.textContent = year;
-      elStack.textContent = stack;
+      metaEntries.forEach((entry) => {
+        if (entry.dt) entry.dt.textContent = entry.dtVal;
+        if (entry.dd) entry.dd.textContent = entry.ddVal;
+      });
     }
   }
 
@@ -447,9 +513,9 @@ export function createDiscsGallery(rootEl, projects, onOpenDetail) {
     }
   }
 
-  // Navigation target
+  // Set target disc
   function vai(i) {
-    meta = Math.max(0, Math.min(projects.length - 1, i));
+    meta = Math.max(0, Math.min(items.length - 1, i));
     if (RIDOTTO) testa = meta;
   }
 
@@ -549,7 +615,7 @@ export function createDiscsGallery(rootEl, projects, onOpenDetail) {
     const voluta = RIDOTTO ? 0 : Math.max(-0.3, Math.min(0.3, Math.sign(corsa) * Math.sqrt(Math.abs(corsa)) * PIEGA));
     piega += (voluta - piega) * (1 - Math.exp(-8 * dt));
 
-    const ora = Math.round(Math.max(0, Math.min(projects.length - 1, testa)));
+    const ora = Math.round(Math.max(0, Math.min(items.length - 1, testa)));
     if (ora !== attivo) {
       if (attivo !== -1) aggiornaScheda(ora);
       if (dischi[attivo] && dischi[attivo].girato % 2) capovolgi(dischi[attivo]);
@@ -635,7 +701,7 @@ export function createDiscsGallery(rootEl, projects, onOpenDetail) {
     if (!trascina) return;
     const dx = e.clientX - trascina.x0;
     if (Math.abs(dx) > 6) trascina.mosso = true;
-    testa = Math.max(-0.4, Math.min(projects.length - 0.6, trascina.testa0 - dx / pixelPerDisco()));
+    testa = Math.max(-0.4, Math.min(items.length - 0.6, trascina.testa0 - dx / pixelPerDisco()));
     const dtp = Math.max(4, e.timeStamp - trascina.ultimoT);
     trascina.v = (e.clientX - trascina.ultimoX) / dtp;
     trascina.ultimoX = e.clientX;
@@ -672,13 +738,13 @@ export function createDiscsGallery(rootEl, projects, onOpenDetail) {
   });
 
   btnDetail.addEventListener('click', () => {
-    if (onOpenDetail && projects[attivo]) {
-      onOpenDetail(projects[attivo].slug);
+    if (onOpenDetail && items[attivo]) {
+      onOpenDetail(items[attivo].slug);
     }
   });
 
   // Init discs
-  projects.forEach((p, i) => {
+  items.forEach((p, i) => {
     const d = creaDisco(p, i);
     dischi.push(d);
     fila.add(d.esterno);
@@ -713,7 +779,7 @@ export function createDiscsGallery(rootEl, projects, onOpenDetail) {
       vai(meta - 1);
     },
     getCurrentSlug() {
-      return projects[attivo] ? projects[attivo].slug : null;
+      return items[attivo] ? items[attivo].slug : null;
     }
   };
 }
