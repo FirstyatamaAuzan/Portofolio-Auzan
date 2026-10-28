@@ -72,7 +72,97 @@ export function createDiscsGallery(rootEl, items, onOpenDetail, options = {}) {
     }
   }
 
-  // Cover Canvas Generator (1024x1024)
+  // Characteristic Themes for each project and experience
+  function getItemTheme(p, isExp) {
+    const slug = (p.slug || '').toLowerCase();
+    if (!isExp) {
+      if (slug.includes('cohive')) {
+        return {
+          style: 'cohive',
+          bg1: '#0B1C33', bg2: '#020713',
+          retroColor: '#081628',
+          accent: '#38BDF8', accent2: '#F59E0B',
+          text: '#F8FAFC', sub: '#7DD3FC',
+          specTitle: 'COOPERATIVE FIN-TECH PLATFORM',
+          specCode: 'MVP v1.0 · LARAVEL 11 & MYSQL',
+        };
+      } else if (slug.includes('semsim')) {
+        return {
+          style: 'semsim',
+          bg1: '#180A30', bg2: '#05010E',
+          retroColor: '#120524',
+          accent: '#C084FC', accent2: '#22D3EE',
+          text: '#FAF5FF', sub: '#D8B4FE',
+          specTitle: 'INDONESIAN NLP ACADEMIC RESEARCH',
+          specCode: 'SIAMESE BI-ENCODER · INDOBERT & FLASK',
+        };
+      } else if (slug.includes('chatbot')) {
+        return {
+          style: 'chatbot',
+          bg1: '#032015', bg2: '#010A07',
+          retroColor: '#02160E',
+          accent: '#34D399', accent2: '#FBBF24',
+          text: '#ECFDF5', sub: '#6EE7B7',
+          specTitle: 'GENERATIVE CONVERSATIONAL AI',
+          specCode: 'SEQ2SEQ T5 · ATTENTION TRANSFORMER',
+        };
+      } else {
+        return {
+          style: 'green',
+          bg1: '#261404', bg2: '#090401',
+          retroColor: '#1A0D02',
+          accent: '#F59E0B', accent2: '#10B981',
+          text: '#FFFBEB', sub: '#FCD34D',
+          specTitle: 'CIRCULAR ECONOMY & RECYCLING',
+          specCode: 'WASTE-TO-VALUE · ESCROW PAYMENT',
+        };
+      }
+    } else {
+      if (slug.includes('bandung') || slug.includes('btp')) {
+        return {
+          style: 'btp',
+          bg1: '#0C1E32', bg2: '#030910',
+          retroColor: '#071422',
+          accent: '#FF6A1A', accent2: '#60A5FA',
+          text: '#F8FAFC', sub: '#93C5FD',
+          specTitle: 'STARTUP INCUBATION & ACCELERATION',
+          specCode: 'WRAP ENTREPRENEURSHIP · SURABAYA',
+        };
+      } else if (slug.includes('cmlabs')) {
+        return {
+          style: 'cmlabs',
+          bg1: '#1A0E26', bg2: '#07030C',
+          retroColor: '#12081C',
+          accent: '#FB7185', accent2: '#38BDF8',
+          text: '#FFF1F2', sub: '#FDA4AF',
+          specTitle: 'ENTERPRISE SEO & PLAGIARISM RADAR',
+          specCode: 'BACKEND NODE.JS · MALANG HEADQUARTERS',
+        };
+      } else if (slug.includes('riset') || slug.includes('asisten')) {
+        return {
+          style: 'riset',
+          bg1: '#220816', bg2: '#080106',
+          retroColor: '#18040F',
+          accent: '#F43F5E', accent2: '#FDE047',
+          text: '#FFF1F2', sub: '#FDA4AF',
+          specTitle: 'COMPUTER VISION RESEARCH LABORATORY',
+          specCode: 'CONTAINER CODE OCR · KERAS & TENSORFLOW',
+        };
+      } else {
+        return {
+          style: 'hima',
+          bg1: '#281703', bg2: '#0C0600',
+          retroColor: '#1A0F02',
+          accent: '#F59E0B', accent2: '#FEF3C7',
+          text: '#FEF3C7', sub: '#FCD34D',
+          specTitle: 'HUMAN CAPITAL TALENT DEVELOPMENT',
+          specCode: 'TEMATICS · FORTASTICS · FUNSPORTIKA 2024',
+        };
+      }
+    }
+  }
+
+  // Cover Canvas Generator (1024x1024) with distinct characteristics for each Project & Experience
   function generaCopertina(p, idx) {
     const N = 1024;
     const m = N / 2;
@@ -81,224 +171,486 @@ export function createDiscsGallery(rootEl, items, onOpenDetail, options = {}) {
     c.height = N;
     const g = c.getContext('2d');
 
-    // Color palettes & styles
-    let th;
-    if (type === 'projects') {
-      const themes = [
-        { bg1: '#131B2E', bg2: '#080E1C', accent: '#38BDF8', glow: '#0284C7', text: '#F8FAFC', sub: '#94A3B8', style: 'cohive' },
-        { bg1: '#261338', bg2: '#10071C', accent: '#C084FC', glow: '#9333EA', text: '#FAF5FF', sub: '#A855F7', style: 'semsim' },
-        { bg1: '#092B22', bg2: '#031410', accent: '#34D399', glow: '#059669', text: '#ECFDF5', sub: '#6EE7B7', style: 'chatbot' },
-        { bg1: '#361D09', bg2: '#170B02', accent: '#F59E0B', glow: '#D97706', text: '#FFFBEB', sub: '#FBBF24', style: 'green' }
-      ];
-      th = themes[idx % themes.length];
-    } else {
-      // Experience themes
-      const expThemes = [
-        { bg1: '#0C1E36', bg2: '#050D18', accent: '#38BDF8', glow: '#0284C7', text: '#F8FAFC', sub: '#7DD3FC', style: 'btp' },
-        { bg1: '#22152F', bg2: '#0A050F', accent: '#F43F5E', glow: '#E11D48', text: '#FFF1F2', sub: '#FDA4AF', style: 'cmlabs' },
-        { bg1: '#240B1A', bg2: '#0F030B', accent: '#FB7185', glow: '#E11D48', text: '#FFF1F2', sub: '#F43F5E', style: 'riset' },
-        { bg1: '#2D1B05', bg2: '#120A02', accent: '#F59E0B', glow: '#D97706', text: '#FEF3C7', sub: '#FCD34D', style: 'hima' }
-      ];
-      th = expThemes[idx % expThemes.length];
-    }
+    const isExp = type === 'experience';
+    const th = getItemTheme(p, isExp);
 
     // Radial gradient background
-    const bgGrad = g.createRadialGradient(m, m * 0.7, 40, m, m, N * 0.72);
+    const bgGrad = g.createRadialGradient(m, m * 0.72, 60, m, m, N * 0.72);
     bgGrad.addColorStop(0, th.bg1);
     bgGrad.addColorStop(1, th.bg2);
     g.fillStyle = bgGrad;
     g.fillRect(0, 0, N, N);
 
-    // Optical disc micro-grooves
+    // Micro optical disc grooves
     g.save();
-    for (let r = 210; r < 495; r += 7) {
+    for (let r = 210; r < 495; r += 6.5) {
       g.beginPath();
       g.arc(m, m, r, 0, TONDO);
-      g.strokeStyle = (r % 21 === 0) ? 'rgba(255, 255, 255, 0.045)' : 'rgba(255, 255, 255, 0.016)';
+      g.strokeStyle = (r % 26 === 0) ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.015)';
       g.lineWidth = 1;
       g.stroke();
     }
     g.restore();
 
-    // Procedural graphic motif
+    // ==========================================
+    // PROCEDURAL ARTWORK PER CHARACTERISTIC
+    // Placed in the spacious lower disc zone: y = 730
+    // ==========================================
     g.save();
-    if (th.style === 'cohive' || th.style === 'btp') {
-      // Hexagonal cooperative incubator mesh
-      const hexS = 36;
-      g.strokeStyle = 'rgba(56, 189, 248, 0.3)';
-      g.lineWidth = 2;
-      for (let ring = 1; ring <= 3; ring++) {
-        for (let a = 0; a < 6; a++) {
-          const ang = (a / 6) * TONDO + Math.PI / 6;
-          const hx = m + Math.cos(ang) * (ring * hexS * 2.2);
-          const hy = m * 0.78 + Math.sin(ang) * (ring * hexS * 2.2);
-          g.beginPath();
-          for (let k = 0; k < 6; k++) {
-            const ka = (k / 6) * TONDO + Math.PI / 6;
-            const px = hx + Math.cos(ka) * hexS;
-            const py = hy + Math.sin(ka) * hexS;
-            k === 0 ? g.moveTo(px, py) : g.lineTo(px, py);
-          }
-          g.closePath();
-          g.stroke();
-          if (ring === 2 && a % 2 === 0) {
-            g.fillStyle = th.accent;
-            g.beginPath();
-            g.arc(hx, hy, 4.5, 0, TONDO);
-            g.fill();
-          }
+
+    if (th.style === 'cohive') {
+      // 1. COHIVE: Hexagonal Cooperative Honeycomb Mesh & Financial Ledger
+      const cy = 725;
+      const hexR = 36;
+      const hexCenters = [
+        [m - 120, cy - 32], [m, cy - 32], [m + 120, cy - 32],
+        [m - 60, cy + 24], [m + 60, cy + 24],
+        [m - 180, cy + 24], [m + 180, cy + 24],
+      ];
+      g.lineWidth = 1.8;
+      g.strokeStyle = 'rgba(56, 189, 248, 0.35)';
+
+      hexCenters.forEach(([hx, hy], hIdx) => {
+        g.beginPath();
+        for (let k = 0; k < 6; k++) {
+          const ka = (k / 6) * TONDO + Math.PI / 6;
+          const px = hx + Math.cos(ka) * hexR;
+          const py = hy + Math.sin(ka) * hexR;
+          k === 0 ? g.moveTo(px, py) : g.lineTo(px, py);
         }
-      }
+        g.closePath();
+        g.stroke();
+
+        if (hIdx === 1 || hIdx === 3 || hIdx === 4) {
+          g.fillStyle = 'rgba(56, 189, 248, 0.08)';
+          g.fill();
+        }
+        g.fillStyle = (hIdx % 2 === 0) ? th.accent : th.accent2;
+        g.beginPath();
+        g.arc(hx, hy, 4, 0, TONDO);
+        g.fill();
+      });
+
+      // Horizontal dashed balance line
+      g.beginPath();
+      g.moveTo(m - 200, cy - 4);
+      g.lineTo(m + 200, cy - 4);
+      g.strokeStyle = 'rgba(245, 158, 11, 0.45)';
+      g.lineWidth = 1.4;
+      g.setLineDash([6, 6]);
+      g.stroke();
+      g.setLineDash([]);
+
+      // FinTech Ledger Badge
+      g.fillStyle = 'rgba(11, 28, 51, 0.92)';
+      g.fillRect(m - 150, cy + 54, 300, 24);
+      g.strokeStyle = th.accent;
+      g.lineWidth = 1.2;
+      g.strokeRect(m - 150, cy + 54, 300, 24);
+      g.fillStyle = '#FFFFFF';
+      g.font = '600 11px "JetBrains Mono", monospace';
+      g.textAlign = 'center';
+      g.fillText('IDR / SHU LEDGER · COOPERATIVE CORE', m, cy + 70);
+
     } else if (th.style === 'semsim') {
-      // Dual semantic sine wave interference
+      // 2. SEMSIM: Siamese Dual Waveform Interference & Cosine Metric
+      const cy = 725;
       for (let wave = 0; wave < 6; wave++) {
         g.beginPath();
-        g.strokeStyle = wave % 2 === 0 ? 'rgba(192, 132, 252, 0.45)' : 'rgba(56, 189, 248, 0.35)';
-        g.lineWidth = 2.5;
-        for (let x = N * 0.15; x <= N * 0.85; x += 6) {
-          const t = (x - N * 0.15) / (N * 0.7);
-          const y = m * 0.78 + Math.sin(t * Math.PI * 4 + wave * 0.7) * (36 - wave * 4);
-          x === N * 0.15 ? g.moveTo(x, y) : g.lineTo(x, y);
+        const isEncoderA = wave % 2 === 0;
+        g.strokeStyle = isEncoderA ? 'rgba(192, 132, 252, 0.65)' : 'rgba(34, 211, 238, 0.65)';
+        g.lineWidth = 2.2;
+        const phase = wave * 0.8;
+        const amp = 32 - wave * 4;
+        for (let x = m - 230; x <= m + 230; x += 6) {
+          const t = (x - (m - 230)) / 460;
+          const env = Math.sin(t * Math.PI);
+          const y = cy + Math.sin(t * Math.PI * 4 + phase) * amp * env;
+          x === m - 230 ? g.moveTo(x, y) : g.lineTo(x, y);
         }
         g.stroke();
       }
-    } else if (th.style === 'cmlabs') {
-      // Plagiarism detection matrix & SEO radar curves
-      g.strokeStyle = 'rgba(244, 63, 94, 0.3)';
-      g.lineWidth = 1.8;
-      for (let arc = 1; arc <= 4; arc++) {
+
+      // Latent space vector embedding points
+      [-150, -75, 0, 75, 150].forEach((ox, idx) => {
+        const py = cy + (idx % 2 === 0 ? -20 : 20);
+        g.fillStyle = idx % 2 === 0 ? th.accent : th.accent2;
         g.beginPath();
-        g.arc(m, m * 0.78, arc * 34, 0, Math.PI);
-        g.stroke();
-      }
-      for (let k = -3; k <= 3; k++) {
+        g.arc(m + ox, py, 4.5, 0, TONDO);
+        g.fill();
         g.beginPath();
-        g.moveTo(m + k * 28, m * 0.78 - 60);
-        g.lineTo(m + k * 28, m * 0.78 + 40);
+        g.moveTo(m + ox, cy - 32);
+        g.lineTo(m + ox, cy + 32);
+        g.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+        g.lineWidth = 1;
         g.stroke();
-      }
-      g.fillStyle = th.accent;
-      g.beginPath();
-      g.arc(m, m * 0.78, 6, 0, TONDO);
-      g.fill();
+      });
+
+      // Cosine Metric Badge
+      g.fillStyle = 'rgba(24, 10, 48, 0.92)';
+      g.fillRect(m - 165, cy + 54, 330, 24);
+      g.strokeStyle = th.accent;
+      g.lineWidth = 1.2;
+      g.strokeRect(m - 165, cy + 54, 330, 24);
+      g.fillStyle = '#FFFFFF';
+      g.font = '600 11px "JetBrains Mono", monospace';
+      g.textAlign = 'center';
+      g.fillText('cos(u,v) = (u·v)/(||u||||v||)  →  SIM: 0.89', m, cy + 70);
+
     } else if (th.style === 'chatbot') {
-      // Attention graph / circular orbital network
-      for (let r = 1; r <= 3; r++) {
+      // 3. CHATBOT: 12-Head Multi-Head Attention Graph
+      const cy = 720;
+      [34, 70, 108].forEach((r, idx) => {
         g.beginPath();
-        g.arc(m, m * 0.76, r * 42, 0, TONDO);
-        g.strokeStyle = 'rgba(52, 211, 153, 0.22)';
-        g.lineWidth = 1.8;
+        g.arc(m, cy, r, 0, TONDO);
+        g.strokeStyle = idx === 1 ? 'rgba(52, 211, 153, 0.45)' : 'rgba(52, 211, 153, 0.2)';
+        g.lineWidth = 1.4;
         g.stroke();
-      }
-      for (let i = 0; i < 8; i++) {
-        const ang = (i / 8) * TONDO;
-        const x1 = m + Math.cos(ang) * 42;
-        const y1 = m * 0.76 + Math.sin(ang) * 42;
-        const x2 = m + Math.cos(ang + 0.4) * 126;
-        const y2 = m * 0.76 + Math.sin(ang + 0.4) * 126;
+      });
+
+      for (let i = 0; i < 12; i++) {
+        const ang = (i / 12) * TONDO;
+        const x1 = m + Math.cos(ang) * 34;
+        const y1 = cy + Math.sin(ang) * 34;
+        const x2 = m + Math.cos(ang) * 108;
+        const y2 = cy + Math.sin(ang) * 108;
         g.beginPath();
         g.moveTo(x1, y1);
         g.lineTo(x2, y2);
         g.strokeStyle = 'rgba(52, 211, 153, 0.35)';
+        g.lineWidth = 1.4;
         g.stroke();
-        g.fillStyle = th.accent;
+
+        if (i % 3 === 0) {
+          const angNext = ((i + 4) / 12) * TONDO;
+          g.beginPath();
+          g.moveTo(x2, y2);
+          g.quadraticCurveTo(m, cy, m + Math.cos(angNext) * 108, cy + Math.sin(angNext) * 108);
+          g.strokeStyle = 'rgba(251, 191, 36, 0.4)';
+          g.lineWidth = 1.2;
+          g.stroke();
+        }
+
+        g.fillStyle = i % 2 === 0 ? th.accent : th.accent2;
         g.beginPath();
         g.arc(x2, y2, 4, 0, TONDO);
         g.fill();
       }
-    } else if (th.style === 'riset') {
-      // Computer vision OCR scanning crosshairs
-      g.strokeStyle = 'rgba(251, 113, 133, 0.35)';
-      g.lineWidth = 2;
-      g.strokeRect(m - 90, m * 0.78 - 45, 180, 90);
+
+      g.fillStyle = th.accent;
       g.beginPath();
-      g.moveTo(m - 110, m * 0.78);
-      g.lineTo(m + 110, m * 0.78);
-      g.stroke();
+      g.arc(m, cy, 5.5, 0, TONDO);
+      g.fill();
+
+      // Transformer Attention Badge
+      g.fillStyle = 'rgba(4, 29, 20, 0.92)';
+      g.fillRect(m - 160, cy + 56, 320, 24);
       g.strokeStyle = th.accent;
-      g.beginPath();
-      g.arc(m, m * 0.78, 28, 0, TONDO);
-      g.stroke();
-    } else if (th.style === 'hima') {
-      // Leadership crest with concentric empowerment rings
-      for (let r = 1; r <= 3; r++) {
+      g.lineWidth = 1.2;
+      g.strokeRect(m - 160, cy + 56, 320, 24);
+      g.fillStyle = '#FFFFFF';
+      g.font = '600 11px "JetBrains Mono", monospace';
+      g.textAlign = 'center';
+      g.fillText('12-HEAD SELF-ATTENTION // GOOGLE T5-BASE', m, cy + 72);
+
+    } else if (th.style === 'green') {
+      // 4. GREEN RANGER: Circular Möbius Loop & Waste-to-Value Flow
+      const cy = 720;
+      for (let l = 0; l < 3; l++) {
         g.beginPath();
-        g.arc(m, m * 0.76, r * 38, 0, TONDO);
-        g.strokeStyle = 'rgba(245, 158, 11, 0.35)';
-        g.lineWidth = 2;
-        g.stroke();
-      }
-      for (let k = 0; k < 6; k++) {
-        const a = (k / 6) * TONDO;
-        g.fillStyle = th.accent;
-        g.beginPath();
-        g.arc(m + Math.cos(a) * 76, m * 0.76 + Math.sin(a) * 76, 5, 0, TONDO);
-        g.fill();
-      }
-    } else {
-      // Circular Möbius eco loop
-      g.lineWidth = 3;
-      for (let l = 0; l < 4; l++) {
-        g.beginPath();
-        const rBase = 90 + l * 18;
-        for (let a = 0; a <= TONDO; a += 0.05) {
-          const r = rBase + Math.sin(a * 3) * 14;
+        const rBase = 62 + l * 24;
+        for (let a = 0; a <= TONDO; a += 0.04) {
+          const r = rBase + Math.sin(a * 3) * 16;
           const x = m + Math.cos(a) * r;
-          const y = m * 0.76 + Math.sin(a) * r;
+          const y = cy + Math.sin(a) * r;
           a === 0 ? g.moveTo(x, y) : g.lineTo(x, y);
         }
         g.closePath();
-        g.strokeStyle = l % 2 ? 'rgba(245, 158, 11, 0.4)' : 'rgba(255, 255, 255, 0.2)';
+        g.strokeStyle = l === 1 ? 'rgba(245, 158, 11, 0.55)' : 'rgba(16, 185, 129, 0.45)';
+        g.lineWidth = 2.4;
         g.stroke();
       }
+
+      [0, (1 / 3) * TONDO, (2 / 3) * TONDO].forEach((ang, idx) => {
+        const r = 86;
+        const nx = m + Math.cos(ang - Math.PI / 2) * r;
+        const ny = cy + Math.sin(ang - Math.PI / 2) * r;
+        g.fillStyle = idx === 0 ? th.accent : th.accent2;
+        g.beginPath();
+        g.arc(nx, ny, 5.5, 0, TONDO);
+        g.fill();
+      });
+
+      // Waste-to-Value Escrow Badge
+      g.fillStyle = 'rgba(38, 20, 4, 0.92)';
+      g.fillRect(m - 165, cy + 56, 330, 24);
+      g.strokeStyle = th.accent;
+      g.lineWidth = 1.2;
+      g.strokeRect(m - 165, cy + 56, 330, 24);
+      g.fillStyle = '#FFFFFF';
+      g.font = '600 11px "JetBrains Mono", monospace';
+      g.textAlign = 'center';
+      g.fillText('WASTE-TO-VALUE LEDGER · ESCROW VERIFIED', m, cy + 72);
+
+    } else if (th.style === 'btp') {
+      // 5. BANDUNG TECHNO PARK: Technical Blueprint & Launch Vector
+      const cy = 725;
+      g.strokeStyle = 'rgba(96, 165, 250, 0.22)';
+      g.lineWidth = 1.2;
+      for (let k = -5; k <= 5; k++) {
+        g.beginPath();
+        g.moveTo(m + k * 28, cy - 50);
+        g.lineTo(m + k * 28, cy + 50);
+        g.stroke();
+      }
+      for (let j = -3; j <= 3; j++) {
+        g.beginPath();
+        g.moveTo(m - 150, cy + j * 16);
+        g.lineTo(m + 150, cy + j * 16);
+        g.stroke();
+      }
+
+      // Launch vector arrow
+      g.strokeStyle = th.accent;
+      g.lineWidth = 3;
+      g.beginPath();
+      g.moveTo(m - 85, cy + 32);
+      g.lineTo(m + 85, cy - 32);
+      g.lineTo(m + 55, cy - 32);
+      g.moveTo(m + 85, cy - 32);
+      g.lineTo(m + 85, cy - 10);
+      g.stroke();
+
+      [-55, 0, 55].forEach((ox) => {
+        g.fillStyle = th.accent2;
+        g.beginPath();
+        g.arc(m + ox, cy - (ox * 32) / 85, 4, 0, TONDO);
+        g.fill();
+      });
+
+      // Incubation Badge
+      g.fillStyle = 'rgba(12, 30, 50, 0.92)';
+      g.fillRect(m - 170, cy + 54, 340, 24);
+      g.strokeStyle = th.accent;
+      g.lineWidth = 1.2;
+      g.strokeRect(m - 170, cy + 54, 340, 24);
+      g.fillStyle = '#FFFFFF';
+      g.font = '600 11px "JetBrains Mono", monospace';
+      g.textAlign = 'center';
+      g.fillText('COORD: 7°17\'S 112°47\'E // SURABAYA INCUBATOR', m, cy + 70);
+
+    } else if (th.style === 'cmlabs') {
+      // 6. CMLABS: Plagiarism 180° Radar & SEO Search Engine Graph
+      const cy = 735;
+      for (let arc = 1; arc <= 4; arc++) {
+        g.beginPath();
+        g.arc(m, cy, arc * 26, Math.PI, 0);
+        g.strokeStyle = 'rgba(251, 113, 133, 0.3)';
+        g.lineWidth = 1.4;
+        g.stroke();
+      }
+      g.strokeStyle = 'rgba(251, 113, 133, 0.22)';
+      g.lineWidth = 1.2;
+      g.beginPath();
+      g.moveTo(m - 120, cy);
+      g.lineTo(m + 120, cy);
+      g.moveTo(m, cy);
+      g.lineTo(m - Math.cos(Math.PI / 4) * 104, cy - Math.sin(Math.PI / 4) * 104);
+      g.moveTo(m, cy);
+      g.lineTo(m + Math.cos(Math.PI / 4) * 104, cy - Math.sin(Math.PI / 4) * 104);
+      g.stroke();
+
+      // Active radar sweep line
+      const beamA = Math.PI * 0.38;
+      g.beginPath();
+      g.moveTo(m, cy);
+      g.lineTo(m + Math.cos(beamA) * 104, cy - Math.sin(beamA) * 104);
+      g.strokeStyle = th.accent;
+      g.lineWidth = 2.4;
+      g.stroke();
+
+      // Detected similarity match blips
+      [[m - 55, cy - 46], [m + 40, cy - 64], [m + 75, cy - 22]].forEach(([bx, by]) => {
+        g.fillStyle = th.accent2;
+        g.beginPath();
+        g.arc(bx, by, 4, 0, TONDO);
+        g.fill();
+        g.beginPath();
+        g.arc(bx, by, 8, 0, TONDO);
+        g.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+        g.lineWidth = 1;
+        g.stroke();
+      });
+
+      // Plagiarism Telemetry Badge
+      g.fillStyle = 'rgba(26, 14, 38, 0.92)';
+      g.fillRect(m - 165, cy + 44, 330, 24);
+      g.strokeStyle = th.accent;
+      g.lineWidth = 1.2;
+      g.strokeRect(m - 165, cy + 44, 330, 24);
+      g.fillStyle = '#FFFFFF';
+      g.font = '600 11px "JetBrains Mono", monospace';
+      g.textAlign = 'center';
+      g.fillText('RADAR SCAN // SIMILARITY & SEO ENGINE ACTIVE', m, cy + 60);
+
+    } else if (th.style === 'riset') {
+      // 7. TELKOM SURABAYA RESEARCH: Computer Vision OCR Bounding Box
+      const cy = 725;
+      const boxW = 250;
+      const boxH = 64;
+      g.strokeStyle = 'rgba(244, 63, 94, 0.35)';
+      g.lineWidth = 1.4;
+      g.strokeRect(m - boxW / 2, cy - boxH / 2, boxW, boxH);
+
+      const cr = 15;
+      const corners = [
+        [m - boxW / 2 - 4, cy - boxH / 2 - 4, 1, 1],
+        [m + boxW / 2 + 4, cy - boxH / 2 - 4, -1, 1],
+        [m - boxW / 2 - 4, cy + boxH / 2 + 4, 1, -1],
+        [m + boxW / 2 + 4, cy + boxH / 2 + 4, -1, -1],
+      ];
+      g.strokeStyle = th.accent;
+      g.lineWidth = 2.8;
+      corners.forEach(([cx, cyc, sx, sy]) => {
+        g.beginPath();
+        g.moveTo(cx, cyc + sy * cr);
+        g.lineTo(cx, cyc);
+        g.lineTo(cx + sx * cr, cyc);
+        g.stroke();
+      });
+
+      // Scanning yellow laser bar
+      g.strokeStyle = th.accent2;
+      g.lineWidth = 2;
+      g.beginPath();
+      g.moveTo(m - boxW / 2 + 8, cy);
+      g.lineTo(m + boxW / 2 - 8, cy);
+      g.stroke();
+
+      // ISO 6346 OCR Code
+      g.fillStyle = '#FFFFFF';
+      g.font = '700 16px "JetBrains Mono", monospace';
+      g.textAlign = 'center';
+      g.fillText('TCLU 782019-4 / 45G1', m, cy - 9);
+
+      // Lab Accuracy Badge
+      g.fillStyle = 'rgba(34, 8, 22, 0.92)';
+      g.fillRect(m - 165, cy + 54, 330, 24);
+      g.strokeStyle = th.accent;
+      g.lineWidth = 1.2;
+      g.strokeRect(m - 165, cy + 54, 330, 24);
+      g.fillStyle = '#FFFFFF';
+      g.font = '600 11px "JetBrains Mono", monospace';
+      g.textAlign = 'center';
+      g.fillText('KERAS-OCR + TENSORFLOW // ACCURACY 99.4%', m, cy + 70);
+
+    } else {
+      // 8. HIMA: Leadership Tri-Ring Crest & Stars
+      const cy = 720;
+      const ringR = 32;
+      [[m, cy - 22], [m - 26, cy + 18], [m + 26, cy + 18]].forEach(([rx, ry]) => {
+        g.beginPath();
+        g.arc(rx, ry, ringR, 0, TONDO);
+        g.strokeStyle = 'rgba(245, 158, 11, 0.45)';
+        g.lineWidth = 2.2;
+        g.stroke();
+      });
+
+      // Central star
+      g.fillStyle = th.accent;
+      g.beginPath();
+      for (let s = 0; s < 10; s++) {
+        const sa = (s / 10) * TONDO - Math.PI / 2;
+        const sr = s % 2 === 0 ? 11 : 4.5;
+        const sx = m + Math.cos(sa) * sr;
+        const sy = (cy + 3) + Math.sin(sa) * sr;
+        s === 0 ? g.moveTo(sx, sy) : g.lineTo(sx, sy);
+      }
+      g.closePath();
+      g.fill();
+
+      // Satellite star dots
+      [-85, -42, 42, 85].forEach((angDeg) => {
+        const rad = (angDeg * Math.PI) / 180;
+        const sx = m + Math.sin(rad) * 90;
+        const sy = cy - Math.cos(rad) * 42;
+        g.fillStyle = th.accent2;
+        g.beginPath();
+        g.arc(sx, sy, 3.5, 0, TONDO);
+        g.fill();
+      });
+
+      // Event Ribbon Badge
+      g.fillStyle = 'rgba(40, 23, 3, 0.92)';
+      g.fillRect(m - 175, cy + 56, 350, 24);
+      g.strokeStyle = th.accent;
+      g.lineWidth = 1.2;
+      g.strokeRect(m - 175, cy + 56, 350, 24);
+      g.fillStyle = '#FFFFFF';
+      g.font = '600 11px "JetBrains Mono", monospace';
+      g.textAlign = 'center';
+      g.fillText('TEMATICS · FORTASTICS · FUNSPORTIKA 2024', m, cy + 72);
     }
+
     g.restore();
 
-    // Circular rim boundaries
-    g.strokeStyle = 'rgba(255, 255, 255, 0.2)';
-    g.lineWidth = 2;
+    // Circular rim guide lines
+    g.strokeStyle = 'rgba(255, 255, 255, 0.18)';
+    g.lineWidth = 1.8;
     g.beginPath();
     g.arc(m, m, N * 0.47, 0, TONDO);
     g.stroke();
 
-    g.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+    g.strokeStyle = 'rgba(255, 255, 255, 0.12)';
     g.lineWidth = 1;
     g.beginPath();
     g.arc(m, m, N * 0.21, 0, TONDO);
     g.stroke();
 
-    // Title Typography
+    // ==========================================
+    // TOP TITLE & SUBTITLE
+    // ==========================================
     g.fillStyle = th.text;
     g.textAlign = 'center';
     g.textBaseline = 'middle';
-    let fs = 110;
+    let fs = isExp ? 92 : 110;
     g.font = `italic 500 ${fs}px "Instrument Serif", Georgia, serif`;
     const tw = g.measureText(p.title).width;
-    if (tw > N * 0.65) fs *= (N * 0.65) / tw;
+    if (tw > N * 0.64) fs *= (N * 0.64) / tw;
     g.font = `italic 500 ${fs}px "Instrument Serif", Georgia, serif`;
-    g.fillText(p.title, m, N * 0.32);
+    g.fillText(p.title, m, N * 0.28);
 
-    // Subtitle / category
-    g.font = '500 16px "JetBrains Mono", monospace';
+    // Subtitle & kind
+    g.font = '600 14px "JetBrains Mono", monospace';
     g.fillStyle = th.sub;
     g.letterSpacing = '3px';
-    g.fillText(`${p.kind.toUpperCase()} · ${p.year}`, m, N * 0.39);
+    g.fillText(`${p.kind.toUpperCase()} · ${p.year}`, m, N * 0.35);
 
-    // Inner Catalog Stamp
-    g.font = '400 13px "JetBrains Mono", monospace';
-    g.fillStyle = 'rgba(255, 255, 255, 0.55)';
-    const tagSpec = p.tags && p.tags[0] ? p.tags[0].toUpperCase() : 'PORTFOLIO';
-    const catPrefix = type === 'projects' ? 'PROJECT' : 'EXP';
-    g.fillText(`FA-ARCHIVE · ${catPrefix} 0${idx + 1} · ${tagSpec}`, m, N * 0.72);
-    g.fillText('TELKOM UNIVERSITY SURABAYA · 2026', m, N * 0.75);
+    // ==========================================
+    // BOTTOM ARCHIVE STAMP
+    // ==========================================
+    g.font = '500 12px "JetBrains Mono", monospace';
+    g.fillStyle = 'rgba(255, 255, 255, 0.62)';
+    const tagSpec = p.tags && p.tags[0] ? p.tags[0].toUpperCase() : 'CORE';
+    const catPrefix = isExp ? 'CAREER RECORD' : 'ENGINEERING PROJECT';
+    g.fillText(`FA-ARCHIVE // ${catPrefix} 0${idx + 1} // ${tagSpec}`, m, 866);
+    g.fillText(th.specCode, m, 888);
 
-    // Perimeter Circular Text
+    // ==========================================
+    // PERIMETER CIRCULAR TEXT (VINYL RIM)
+    // ==========================================
     g.save();
     g.translate(m, m);
-    g.font = '600 21px "Inter Tight", system-ui, sans-serif';
-    g.fillStyle = 'rgba(255, 255, 255, 0.75)';
+    g.font = '600 19px "Inter Tight", system-ui, sans-serif';
+    g.fillStyle = 'rgba(255, 255, 255, 0.72)';
+
     const tagsStr = p.tags ? p.tags.join(' · ').toUpperCase() : '';
-    const perimeterStr = `FIRSTYATAMA AUZAN FARHADI     ${p.title.toUpperCase()}     ${p.year}     ${tagsStr}     `;
+    let perimeterStr = '';
+    if (isExp) {
+      perimeterStr = `FIRSTYATAMA AUZAN FARHADI     ${p.title.toUpperCase()}     ${p.year}     ${p.kind.toUpperCase()}     ${th.specTitle}     `;
+    } else {
+      perimeterStr = `FIRSTYATAMA AUZAN FARHADI     ${p.title.toUpperCase()}     ${p.year}     ${tagsStr}     ${th.specTitle}     `;
+    }
     scriviIntorno(g, perimeterStr, N * 0.445, -Math.PI * 0.85);
     g.restore();
 
@@ -320,17 +672,7 @@ export function createDiscsGallery(rootEl, items, onOpenDetail, options = {}) {
   const geoAnello = new THREE.RingGeometry(R_MOZZO, R_ANELLO, 96, 1);
   const geoBordo = new THREE.CylinderGeometry(1, 1, SPESSORE, 160, 1, true).rotateX(Math.PI / 2);
 
-  // Materials
-  const matRetro = new THREE.MeshPhysicalMaterial({
-    color: '#151926',
-    metalness: 1,
-    roughness: 0.18,
-    iridescence: 1,
-    iridescenceIOR: 1.48,
-    iridescenceThicknessRange: [120, 1100],
-    clearcoat: 0.4,
-    clearcoatRoughness: 0.08,
-  });
+  // Shared Core Materials
   const matBordo = new THREE.MeshPhysicalMaterial({
     color: '#D8D8DF',
     metalness: 0.8,
@@ -354,8 +696,11 @@ export function createDiscsGallery(rootEl, items, onOpenDetail, options = {}) {
     side: THREE.DoubleSide
   });
 
-  // Create single 3D disc assembly
+  // Create single 3D disc assembly with custom iridescent substrate back
   function creaDisco(p, i) {
+    const isExp = type === 'experience';
+    const th = getItemTheme(p, isExp);
+
     const esterno = new THREE.Group();
     const inclina = new THREE.Group();
     const capovolgi = new THREE.Group();
@@ -367,15 +712,27 @@ export function createDiscsGallery(rootEl, items, onOpenDetail, options = {}) {
 
     const fronte = new THREE.Mesh(geoFaccia, new THREE.MeshPhysicalMaterial({
       map: generaCopertina(p, i),
-      roughness: 0.4,
-      metalness: 0.18,
-      clearcoat: 0.65,
-      clearcoatRoughness: 0.18,
+      roughness: 0.38,
+      metalness: 0.16,
+      clearcoat: 0.7,
+      clearcoatRoughness: 0.16,
       envMapIntensity: 0.75,
     }));
     fronte.position.z = SPESSORE / 2 + 0.0005;
 
-    const retro = new THREE.Mesh(geoFaccia, matRetro);
+    // Distinct holographic iridescent backside tailored with custom substrate tint
+    const matRetroInstance = new THREE.MeshPhysicalMaterial({
+      color: th.retroColor,
+      metalness: 1,
+      roughness: 0.16,
+      iridescence: 1,
+      iridescenceIOR: 1.48,
+      iridescenceThicknessRange: [120, 1100],
+      clearcoat: 0.45,
+      clearcoatRoughness: 0.08,
+    });
+
+    const retro = new THREE.Mesh(geoFaccia, matRetroInstance);
     retro.rotation.y = Math.PI;
     retro.position.z = -SPESSORE / 2 - 0.0005;
 
