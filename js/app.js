@@ -153,7 +153,8 @@ const home = `<div class="home"><div>
   <p class="mono rise">${E(H.kicker)}</p>
   <h1 class="rise" aria-label="${E(S.name)}">${H.headline.map(R).join('<br>')}</h1>
   <p class="lead rise">${E(H.text)}</p>
-  <div class="stats rise">${H.stats.map((s) => `<div><b>${E(s[0])}</b><span class="lbl">${E(s[1])}</span></div>`).join('')}</div></div>
+  <div class="stats rise">${H.stats.map((s) => `<div><b>${E(s[0])}</b><span class="lbl">${E(s[1])}</span></div>`).join('')}</div>
+  ${H.available ? `<div class="available-badge rise"><span class="available-dot"></span><span>${E(H.availableNote || 'Open to Work')}</span></div>` : ''}</div>
   <div class="contact rise"><span class="mail">${E(C.email)}</span><div class="row">
     <button class="btn solid" id="copy" type="button">Salin email</button>
     ${C.links.map((l) => `<a class="btn" href="${E(l[1])}" target="_blank" rel="noopener noreferrer">${E(l[0])}</a>`).join('')}</div></div></div>`;
@@ -168,7 +169,8 @@ const me = `<div class="me"><figure class="ph"><svg viewBox="0 0 100 100" fill="
 // Template for A24 3D Physical Disc Gallery
 function renderA24Markup(type) {
   const isExp = type === 'experience';
-  const labelDetail = isExp ? 'Detail Pengalaman' : 'Detail Proyek';
+  const isOrg = type === 'organization';
+  const labelDetail = isOrg ? 'Detail Organisasi' : (isExp ? 'Detail Pengalaman' : 'Detail Proyek');
   const hintText = isExp
     ? 'Putar roda mouse, geser, atau gunakan panah keyboard untuk menelusuri rekam jejak. Klik kaset depan untuk membalik sisi holografisnya.'
     : 'Putar roda mouse, geser, atau gunakan panah keyboard untuk menelusuri kaset. Klik kaset depan untuk membalik sisi holografisnya.';
@@ -222,11 +224,37 @@ function renderA24Markup(type) {
   </div>`;
 }
 
+
+const achievementsMarkup = `<div class="achievements-view">
+  <div class="ach-header rise">
+    <p class="mono">${E(S.name)} — CERTIFICATIONS & HONORS</p>
+    <h1>Lisensi, Sertifikasi & <span style="color:var(--accent,#ff6a1a)">Prestasi</span></h1>
+    <p class="lead">Sertifikasi profesional di bidang Cloud AI, Data Science, Backend Engineering, kepengurusan resmi HIMA, dan pengakuan akademik.</p>
+  </div>
+  <div class="ach-grid rise">
+    ${(S.achievements || []).map((a, i) => `
+      <article class="ach-card" data-idx="${i}">
+        <div class="ach-card-top">
+          <span class="ach-tag">${E(a.tag || 'Credential')}</span>
+          <span class="ach-year mono">${E(a.year || '')}</span>
+        </div>
+        <h3 class="ach-title">${E(a.title)}</h3>
+        <p class="ach-issuer">${E(a.issuer)}</p>
+        <div class="ach-actions">
+          ${a.file ? `<a class="btn" href="${E(a.file)}" target="_blank" rel="noopener noreferrer">Lihat Sertifikat ↗</a>` : ''}
+        </div>
+      </article>
+    `).join('')}
+  </div>
+</div>`;
+
 const views = {
   home,
   me,
   projects: renderA24Markup('projects'),
-  experience: renderA24Markup('experience')
+  experience: renderA24Markup('experience'),
+  organization: renderA24Markup('organization'),
+  achievements: achievementsMarkup
 };
 
 Object.keys(views).forEach((k) => {
@@ -291,6 +319,18 @@ try {
 } catch (err) {
   console.warn('Experience gallery init error:', err);
 }
+
+try {
+  const oEl = $('#v-organization .a24-gallery');
+  if (oEl && S.organization) {
+    galleries.organization = createDiscsGallery(oEl, S.organization, (slug) => {
+      location.hash = `#/organization/${slug}`;
+    }, { type: 'organization' });
+  }
+} catch (err) {
+  console.warn('Organization gallery init error:', err);
+}
+
 
 /* ---------- Navigasi Keyboard ---------- */
 addEventListener('keydown', (e) => {
@@ -389,6 +429,72 @@ function openDetail(k, slug) {
         ${!it.links || !it.links.length ? '' : ''}
       </div>
     </div>
+
+
+
+    <!-- Interactive Live Preview Frame (Injected from Project) -->
+    ${it.livePreview ? `
+      <div class="dt-preview-section">
+        <div class="dt-preview-header">
+          <div class="dt-preview-badge">
+            <span class="dt-live-dot"></span>
+            <span>LIVE INTERACTIVE PROJECT PREVIEW</span>
+          </div>
+          <h2 class="dt-section-title">Antarmuka Aplikasi Web (Live Demo)</h2>
+          <p class="dt-evidence-sub">Anda dapat berinteraksi langsung dengan simulasi sistem web ini di bawah tanpa meninggalkan halaman:</p>
+        </div>
+        <div class="dt-frame-wrapper">
+          <div class="dt-frame-topbar">
+            <div class="dt-frame-dots">
+              <span class="f-dot red"></span>
+              <span class="f-dot yellow"></span>
+              <span class="f-dot green"></span>
+            </div>
+            <div class="dt-frame-url">https://firstyatama.dev/projects/${E(it.slug)}</div>
+            <a class="dt-frame-pop" href="${E(it.livePreview)}" target="_blank" rel="noopener noreferrer" title="Buka di tab baru">Buka Fullscreen ↗</a>
+          </div>
+          <iframe class="dt-preview-iframe" src="${E(it.livePreview)}" title="Preview ${E(it.title)}" loading="lazy"></iframe>
+        </div>
+      </div>
+    ` : ''}
+
+    <!-- Verified Evidence & Artifacts Section -->
+    ${it.evidences && it.evidences.length ? `
+      <div class="dt-evidence-section">
+        <div class="dt-evidence-header">
+          <div class="dt-evidence-badge">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>VERIFIED ARTIFACTS & EVIDENCE</span>
+          </div>
+          <h2 class="dt-section-title">Bukti Autentik, Hasil Riset & Laporan</h2>
+          <p class="dt-evidence-sub">Berkas resmi, grafik evaluasi, dan dokumen teknis yang dapat Anda telaah langsung.</p>
+        </div>
+        <div class="dt-evidence-grid">
+          ${it.evidences.map((ev, ei) => `
+            <div class="dt-evidence-card ${ev.type}">
+              <div class="dt-ev-icon">
+                ${ev.type === 'pdf' ? `
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                ` : `
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                `}
+              </div>
+              <div class="dt-ev-info">
+                <span class="dt-ev-tag">${ev.type.toUpperCase()} DOCUMENT</span>
+                <h3 class="dt-ev-title">${E(ev.title)}</h3>
+                <p class="dt-ev-desc">${E(ev.desc || '')}</p>
+              </div>
+              <div class="dt-ev-action">
+                <a class="btn solid dt-ev-btn" href="${E(ev.file)}" target="_blank" rel="noopener noreferrer">
+                  <span>Lihat Bukti</span>
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    ` : ''}
 
     <!-- Navigasi berikutnya -->
     <div class="dt-next">

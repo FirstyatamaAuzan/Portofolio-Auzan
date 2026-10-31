@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CoHive - Koperasi Produsen Digital Platform Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: rgba(22, 27, 34, 0.85);
+      --border: rgba(255, 255, 255, 0.1);
+      --accent: #22c55e;
+      --accent-glow: rgba(34, 197, 94, 0.25);
+      --primary: #3b82f6;
+      --text: #f0f6fc;
+      --text-muted: #8b949e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 24px;
+      min-height: 100vh;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.3rem;
+    }
+    .logo-badge {
+      background: var(--accent);
+      color: #000;
+      font-size: 0.65rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.05);
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 0.82rem;
+      border: 1px solid var(--border);
+    }
+    .user-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+    .dash-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 900px) {
+      .dash-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .stat-lbl { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
+    .stat-val { font-size: 1.5rem; font-weight: 800; color: #fff; font-family: 'JetBrains Mono', monospace; }
+    .stat-sub { font-size: 0.72rem; color: var(--accent); margin-top: 4px; }
+    
+    .main-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 800px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+    }
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    th {
+      text-align: left;
+      padding: 10px 12px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+    }
+    td {
+      padding: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+    .status-paid { background: rgba(34, 197, 94, 0.15); color: #4ade80; }
+    .status-pen { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+
+    .action-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.78rem;
+    }
+    .action-btn:hover { background: rgba(255,255,255,0.12); }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="logo">
+      <span>CoHive</span>
+      <span class="logo-badge">Live System MVP</span>
+    </div>
+    <div class="user-pill">
+      <span class="user-dot"></span>
+      <span>Admin Koperasi (Telkom WRAP 2025)</span>
+    </div>
+  </div>
+
+  <div class="dash-grid">
+    <div class="stat-card">
+      <div class="stat-lbl">Kas Koperasi Aktif</div>
+      <div class="stat-val">Rp 84.520.000</div>
+      <div class="stat-sub">+18.4% bulan ini</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-lbl">Anggota Produsen Terdaftar</div>
+      <div class="stat-val">142 Anggota</div>
+      <div class="stat-sub">100% data terverifikasi</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-lbl">Transaksi Berjalan</div>
+      <div class="stat-val">38 Batch</div>
+      <div class="stat-sub">Simpan Pinjam & Penjualan</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-lbl">Ketersediaan Stok Produk</div>
+      <div class="stat-val">1.290 Unit</div>
+      <div class="stat-sub">Integrasi barcode FIFO</div>
+    </div>
+  </div>
+
+  <div class="main-grid">
+    <div class="card">
+      <div class="card-title">
+        <span>Arus Transaksi & Pencatatan Kas Koperasi</span>
+        <button class="action-btn" onclick="alert('Demo Mode: Fitur tambah transaksi tersimulasikan.')">+ Entri Transaksi Baru</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Kode</th>
+            <th>Produsen / Anggota</th>
+            <th>Komoditas</th>
+            <th>Nominal</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-family:'JetBrains Mono', monospace;">TRX-2025-091</td>
+            <td>Kelompok Tani Sejahtera</td>
+            <td>Biji Kopi Robusta (500kg)</td>
+            <td>Rp 24.000.000</td>
+            <td><span class="status-badge status-paid">Lunas (Disetujui)</span></td>
+          </tr>
+          <tr>
+            <td style="font-family:'JetBrains Mono', monospace;">TRX-2025-092</td>
+            <td>Budi Santoso (Produsen 14)</td>
+            <td>Madu Murni Hutan (80 botol)</td>
+            <td>Rp 6.400.000</td>
+            <td><span class="status-badge status-paid">Lunas (Disetujui)</span></td>
+          </tr>
+          <tr>
+            <td style="font-family:'JetBrains Mono', monospace;">TRX-2025-093</td>
+            <td>Koperasi Unit Desa Mandiri</td>
+            <td>Beras Organik (1 Ton)</td>
+            <td>Rp 15.200.000</td>
+            <td><span class="status-badge status-pen">Menunggu Kliring</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>Modul & Integrasi</span>
+      </div>
+      <ul style="font-size:0.85rem; color:var(--text-muted); line-height:1.7; padding-left:18px;">
+        <li><strong style="color:#fff;">Role Access Control:</strong> Pengurus Koperasi, Anggota Produsen, dan Pembina Lapangan.</li>
+        <li><strong style="color:#fff;">Framework:</strong> Laravel 10 MVC terstruktur.</li>
+        <li><strong style="color:#fff;">Database:</strong> MySQL dengan transaksi ACID terisolasi.</li>
+        <li><strong style="color:#fff;">Laporan:</strong> Neraca keuangan, buku kas besar, dan bagi hasil otomatis.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
