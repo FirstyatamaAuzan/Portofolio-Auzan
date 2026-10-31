@@ -2,15 +2,14 @@
 <html lang="id">
 <head>
   <meta charset="utf-8">
-  <title>Green Ranger - Eco Recycling & Donation</title>
+  <title>Green Ranger</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta name="description" content="Platform Green Ranger untuk donasi lingkungan, pasar daur ulang, dan kegiatan relawan.">
   <link href="img/favicon.ico" rel="icon">
-  
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- CSS Libraries -->
+
+  <!-- Google Font persis dari index.blade.php GitHub -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <!-- CSS Libraries persis dari index.blade.php GitHub -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
   <link href="lib/flaticon/font/flaticon.css" rel="stylesheet">
@@ -19,21 +18,22 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <link href="css/style.css" rel="stylesheet">
 
-  <!-- Midtrans Snap Client Script Asli dari GitHub Repository -->
+  <!-- Midtrans Client Key Asli Sandbox dari GitHub: SB-Mid-client-fq2d83yegG2NGx_f -->
   <script type="text/javascript"
     src="https://app.stg.midtrans.com/snap/snap.js"
     data-client-key="SB-Mid-client-fq2d83yegG2NGx_f"></script>
 
   <style>
-    /* SPA Layout & Transitions */
+    /* Transisi Halus Halaman SPA */
     .page-section { display: none; }
-    .page-section.active { display: block; animation: fadeInPage 0.25s ease-in-out; }
-    @keyframes fadeInPage { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-    .navbar-dark .navbar-nav .nav-link.active-tab { color: #28a745 !important; font-weight: 700; }
-    .navbar-brand { font-size: 1.5rem; letter-spacing: -0.5px; }
+    .page-section.active { display: block; animation: fadeInSec 0.25s ease-in-out; }
+    @keyframes fadeInSec { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .navbar-nav .nav-link.active-nav { color: #4CAF50 !important; font-weight: 700; }
+    .catalogue .product-item:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.08); transform: translateY(-3px); transition: all 0.2s ease; }
 
-    /* Midtrans Snap Modal Styling */
-    .snap-modal-backdrop {
+    /* Midtrans Snap Modal Simulator */
+    .snap-backdrop {
       display: none;
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
@@ -44,22 +44,22 @@
       justify-content: center;
       padding: 16px;
     }
-    .snap-modal-backdrop.open { display: flex; }
-    .snap-container-box {
+    .snap-backdrop.open { display: flex; }
+    .snap-box {
       background: #ffffff;
       width: 100%;
       max-width: 440px;
-      border-radius: 14px;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.45);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      animation: snapPop 0.25s ease-out;
+      animation: snapPop 0.22s ease-out;
     }
     @keyframes snapPop {
       from { opacity: 0; transform: scale(0.92); }
       to { opacity: 1; transform: scale(1); }
     }
-    .snap-topbar {
+    .snap-header {
       background: #002b49;
       color: #ffffff;
       padding: 16px 20px;
@@ -67,31 +67,25 @@
       align-items: center;
       justify-content: space-between;
     }
-    .snap-brand-badge {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .snap-brand-badge span.badge-sandbox {
+    .snap-header-title { display: flex; align-items: center; gap: 8px; }
+    .snap-sandbox-pill {
       background: #f59e0b;
       color: #000;
       font-size: 0.65rem;
       font-weight: 800;
       padding: 2px 6px;
       border-radius: 4px;
-      letter-spacing: 0.5px;
     }
-    .snap-btn-close {
+    .snap-close {
       background: transparent;
       border: none;
       color: #94a3b8;
       font-size: 1.5rem;
-      line-height: 1;
       cursor: pointer;
-      transition: color 0.15s;
+      line-height: 1;
     }
-    .snap-btn-close:hover { color: #ffffff; }
-    .snap-order-summary {
+    .snap-close:hover { color: #fff; }
+    .snap-summary {
       background: #f8fafc;
       padding: 14px 20px;
       border-bottom: 1px solid #e2e8f0;
@@ -99,90 +93,64 @@
       justify-content: space-between;
       align-items: center;
     }
-    .snap-order-summary .label { font-size: 0.8rem; color: #64748b; font-weight: 500; }
-    .snap-order-summary .item-title { font-size: 0.9rem; color: #0f172a; font-weight: 700; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .snap-order-summary .amount { font-size: 1.25rem; font-weight: 800; color: #002b49; }
-    .snap-inner-content { padding: 18px 20px; max-height: 480px; overflow-y: auto; }
-    .snap-opt-group-title {
+    .snap-body { padding: 18px 20px; max-height: 480px; overflow-y: auto; }
+    .snap-group-label {
       font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.5px;
       color: #94a3b8;
       margin-bottom: 10px;
     }
-    .snap-payment-item {
+    .snap-channel-opt {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 12px 14px;
       border: 1px solid #e2e8f0;
-      border-radius: 10px;
+      border-radius: 8px;
       margin-bottom: 9px;
       cursor: pointer;
-      transition: all 0.15s ease;
       background: #ffffff;
+      transition: all 0.15s ease;
     }
-    .snap-payment-item:hover {
+    .snap-channel-opt:hover {
       border-color: #002b49;
-      background: #f1f5f9;
+      background: #f8fafc;
       transform: translateX(2px);
     }
-    .snap-payment-item-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .snap-item-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-    }
-    .snap-item-name { font-size: 0.88rem; font-weight: 600; color: #1e293b; }
-    .snap-item-desc { font-size: 0.73rem; color: #64748b; }
-    
-    /* Active Checkout Screen */
-    .snap-detail-view { display: none; }
     .snap-va-box {
       background: #eff6ff;
       border: 1px dashed #3b82f6;
-      border-radius: 10px;
+      border-radius: 8px;
       padding: 14px;
       text-align: center;
       margin: 14px 0;
     }
-    .snap-va-number {
-      font-size: 1.3rem;
+    .snap-va-num {
+      font-size: 1.25rem;
       font-weight: 800;
       letter-spacing: 2px;
       color: #1e3a8a;
-      user-select: all;
     }
-    .snap-client-key-note {
-      font-size: 0.7rem;
-      color: #64748b;
-      text-align: center;
-      padding-top: 10px;
-      border-top: 1px solid #e2e8f0;
-      margin-top: 12px;
-    }
-    .snap-client-key-note code { color: #002b49; font-weight: 700; }
   </style>
 </head>
 
 <body>
-  <!-- Top Bar Start -->
+  <!-- Top Bar Start persis dari index.blade.php GitHub -->
   <div class="top-bar d-none d-md-block">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-8">
           <div class="top-bar-left">
-            <div class="text"><i class="fa fa-phone-alt"></i><p>081335446778</p></div>
-            <div class="text"><i class="fa fa-envelope"></i><p>greenranger@gmail.com</p></div>
+            <div class="text">
+              <i class="fa fa-phone-alt"></i>
+              <p>082334556778</p>
+            </div>
+            <div class="text">
+              <i class="fa fa-envelope"></i>
+              <p>greenranger@gmail.com</p>
+            </div>
           </div>
         </div>
         <div class="col-md-4">
@@ -199,29 +167,38 @@
     </div>
   </div>
 
-  <!-- Nav Bar Start -->
+  <!-- Nav Bar Start persis dari index.blade.php GitHub -->
   <div class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
     <div class="container-fluid">
-      <a href="#home" class="navbar-brand text-success font-weight-bold" onclick="showPage('home')">Green Ranger</a>
+      <a href="#home" class="navbar-brand" onclick="showPage('home')">Green Ranger</a>
       <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
         <div class="navbar-nav ml-auto">
-          <a href="#home" class="nav-item nav-link active-tab" id="nav-home" onclick="showPage('home')">Home</a>
-          <a href="#donasi" class="nav-item nav-link" id="nav-donasi" onclick="showPage('donasi')">Donasi</a>
-          <a href="#belanja" class="nav-item nav-link" id="nav-belanja" onclick="showPage('belanja')">Belanja</a>
-          <a href="#volunteer" class="nav-item nav-link" id="nav-volunteer" onclick="showPage('volunteer')">Volunteer</a>
-          <a href="#contact" class="nav-item nav-link" id="nav-contact" onclick="showPage('contact')">Kontak</a>
+          <a href="#home" class="nav-item nav-link active-nav" id="nav-home" onclick="showPage('home')">Home</a>
+          <a href="#event" class="nav-item nav-link" id="nav-event" onclick="showPage('event')">Acara</a>
+          <a href="#blog" class="nav-item nav-link" id="nav-blog" onclick="showPage('blog')">Blog</a>
           <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle text-success" data-toggle="dropdown"><i class="fa fa-user-circle"></i> Auzan Farhadi</a>
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="nav-pages">Pages</a>
+            <div class="dropdown-menu">
+              <a href="#donate" class="dropdown-item" onclick="showPage('donate')">Donasi Sekarang</a>
+              <a href="#volunteer" class="dropdown-item" onclick="showPage('volunteer')">Daftar Relawan</a>
+            </div>
+          </div>
+          <a href="#contact" class="nav-item nav-link" id="nav-contact" onclick="showPage('contact')">Kontak</a>
+          <a href="#belanja" class="nav-item nav-link" id="nav-belanja" onclick="showPage('belanja')">Belanja</a>
+
+          <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle text-success" data-toggle="dropdown">
+              <i class="fa fa-user-circle"></i> Auzan Farhadi
+            </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="#donasi" class="dropdown-item" onclick="showPage('donasi')">Riwayat Donasi</a>
-              <a href="#belanja" class="dropdown-item" onclick="showPage('belanja')">Pesanan Saya</a>
-              <a href="#volunteer" class="dropdown-item" onclick="showPage('volunteer')">Kegiatan Relawan</a>
+              <a href="#donate" class="dropdown-item" onclick="showPage('donate')">Riwayat Donasi</a>
+              <a href="#belanja" class="dropdown-item" onclick="showPage('belanja')">Riwayat Belanja</a>
               <div class="dropdown-divider"></div>
-              <a href="#home" class="dropdown-item text-danger" onclick="simulateLogout()">Keluar</a>
+              <a href="#" class="dropdown-item text-danger" onclick="simulateLogout()">Log Out</a>
             </div>
           </div>
         </div>
@@ -229,20 +206,42 @@
     </div>
   </div>
 
-  <!-- ==================== HALAMAN 1: HOME ==================== -->
+  <!-- ==================== PAGE: HOME (index.blade.php) ==================== -->
   <div id="page-home" class="page-section active">
-    <!-- Carousel Start -->
+    <!-- Carousel Start persis dari index.blade.php GitHub -->
     <div class="carousel">
       <div class="container-fluid">
         <div class="owl-carousel">
           <div class="carousel-item">
-            <div class="carousel-img"><img src="img/carousel-1.jpg" alt="Image"></div>
+            <div class="carousel-img"><img src="img/ss2.jpg" alt="Image"></div>
             <div class="carousel-text">
-              <h1>Bersama Menjaga Kebersihan Lingkungan</h1>
-              <p>Mulai langkah nyata menyelamatkan bumi dengan memilah sampah dan mendonasikan barang daur ulang.</p>
+              <h1>Bersama menjaga kebersihan, bersama membuat perubahan</h1>
+              <p>Mari bergandengan tangan dalam upaya menjaga lingkungan. Donasi Anda tidak hanya membantu mendanai proyek-proyek berkelanjutan, tetapi juga mensejahterakan pelaku kebersihan lingkungan.</p>
               <div class="carousel-btn">
-                <a class="btn btn-custom" href="#donasi" onclick="showPage('donasi')">Donasi Sekarang</a>
-                <a class="btn btn-custom btn-play" href="#volunteer" onclick="showPage('volunteer')">Daftar Relawan</a>
+                <a href="#donate" class="btn btn-custom" onclick="showPage('donate')">Donasi sekarang</a>
+                <a href="#volunteer" class="btn btn-custom" onclick="showPage('volunteer')">Daftar Relawan</a>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="carousel-img"><img src="img/ss1.jpg" alt="Image"></div>
+            <div class="carousel-text">
+              <h1>Media kebersihan informatif</h1>
+              <p>Berbagai informasi dan tips dalam menjaga serta mengolah lingkungan. Mari sayangi bumi kita dengan ikut berpartisipasi dalam menjaga kebersihan.</p>
+              <div class="carousel-btn">
+                <a href="#donate" class="btn btn-custom" onclick="showPage('donate')">Donasi sekarang</a>
+                <a href="#volunteer" class="btn btn-custom" onclick="showPage('volunteer')">Daftar Relawan</a>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="carousel-img"><img src="img/ss3.jpg" alt="Image"></div>
+            <div class="carousel-text">
+              <h1>Mari bergabung</h1>
+              <p>Bergabunglah dengan komunitas sukarelawan kami dan jadilah bagian dari gerakan perubahan. Dengan partisipasi aktif, kita bisa membuat perbedaan nyata.</p>
+              <div class="carousel-btn">
+                <a href="#donate" class="btn btn-custom" onclick="showPage('donate')">Donasi sekarang</a>
+                <a href="#volunteer" class="btn btn-custom" onclick="showPage('volunteer')">Daftar Relawan</a>
               </div>
             </div>
           </div>
@@ -250,7 +249,7 @@
       </div>
     </div>
 
-    <!-- About Start -->
+    <!-- About Start persis dari index.blade.php GitHub -->
     <div class="about">
       <div class="container">
         <div class="row align-items-center">
@@ -259,20 +258,24 @@
           </div>
           <div class="col-lg-6">
             <div class="section-header">
-              <p>Tentang Kami</p>
-              <h2>Platform Pengelolaan Bank Sampah & Daur Ulang Terpadu</h2>
+              <p>Lebih dekat dengan kami</p>
+              <h2>Green Ranger</h2>
             </div>
             <div class="about-tab">
               <ul class="nav nav-pills nav-justified">
-                <li class="nav-item"><a class="nav-link active" data-toggle="pill" href="#tab-content-1">Misi Kami</a></li>
-                <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#tab-content-2">Visi Kami</a></li>
+                <li class="nav-item"><a class="nav-link active" data-toggle="pill" href="#tab-content-1">Tentang</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#tab-content-2">Visi</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="pill" href="#tab-content-3">Misi</a></li>
               </ul>
               <div class="tab-content">
                 <div id="tab-content-1" class="container tab-pane active">
-                  Mendukung sirkularitas ekonomi limbah sampah rumah tangga dengan menghubungkan masyarakat, relawan, dan bank sampah yang terintegrasi Midtrans Payment Gateway.
+                  Green Ranger adalah inisiatif berbasis komunitas yang berkomitmen untuk menjaga dan melestarikan lingkungan melalui edukasi, aksi bersih-bersih, serta pemberdayaan ekonomi sirkular sampah daur ulang.
                 </div>
                 <div id="tab-content-2" class="container tab-pane fade">
-                  Menciptakan Indonesia bebas sampah darurat melalui inovasi digital, edukasi pilah sampah, dan insentif nyata bagi para pahlawan lingkungan.
+                  Mewujudkan lingkungan Indonesia yang asri, bebas sampah darurat, dan menciptakan masyarakat yang sadar pilah sampah sejak dari sumbernya.
+                </div>
+                <div id="tab-content-3" class="container tab-pane fade">
+                  Menjalin sinergi antara relawan, bank sampah, masyarakat, dan pengrajin daur ulang lokal untuk mendukung kesejahteraan bersama dan pelestarian alam.
                 </div>
               </div>
             </div>
@@ -281,41 +284,84 @@
       </div>
     </div>
 
-    <!-- Service Start -->
-    <div class="service">
+    <!-- Event Section Singkat di Home (index.blade.php) -->
+    <div class="event">
       <div class="container">
         <div class="section-header text-center">
-          <p>Layanan Utama</p>
-          <h2>Apa yang Bisa Anda Lakukan di Green Ranger?</h2>
+          <p>Event selanjutnya</p>
+          <h2>Bersiaplah menjadi agen perubahan</h2>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="event-item">
+              <img src="img/event1.jpg" alt="Bukit Jaddih">
+              <div class="event-content">
+                <div class="event-meta">
+                  <p><i class="fa fa-calendar-alt"></i>10 Juni 2024</p>
+                  <p><i class="far fa-clock"></i>08:00 - 12:00 WIB</p>
+                  <p><i class="fa fa-map-marker-alt"></i>Bukit Jaddih, Bangkalan</p>
+                </div>
+                <div class="event-text">
+                  <h3>Aksi Bersih Bukit Jaddih</h3>
+                  <p>Gerakan bersama warga dan relawan membersihkan area wisata alam dari sampah plastik sekali pakai.</p>
+                  <a class="btn btn-custom" href="#volunteer" onclick="showPage('volunteer')">Gabung Event</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="event-item">
+              <img src="img/event2.jpg" alt="Pantai Kenjeran">
+              <div class="event-content">
+                <div class="event-meta">
+                  <p><i class="fa fa-calendar-alt"></i>12 Juni 2024</p>
+                  <p><i class="far fa-clock"></i>07:00 - 12:00 WIB</p>
+                  <p><i class="fa fa-map-marker-alt"></i>Pantai Kenjeran, Surabaya</p>
+                </div>
+                <div class="event-text">
+                  <h3>Kenjeran Clean</h3>
+                  <p>Ayo bergabung dan jadilah pahlawan kebersihan Pantai Kenjeran demi laut yang lestari.</p>
+                  <a class="btn btn-custom" href="#volunteer" onclick="showPage('volunteer')">Gabung Event</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blog Section Singkat di Home (index.blade.php) -->
+    <div class="blog">
+      <div class="container">
+        <div class="section-header text-center">
+          <p>Blog kami</p>
+          <h2>Artikel dan tips kebersihan terbaru</h2>
         </div>
         <div class="row">
           <div class="col-lg-4 col-md-6">
-            <div class="service-item">
-              <div class="service-icon"><i class="flaticon-diet"></i></div>
-              <div class="service-text">
-                <h3>Donasi Pohon & Sampah</h3>
-                <p>Salurkan donasi pembersihan lingkungan dengan aman melalui integrasi Midtrans Snap Payment Gateway.</p>
-                <a class="btn btn-custom" href="#donasi" onclick="showPage('donasi')">Coba Donasi</a>
+            <div class="blog-item">
+              <div class="blog-img"><img src="img/blog1.jpg" alt="Blog 1"></div>
+              <div class="blog-text">
+                <h3><a href="#blog" onclick="showPage('blog')">10 Cara Mudah Mengurangi Penggunaan Plastik di Rumah</a></h3>
+                <p>Plastik telah menjadi masalah serius. Pelajari langkah kecil sehari-hari yang berdampak besar.</p>
               </div>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
-            <div class="service-item">
-              <div class="service-icon"><i class="flaticon-water"></i></div>
-              <div class="service-text">
-                <h3>Eco Marketplace</h3>
-                <p>Belanja produk ramah lingkungan dari bahan daur ulang berkualitas buatan mitra pengrajin lokal.</p>
-                <a class="btn btn-custom" href="#belanja" onclick="showPage('belanja')">Buka Toko</a>
+            <div class="blog-item">
+              <div class="blog-img"><img src="img/blog2.jpg" alt="Blog 2"></div>
+              <div class="blog-text">
+                <h3><a href="#blog" onclick="showPage('blog')">Manfaat Membuat Kompos dari Sampah Organik Dapur</a></h3>
+                <p>Kompos menyuburkan tanah sekaligus menekan timbunan sampah yang masuk ke TPA secara signifikan.</p>
               </div>
             </div>
           </div>
           <div class="col-lg-4 col-md-6">
-            <div class="service-item">
-              <div class="service-icon"><i class="flaticon-healthcare"></i></div>
-              <div class="service-text">
-                <h3>Komunitas Relawan</h3>
-                <p>Gabung bersama ribuan ranger di berbagai kota untuk aksi bersih-bersih pantai, sungai, dan taman kota.</p>
-                <a class="btn btn-custom" href="#volunteer" onclick="showPage('volunteer')">Gabung Relawan</a>
+            <div class="blog-item">
+              <div class="blog-img"><img src="img/blog3.jpg" alt="Blog 3"></div>
+              <div class="blog-text">
+                <h3><a href="#blog" onclick="showPage('blog')">Mengenal Ekonomi Sirkular dan Dampak Bagi Bumi</a></h3>
+                <p>Bagaimana limbah dapat diolah menjadi produk bernilai ekonomi tinggi bersama mitra bank sampah.</p>
               </div>
             </div>
           </div>
@@ -324,120 +370,241 @@
     </div>
   </div>
 
-  <!-- ==================== HALAMAN 2: DONASI (MIDTRANS LIVE SIMULATOR) ==================== -->
-  <div id="page-donasi" class="page-section">
-    <div class="donate" data-parallax="scroll" data-image-src="img/donate.jpg">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-7">
-            <div class="donate-content">
-              <div class="section-header">
-                <p>Donasi Sekarang</p>
-                <h2>Mari Dukung Gerakan Penghijauan & Bank Sampah</h2>
+  <!-- ==================== PAGE: ACARA / EVENT (event.blade.php) ==================== -->
+  <div id="page-event" class="page-section">
+    <div class="container py-5">
+      <div class="section-header text-center">
+        <p>Event Selanjutnya</p>
+        <h2>Bersiaplah Menjadi Agen Perubahan</h2>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 mb-4">
+          <div class="event-item">
+            <img src="img/event1.jpg" alt="Bukit Jaddih">
+            <div class="event-content">
+              <div class="event-meta">
+                <p><i class="fa fa-calendar-alt"></i>10 Juni 2024</p>
+                <p><i class="far fa-clock"></i>08:00 - 12:00 WIB</p>
+                <p><i class="fa fa-map-marker-alt"></i>Bukit Jaddih, Bangkalan</p>
               </div>
-              <div class="donate-text">
-                <p>
-                  Donasi Anda akan disalurkan langsung untuk pengadaan bibit pohon bakau, pembersihan muara sungai, serta subsidi operasional petugas kebersihan di daerah pelosok. Dilengkapi bukti transaksi instan Midtrans Snap.
-                </p>
+              <div class="event-text">
+                <h3>Aksi Bersih Bukit Jaddih</h3>
+                <p>Gerakan bersama warga dan relawan membersihkan area wisata alam dari sampah plastik sekali pakai.</p>
+                <a class="btn btn-custom" href="#volunteer" onclick="showPage('volunteer')">Daftar Relawan</a>
               </div>
             </div>
           </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+          <div class="event-item">
+            <img src="img/event2.jpg" alt="Kenjeran Clean">
+            <div class="event-content">
+              <div class="event-meta">
+                <p><i class="fa fa-calendar-alt"></i>12 Juni 2024</p>
+                <p><i class="far fa-clock"></i>07:00 - 12:00 WIB</p>
+                <p><i class="fa fa-map-marker-alt"></i>Pantai Kenjeran, Surabaya</p>
+              </div>
+              <div class="event-text">
+                <h3>Kenjeran Clean</h3>
+                <p>Pembersihan bibir pantai dan workshop pemanfaatan daur ulang limbah pesisir bersama Green Ranger.</p>
+                <a class="btn btn-custom" href="#volunteer" onclick="showPage('volunteer')">Daftar Relawan</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+          <div class="event-item">
+            <img src="img/event3.jpg" alt="Kali Mas Clean">
+            <div class="event-content">
+              <div class="event-meta">
+                <p><i class="fa fa-calendar-alt"></i>20 Juli 2024</p>
+                <p><i class="far fa-clock"></i>07:30 - 11:30 WIB</p>
+                <p><i class="fa fa-map-marker-alt"></i>Bantaran Kali Mas, Surabaya</p>
+              </div>
+              <div class="event-text">
+                <h3>Susur Sungai Kali Mas Bebas Sampah</h3>
+                <p>Patroli dan evakuasi eceng gondok serta limbah anorganik di sepanjang jalur perahu sungai Kali Mas.</p>
+                <a class="btn btn-custom" href="#volunteer" onclick="showPage('volunteer')">Daftar Relawan</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+          <div class="event-item">
+            <img src="img/event4.jpg" alt="Workshop Bank Sampah">
+            <div class="event-content">
+              <div class="event-meta">
+                <p><i class="fa fa-calendar-alt"></i>05 Agustus 2024</p>
+                <p><i class="far fa-clock"></i>09:00 - 14:00 WIB</p>
+                <p><i class="fa fa-map-marker-alt"></i>Telkom University Surabaya</p>
+              </div>
+              <div class="event-text">
+                <h3>Edukasi Pilah Sampah & Workshop Kompos</h3>
+                <p>Pelatihan langsung pembuatan pupuk organik cair dan integrasi bank sampah berbasis teknologi.</p>
+                <a class="btn btn-custom" href="#volunteer" onclick="showPage('volunteer')">Daftar Relawan</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE: BLOG (blog.blade.php) ==================== -->
+  <div id="page-blog" class="page-section">
+    <div class="container py-5">
+      <div class="section-header text-center">
+        <p>Blog Kami</p>
+        <h2>Artikel dan Tips Kebersihan Terbaru</h2>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="blog-item">
+            <div class="blog-img"><img src="img/blog1.jpg" alt="Blog 1"></div>
+            <div class="blog-text">
+              <h3><a href="#">10 Cara Mudah Mengurangi Penggunaan Plastik di Rumah</a></h3>
+              <p>Plastik telah menjadi masalah lingkungan yang serius. Pelajari langkah-langkah simpel sehari-hari yang dapat Anda terapkan sekarang.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="blog-item">
+            <div class="blog-img"><img src="img/blog2.jpg" alt="Blog 2"></div>
+            <div class="blog-text">
+              <h3><a href="#">Manfaat Membuat Kompos dari Sampah Organik</a></h3>
+              <p>Kompos tidak hanya mengurangi timbunan sampah, namun juga mengembalikan kesuburan nutrisi tanah secara berkelanjutan.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="blog-item">
+            <div class="blog-img"><img src="img/blog3.jpg" alt="Blog 3"></div>
+            <div class="blog-text">
+              <h3><a href="#">Mengenal Konsep Zero Waste Life Untuk Pemula</a></h3>
+              <p>Gaya hidup minim sampah bukan berarti harus sempurna, melainkan konsistensi menolak barang sekali pakai.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="blog-item">
+            <div class="blog-img"><img src="img/blog4.jpg" alt="Blog 4"></div>
+            <div class="blog-text">
+              <h3><a href="#">Panduan Pilah Sampah Berdasarkan Jenis & Nilai Jualnya</a></h3>
+              <p>Ketahui klasifikasi plastik HDPE, PET, botol kaca, serta kardus yang paling diminati bank sampah.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="blog-item">
+            <div class="blog-img"><img src="img/blog5.jpg" alt="Blog 5"></div>
+            <div class="blog-text">
+              <h3><a href="#">Kisah Inspiratif UMKM Pengrajin Eceng Gondok</a></h3>
+              <p>Mengubah tanaman gulma perairan sungai menjadi tas anyaman elegan bernilai ekspor internasional.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="blog-item">
+            <div class="blog-img"><img src="img/blog6.jpg" alt="Blog 6"></div>
+            <div class="blog-text">
+              <h3><a href="#">Inovasi Teknologi Pembayaran Digital Bank Sampah</a></h3>
+              <p>Bagaimana integrasi Midtrans mempermudah pencairan insentif tabungan sampah nasabah bank sampah.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE: DONASI PERSIS DARI donate.blade.php GITHUB ==================== -->
+  <div id="page-donate" class="page-section">
+    <div class="container my-5">
+      <div class="donate" data-parallax="scroll" data-image-src="img/donate1.jpg" style="background: url('img/donate1.jpg') center center / cover no-repeat; padding: 60px 0; border-radius: 12px;">
+        <div class="row align-items-center">
+          <div class="container">
+            <div class="donate">
+              <div class="row align-items-center">
+                <div class="col-lg-7">
+                  <div class="donate-content text-white p-4">
+                    <div class="section-header">
+                      <p style="color: #4CAF50; font-weight: 700;">Donasi Sekarang</p>
+                      <h2 class="text-white font-weight-bold">Kontribusi anda sangat berarti bagi kami</h2>
+                    </div>
+                    <div class="donate-text" style="font-size: 1.05rem; line-height: 1.8;">
+                      <p>
+                        Donasi yang anda keluarkan akan kami gunakan untuk membantu proyek - proyek kebersihan Green Ranger. Kami sangat berterimakasih atas donasi yang anda berikan.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-5">
+                  <div class="donate-form p-4" style="background: rgba(0, 43, 73, 0.95); border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                    <form id="donate-form" onsubmit="event.preventDefault(); startDonationPayment();">
+                      <div class="control-group mb-3">
+                        <input type="text" id="donate_name" class="form-control" placeholder="Nama" required="required" value="Auzan Farhadi" />
+                      </div>
+                      <div class="control-group mb-3">
+                        <input type="tel" id="donate_phone" class="form-control" placeholder="Nomor telepon" required="required" value="082334556778" />
+                      </div>
+                      <div class="control-group mb-3">
+                        <input type="email" id="donate_email" class="form-control" placeholder="Email" required="required" value="auzan.tama@gmail.com" />
+                      </div>
+                      <div class="control-group mb-4">
+                        <input type="number" id="donate_amount" class="form-control" placeholder="Nominal Donasi" required="required" value="50000" />
+                      </div>
+                      <div>
+                        <button id="pay-button" type="submit" class="btn btn-custom btn-block" style="background: #4CAF50; border-color: #4CAF50; font-weight: 700; padding: 12px;">
+                          <i class="fa fa-lock mr-1"></i> Lanjutkan Pembayaran (Midtrans)
+                        </button>
+                      </div>
+                      <p class="text-center mt-2 mb-0" style="font-size: 0.75rem; color: #a7f3d0;">
+                        Client Key GitHub: <code>SB-Mid-client-fq2d83yegG2NGx_f</code>
+                      </p>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PAGE: VOLUNTEER PERSIS DARI volunteer.blade.php GITHUB ==================== -->
+  <div id="page-volunteer" class="page-section">
+    <div class="container my-5">
+      <div class="volunteer" data-parallax="scroll" data-image-src="img/volunteer1.jpg" style="background: url('img/volunteer1.jpg') center center / cover no-repeat; padding: 60px 0; border-radius: 12px;">
+        <div class="row align-items-center">
           <div class="col-lg-5">
-            <div class="donate-form" style="background: rgba(0, 43, 73, 0.95); padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
-              <h3 class="text-white mb-4 text-center font-weight-bold">Formulir Donasi Online</h3>
-              <form id="donationForm" onsubmit="event.preventDefault(); startDonationPayment();">
+            <div class="volunteer-form p-4 ml-lg-4" style="background: rgba(0, 43, 73, 0.95); border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+              <h4 class="text-white font-weight-bold mb-3">Pendaftaran Relawan</h4>
+              <form onsubmit="event.preventDefault(); Swal.fire('Pendaftaran Berhasil!', 'Selamat bergabung menjadi Relawan Green Ranger!', 'success');">
                 <div class="control-group mb-3">
-                  <input type="text" id="donatorName" class="form-control" placeholder="Nama Lengkap Donatur" value="Auzan Farhadi" required />
+                  <input type="number" class="form-control" name="umur" placeholder="Umur" required="required" value="22" />
                 </div>
                 <div class="control-group mb-3">
-                  <input type="email" id="donatorEmail" class="form-control" placeholder="Email Anda" value="auzan.tama@gmail.com" required />
-                </div>
-                <div class="control-group mb-3">
-                  <select id="donationTarget" class="form-control" required>
-                    <option value="Penanaman 10.000 Mangrove Pesisir">Penanaman 10.000 Mangrove Pesisir</option>
-                    <option value="Operasional Bank Sampah Surabaya">Operasional Bank Sampah Surabaya</option>
-                    <option value="Edukasi Daur Ulang Komunitas">Edukasi Daur Ulang Komunitas</option>
-                  </select>
-                </div>
-                <div class="btn-group btn-group-toggle mb-3 w-100" data-toggle="buttons">
-                  <label class="btn btn-outline-light active" onclick="setNominal(50000)">
-                    <input type="radio" name="options" checked> 50K
-                  </label>
-                  <label class="btn btn-outline-light" onclick="setNominal(100000)">
-                    <input type="radio" name="options"> 100K
-                  </label>
-                  <label class="btn btn-outline-light" onclick="setNominal(250000)">
-                    <input type="radio" name="options"> 250K
-                  </label>
+                  <input type="tel" class="form-control" name="no_telp" placeholder="Nomor Telepon" required="required" value="082334556778" />
                 </div>
                 <div class="control-group mb-4">
-                  <input type="number" id="donationAmount" class="form-control" placeholder="Nominal (Rp)" value="50000" required />
+                  <textarea class="form-control" name="alasan" rows="3" placeholder="Alasan Ingin Bergabung" required="required">Ingin berkontribusi nyata menjaga kebersihan lingkungan dan pesisir pantai.</textarea>
                 </div>
                 <div>
-                  <button class="btn btn-custom btn-block" type="submit" style="background:#28a745; border-color:#28a745; font-weight:700; font-size:1.05rem; padding:12px;">
-                    <i class="fa fa-lock mr-2"></i> Bayar via Midtrans Snap
-                  </button>
+                  <button class="btn btn-custom btn-block" type="submit" style="background: #4CAF50; border-color: #4CAF50; font-weight: 700; padding: 12px;">Daftar Menjadi Relawan</button>
                 </div>
-                <p class="text-muted text-center mt-2" style="font-size:0.75rem;">
-                  Client Key GitHub: <code style="color:#6ee7b7;">SB-Mid-client-fq2d83yegG2NGx_f</code>
-                </p>
               </form>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== HALAMAN 3: BELANJA (ECO MARKETPLACE) ==================== -->
-  <div id="page-belanja" class="page-section">
-    <div class="container py-5">
-      <div class="section-header text-center">
-        <p>Eco Marketplace</p>
-        <h2>Produk Daur Ulang Kreatif & Ramah Lingkungan</h2>
-      </div>
-      <div class="row">
-        <!-- Produk 1 -->
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card h-100 border-0 shadow-sm" style="border-radius:12px; overflow:hidden;">
-            <img src="img/service-1.jpg" class="card-img-top" style="height:220px; object-fit:cover;" alt="Tote Bag Eco Canvas">
-            <div class="card-body d-flex flex-column">
-              <span class="badge badge-success mb-2 align-self-start">Plastik Daur Ulang</span>
-              <h5 class="card-title font-weight-bold">Tote Bag Eco Canvas</h5>
-              <p class="card-text text-muted" style="font-size:0.88rem;">Dibuat dari 100% serat daur ulang botol plastik PET yang kokoh dan tahan air.</p>
-              <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="font-weight-bold text-success" style="font-size:1.2rem;">Rp 65.000</span>
-                <button class="btn btn-custom btn-sm" onclick="buyProduct('Tote Bag Eco Canvas', 65000)">Checkout</button>
+          <div class="col-lg-7">
+            <div class="volunteer-content text-white p-4">
+              <div class="section-header">
+                <p style="color: #4CAF50; font-weight: 700;">Daftar Relawan</p>
+                <h2 class="text-white font-weight-bold">Mari bergabung bersama kami menjadi pahlawan lingkungan</h2>
               </div>
-            </div>
-          </div>
-        </div>
-        <!-- Produk 2 -->
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card h-100 border-0 shadow-sm" style="border-radius:12px; overflow:hidden;">
-            <img src="img/service-2.jpg" class="card-img-top" style="height:220px; object-fit:cover;" alt="Pot Tanaman Reclaimed">
-            <div class="card-body d-flex flex-column">
-              <span class="badge badge-info mb-2 align-self-start">Kayu Palet</span>
-              <h5 class="card-title font-weight-bold">Pot Tanaman Kayu Reclaimed</h5>
-              <p class="card-text text-muted" style="font-size:0.88rem;">Pot tanaman indoor minimalis buatan pengrajin lokal binaan Green Ranger.</p>
-              <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="font-weight-bold text-success" style="font-size:1.2rem;">Rp 45.000</span>
-                <button class="btn btn-custom btn-sm" onclick="buyProduct('Pot Tanaman Kayu Reclaimed', 45000)">Checkout</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Produk 3 -->
-        <div class="col-lg-4 col-md-6 mb-4">
-          <div class="card h-100 border-0 shadow-sm" style="border-radius:12px; overflow:hidden;">
-            <img src="img/service-3.jpg" class="card-img-top" style="height:220px; object-fit:cover;" alt="Buku Catatan Seed Paper">
-            <div class="card-body d-flex flex-column">
-              <span class="badge badge-warning mb-2 align-self-start">Kertas Daur Ulang</span>
-              <h5 class="card-title font-weight-bold">Buku Catatan Seed Paper</h5>
-              <p class="card-text text-muted" style="font-size:0.88rem;">Kertas berbiji tanaman yang dapat ditanam di pot tanah setelah selesai dipakai.</p>
-              <div class="d-flex justify-content-between align-items-center mt-auto">
-                <span class="font-weight-bold text-success" style="font-size:1.2rem;">Rp 35.000</span>
-                <button class="btn btn-custom btn-sm" onclick="buyProduct('Buku Catatan Seed Paper', 35000)">Checkout</button>
+              <div class="volunteer-text" style="font-size: 1.05rem; line-height: 1.8;">
+                <p>
+                  Green Ranger membuka kesempatan bagi siapa saja yang ingin berkontribusi langsung dalam aksi kebersihan, pemilahan sampah, dan edukasi ramah lingkungan kepada masyarakat.
+                </p>
               </div>
             </div>
           </div>
@@ -446,80 +613,426 @@
     </div>
   </div>
 
-  <!-- ==================== HALAMAN 4: VOLUNTEER ==================== -->
-  <div id="page-volunteer" class="page-section">
-    <div class="container py-5">
-      <div class="row align-items-center">
-        <div class="col-lg-6">
-          <div class="section-header">
-            <p>Gabung Volunteer</p>
-            <h2>Jadilah Pahlawan Lingkungan Bersama Green Ranger</h2>
-          </div>
-          <p class="text-muted">
-            Ikuti berbagai aksi kolaboratif di lapangan: mulai dari bersih muara pantai, penyuluhan pilah sampah di sekolah, hingga patroli bank sampah komunitas.
-          </p>
-          <ul class="list-unstyled text-muted">
-            <li class="mb-2"><i class="fa fa-check text-success mr-2"></i> Sertifikat Pengabdian Resmi Kegiatan Lingkungan</li>
-            <li class="mb-2"><i class="fa fa-check text-success mr-2"></i> Perlengkapan Safety (Rompi Ranger, Sarung Tangan, Trash Bag)</li>
-            <li class="mb-2"><i class="fa fa-check text-success mr-2"></i> Relasi Komunitas Nasional Penggiat Bumi</li>
-          </ul>
-        </div>
-        <div class="col-lg-6">
-          <div class="card shadow p-4 border-0" style="border-radius:12px;">
-            <h4 class="font-weight-bold mb-3">Registrasi Relawan Lapangan</h4>
-            <form onsubmit="event.preventDefault(); Swal.fire('Pendaftaran Berhasil!', 'Terima kasih telah bergabung menjadi Relawan Green Ranger.', 'success');">
-              <div class="form-group">
-                <label>Nama Lengkap</label>
-                <input type="text" class="form-control" value="Auzan Farhadi" required>
-              </div>
-              <div class="form-group">
-                <label>Nomor WhatsApp</label>
-                <input type="text" class="form-control" value="088990011131" required>
-              </div>
-              <div class="form-group">
-                <label>Domisili Kota</label>
-                <input type="text" class="form-control" value="Surabaya" required>
-              </div>
-              <button type="submit" class="btn btn-custom btn-block">Kirim Pendaftaran</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==================== HALAMAN 5: KONTAK ==================== -->
+  <!-- ==================== PAGE: KONTAK PERSIS DARI contact.blade.php GITHUB ==================== -->
   <div id="page-contact" class="page-section">
-    <div class="container py-5">
-      <div class="section-header text-center">
-        <p>Hubungi Kami</p>
-        <h2>Pertanyaan & Kerjasama Bank Sampah</h2>
-      </div>
-      <div class="row">
-        <div class="col-md-6 mb-4">
-          <div class="card p-4 shadow-sm h-100 border-0" style="border-radius:12px;">
-            <h5>Kantor Pusat Green Ranger</h5>
-            <p class="text-muted"><i class="fa fa-map-marker-alt text-success mr-2"></i> Kampus Telkom University Surabaya, Jl. Ketintang No. 156, Surabaya</p>
-            <p class="text-muted"><i class="fa fa-phone-alt text-success mr-2"></i> 081335446778</p>
-            <p class="text-muted"><i class="fa fa-envelope text-success mr-2"></i> greenranger@gmail.com</p>
-          </div>
+    <div class="contact py-5">
+      <div class="container">
+        <div class="section-header text-center">
+          <p>Hubungi Kami</p>
+          <h2>Pertanyaan & Saran Anda</h2>
         </div>
-        <div class="col-md-6 mb-4">
-          <div class="card p-4 shadow-sm h-100 border-0" style="border-radius:12px;">
-            <h5>Kirim Pesan Langsung</h5>
-            <form onsubmit="event.preventDefault(); Swal.fire('Pesan Terkirim!', 'Tim Green Ranger akan segera menghubungi Anda.', 'success');">
-              <div class="form-group"><input type="text" class="form-control" placeholder="Nama Anda" value="Auzan Farhadi" required></div>
-              <div class="form-group"><input type="email" class="form-control" placeholder="Email Anda" value="auzan.tama@gmail.com" required></div>
-              <div class="form-group"><textarea class="form-control" rows="3" placeholder="Pesan Anda">Halo admin Green Ranger, saya ingin bermitra untuk penjemputan sampah daur ulang di lingkungan perumahan kami.</textarea></div>
-              <button class="btn btn-custom btn-block">Kirim Sekarang</button>
-            </form>
-          </div>
+        <div class="contact-img mb-4 text-center">
+          <img src="img/contact.jpg" alt="Contact Green Ranger" style="max-height: 350px; width: 100%; object-fit: cover; border-radius: 10px;">
+        </div>
+        <div class="contact-form">
+          <form id="contactForm" onsubmit="event.preventDefault(); Swal.fire('Pesan Terkirim!', 'Terima kasih, pesan Anda telah kami terima.', 'success');">
+            <div class="control-group mb-3">
+              <input type="text" class="form-control" id="contact_name" placeholder="Nama Anda" required="required" value="Auzan Farhadi" />
+            </div>
+            <div class="control-group mb-3">
+              <input type="email" class="form-control" id="contact_email" placeholder="Email Anda" required="required" value="auzan.tama@gmail.com" />
+            </div>
+            <div class="control-group mb-3">
+              <input type="text" class="form-control" id="contact_subject" placeholder="Subjek" required="required" value="Pertanyaan Seputar Kerjasama Bank Sampah" />
+            </div>
+            <div class="control-group mb-4">
+              <textarea class="form-control" id="contact_message" rows="4" placeholder="Pesan Anda" required="required">Halo tim Green Ranger, saya ingin bertanya tentang cara berpartisipasi dalam event terdekat di Surabaya.</textarea>
+            </div>
+            <div>
+              <button class="btn btn-custom" type="submit" id="sendMessageButton" style="padding: 12px 28px; font-weight: 700;">Kirim Pesan</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Footer Start -->
+  <!-- ==================== PAGE: BELANJA PERSIS DARI belanja.blade.php GITHUB ==================== -->
+  <div id="page-belanja" class="page-section">
+    <section class="section-wrap pt-5 pb-5 catalogue">
+      <div class="container relative">
+        <div class="shop-filter d-flex justify-content-between align-items-center mb-4">
+          <h2 class="font-weight-bold" style="color: #222;">Katalog Produk Daur Ulang</h2>
+          <div class="filter-show">
+            <a href="#belanja" onclick="Swal.fire('Riwayat Checkout', 'Belum ada transaksi tertunda.', 'info')" style="padding: 10px 21px; background-color: whitesmoke; color: #585858; border-radius: 17px; text-decoration: none; font-weight: 600;">
+              <i class="fa fa-history mr-1"></i> Riwayat Check out
+            </a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 catalogue-col right mb-50">
+            <div class="shop-catalogue grid-view">
+              <div class="row items-grid">
+                
+  <div class="col-md-4 col-xs-6 product product-grid mb-4">
+    <div class="product-item clearfix" style="border: 1px solid #eee; padding: 15px; border-radius: 8px; background: #fff; height: 100%; display: flex; flex-direction: column;">
+      <div class="product-img hover-trigger" style="position: relative; overflow: hidden; text-align: center;">
+        <a href="#belanja">
+          <img src="img/shop/item01.jpg" alt="Topi Rajut Pria" style="width: 100%; height: 220px; object-fit: cover; border-radius: 4px;">
+        </a>
+        
+      </div>
+
+      <div class="product-details mt-3" style="flex-grow: 1;">
+        <h3 class="product-title" style="font-size: 1.05rem; font-weight: 700; margin-bottom: 4px;">
+          <a href="#belanja" style="color: #333; text-decoration: none;">Topi Rajut Pria</a>
+        </h3>
+        <span class="category" style="font-size: 0.82rem; color: #777;">
+          Aksesoris
+        </span>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mt-3 pt-2" style="border-top: 1px solid #f0f0f0;">
+        <span class="price font-weight-bold" style="color: #4CAF50; font-size: 1.1rem;">
+          <span>Rp 159.999</span>
+        </span>
+        <button type="button" class="btn btn-custom btn-sm" onclick="buyProduct('Topi Rajut Pria', 159999)" style="padding: 6px 14px; font-size: 0.85rem; background: #4CAF50; border-color: #4CAF50; color: #fff; border-radius: 20px;">
+          <i class="fa fa-shopping-cart mr-1"></i> Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-4 col-xs-6 product product-grid mb-4">
+    <div class="product-item clearfix" style="border: 1px solid #eee; padding: 15px; border-radius: 8px; background: #fff; height: 100%; display: flex; flex-direction: column;">
+      <div class="product-img hover-trigger" style="position: relative; overflow: hidden; text-align: center;">
+        <a href="#belanja">
+          <img src="img/shop/item02.jpg" alt="Topi Rajut Wanita" style="width: 100%; height: 220px; object-fit: cover; border-radius: 4px;">
+        </a>
+        
+      </div>
+
+      <div class="product-details mt-3" style="flex-grow: 1;">
+        <h3 class="product-title" style="font-size: 1.05rem; font-weight: 700; margin-bottom: 4px;">
+          <a href="#belanja" style="color: #333; text-decoration: none;">Topi Rajut Wanita</a>
+        </h3>
+        <span class="category" style="font-size: 0.82rem; color: #777;">
+          Aksesoris
+        </span>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mt-3 pt-2" style="border-top: 1px solid #f0f0f0;">
+        <span class="price font-weight-bold" style="color: #4CAF50; font-size: 1.1rem;">
+          <span>Rp 199.999</span>
+        </span>
+        <button type="button" class="btn btn-custom btn-sm" onclick="buyProduct('Topi Rajut Wanita', 199999)" style="padding: 6px 14px; font-size: 0.85rem; background: #4CAF50; border-color: #4CAF50; color: #fff; border-radius: 20px;">
+          <i class="fa fa-shopping-cart mr-1"></i> Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-4 col-xs-6 product product-grid mb-4">
+    <div class="product-item clearfix" style="border: 1px solid #eee; padding: 15px; border-radius: 8px; background: #fff; height: 100%; display: flex; flex-direction: column;">
+      <div class="product-img hover-trigger" style="position: relative; overflow: hidden; text-align: center;">
+        <a href="#belanja">
+          <img src="img/shop/item03.jpg" alt="Kursi Santai Jati Mix Rotan" style="width: 100%; height: 220px; object-fit: cover; border-radius: 4px;">
+        </a>
+        <div class="product-label" style="position: absolute; top: 10px; right: 10px;"><span class="sale badge badge-danger" style="font-size: 0.75rem; padding: 4px 8px;">Diskon</span></div>
+      </div>
+
+      <div class="product-details mt-3" style="flex-grow: 1;">
+        <h3 class="product-title" style="font-size: 1.05rem; font-weight: 700; margin-bottom: 4px;">
+          <a href="#belanja" style="color: #333; text-decoration: none;">Kursi Santai Jati Mix Rotan</a>
+        </h3>
+        <span class="category" style="font-size: 0.82rem; color: #777;">
+          Mebel Daur Ulang
+        </span>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mt-3 pt-2" style="border-top: 1px solid #f0f0f0;">
+        <span class="price font-weight-bold" style="color: #4CAF50; font-size: 1.1rem;">
+          <del style="color: #999; font-size: 0.85rem; font-weight: normal; margin-right: 4px;">Rp 780.000</del><span>Rp 699.000</span>
+        </span>
+        <button type="button" class="btn btn-custom btn-sm" onclick="buyProduct('Kursi Santai Jati Mix Rotan', 699000)" style="padding: 6px 14px; font-size: 0.85rem; background: #4CAF50; border-color: #4CAF50; color: #fff; border-radius: 20px;">
+          <i class="fa fa-shopping-cart mr-1"></i> Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-4 col-xs-6 product product-grid mb-4">
+    <div class="product-item clearfix" style="border: 1px solid #eee; padding: 15px; border-radius: 8px; background: #fff; height: 100%; display: flex; flex-direction: column;">
+      <div class="product-img hover-trigger" style="position: relative; overflow: hidden; text-align: center;">
+        <a href="#belanja">
+          <img src="img/shop/item04.jpg" alt="Lampu Hias Anyaman" style="width: 100%; height: 220px; object-fit: cover; border-radius: 4px;">
+        </a>
+        
+      </div>
+
+      <div class="product-details mt-3" style="flex-grow: 1;">
+        <h3 class="product-title" style="font-size: 1.05rem; font-weight: 700; margin-bottom: 4px;">
+          <a href="#belanja" style="color: #333; text-decoration: none;">Lampu Hias Anyaman</a>
+        </h3>
+        <span class="category" style="font-size: 0.82rem; color: #777;">
+          Dekorasi Rumah
+        </span>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mt-3 pt-2" style="border-top: 1px solid #f0f0f0;">
+        <span class="price font-weight-bold" style="color: #4CAF50; font-size: 1.1rem;">
+          <span>Rp 1.500.000</span>
+        </span>
+        <button type="button" class="btn btn-custom btn-sm" onclick="buyProduct('Lampu Hias Anyaman', 1500000)" style="padding: 6px 14px; font-size: 0.85rem; background: #4CAF50; border-color: #4CAF50; color: #fff; border-radius: 20px;">
+          <i class="fa fa-shopping-cart mr-1"></i> Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-4 col-xs-6 product product-grid mb-4">
+    <div class="product-item clearfix" style="border: 1px solid #eee; padding: 15px; border-radius: 8px; background: #fff; height: 100%; display: flex; flex-direction: column;">
+      <div class="product-img hover-trigger" style="position: relative; overflow: hidden; text-align: center;">
+        <a href="#belanja">
+          <img src="img/shop/item05.jpg" alt="keranjang Belanja" style="width: 100%; height: 220px; object-fit: cover; border-radius: 4px;">
+        </a>
+        
+      </div>
+
+      <div class="product-details mt-3" style="flex-grow: 1;">
+        <h3 class="product-title" style="font-size: 1.05rem; font-weight: 700; margin-bottom: 4px;">
+          <a href="#belanja" style="color: #333; text-decoration: none;">keranjang Belanja</a>
+        </h3>
+        <span class="category" style="font-size: 0.82rem; color: #777;">
+          Anyaman Bambu
+        </span>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mt-3 pt-2" style="border-top: 1px solid #f0f0f0;">
+        <span class="price font-weight-bold" style="color: #4CAF50; font-size: 1.1rem;">
+          <span>Rp 100.000</span>
+        </span>
+        <button type="button" class="btn btn-custom btn-sm" onclick="buyProduct('keranjang Belanja', 100000)" style="padding: 6px 14px; font-size: 0.85rem; background: #4CAF50; border-color: #4CAF50; color: #fff; border-radius: 20px;">
+          <i class="fa fa-shopping-cart mr-1"></i> Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-4 col-xs-6 product product-grid mb-4">
+    <div class="product-item clearfix" style="border: 1px solid #eee; padding: 15px; border-radius: 8px; background: #fff; height: 100%; display: flex; flex-direction: column;">
+      <div class="product-img hover-trigger" style="position: relative; overflow: hidden; text-align: center;">
+        <a href="#belanja">
+          <img src="img/shop/item06.jpg" alt="Tottebag Denim" style="width: 100%; height: 220px; object-fit: cover; border-radius: 4px;">
+        </a>
+        
+      </div>
+
+      <div class="product-details mt-3" style="flex-grow: 1;">
+        <h3 class="product-title" style="font-size: 1.05rem; font-weight: 700; margin-bottom: 4px;">
+          <a href="#belanja" style="color: #333; text-decoration: none;">Tottebag Denim</a>
+        </h3>
+        <span class="category" style="font-size: 0.82rem; color: #777;">
+          Daur Ulang Kain
+        </span>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mt-3 pt-2" style="border-top: 1px solid #f0f0f0;">
+        <span class="price font-weight-bold" style="color: #4CAF50; font-size: 1.1rem;">
+          <span>Rp 233.000</span>
+        </span>
+        <button type="button" class="btn btn-custom btn-sm" onclick="buyProduct('Tottebag Denim', 233000)" style="padding: 6px 14px; font-size: 0.85rem; background: #4CAF50; border-color: #4CAF50; color: #fff; border-radius: 20px;">
+          <i class="fa fa-shopping-cart mr-1"></i> Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-4 col-xs-6 product product-grid mb-4">
+    <div class="product-item clearfix" style="border: 1px solid #eee; padding: 15px; border-radius: 8px; background: #fff; height: 100%; display: flex; flex-direction: column;">
+      <div class="product-img hover-trigger" style="position: relative; overflow: hidden; text-align: center;">
+        <a href="#belanja">
+          <img src="img/shop/item07.jpg" alt="Lampu Botol" style="width: 100%; height: 220px; object-fit: cover; border-radius: 4px;">
+        </a>
+        
+      </div>
+
+      <div class="product-details mt-3" style="flex-grow: 1;">
+        <h3 class="product-title" style="font-size: 1.05rem; font-weight: 700; margin-bottom: 4px;">
+          <a href="#belanja" style="color: #333; text-decoration: none;">Lampu Botol</a>
+        </h3>
+        <span class="category" style="font-size: 0.82rem; color: #777;">
+          Kaca & Limbah Botol
+        </span>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mt-3 pt-2" style="border-top: 1px solid #f0f0f0;">
+        <span class="price font-weight-bold" style="color: #4CAF50; font-size: 1.1rem;">
+          <span>Rp 800.000</span>
+        </span>
+        <button type="button" class="btn btn-custom btn-sm" onclick="buyProduct('Lampu Botol', 800000)" style="padding: 6px 14px; font-size: 0.85rem; background: #4CAF50; border-color: #4CAF50; color: #fff; border-radius: 20px;">
+          <i class="fa fa-shopping-cart mr-1"></i> Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-4 col-xs-6 product product-grid mb-4">
+    <div class="product-item clearfix" style="border: 1px solid #eee; padding: 15px; border-radius: 8px; background: #fff; height: 100%; display: flex; flex-direction: column;">
+      <div class="product-img hover-trigger" style="position: relative; overflow: hidden; text-align: center;">
+        <a href="#belanja">
+          <img src="img/shop/item08.jpg" alt="Hiasan kepala Binatang" style="width: 100%; height: 220px; object-fit: cover; border-radius: 4px;">
+        </a>
+        
+      </div>
+
+      <div class="product-details mt-3" style="flex-grow: 1;">
+        <h3 class="product-title" style="font-size: 1.05rem; font-weight: 700; margin-bottom: 4px;">
+          <a href="#belanja" style="color: #333; text-decoration: none;">Hiasan kepala Binatang</a>
+        </h3>
+        <span class="category" style="font-size: 0.82rem; color: #777;">
+          Kerajinan Tangan
+        </span>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mt-3 pt-2" style="border-top: 1px solid #f0f0f0;">
+        <span class="price font-weight-bold" style="color: #4CAF50; font-size: 1.1rem;">
+          <span>Rp 499.000</span>
+        </span>
+        <button type="button" class="btn btn-custom btn-sm" onclick="buyProduct('Hiasan kepala Binatang', 499000)" style="padding: 6px 14px; font-size: 0.85rem; background: #4CAF50; border-color: #4CAF50; color: #fff; border-radius: 20px;">
+          <i class="fa fa-shopping-cart mr-1"></i> Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-4 col-xs-6 product product-grid mb-4">
+    <div class="product-item clearfix" style="border: 1px solid #eee; padding: 15px; border-radius: 8px; background: #fff; height: 100%; display: flex; flex-direction: column;">
+      <div class="product-img hover-trigger" style="position: relative; overflow: hidden; text-align: center;">
+        <a href="#belanja">
+          <img src="img/shop/item09.jpg" alt="Rompi Plastik" style="width: 100%; height: 220px; object-fit: cover; border-radius: 4px;">
+        </a>
+        
+      </div>
+
+      <div class="product-details mt-3" style="flex-grow: 1;">
+        <h3 class="product-title" style="font-size: 1.05rem; font-weight: 700; margin-bottom: 4px;">
+          <a href="#belanja" style="color: #333; text-decoration: none;">Rompi Plastik</a>
+        </h3>
+        <span class="category" style="font-size: 0.82rem; color: #777;">
+          Plastik Daur Ulang
+        </span>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mt-3 pt-2" style="border-top: 1px solid #f0f0f0;">
+        <span class="price font-weight-bold" style="color: #4CAF50; font-size: 1.1rem;">
+          <span>Rp 330.000</span>
+        </span>
+        <button type="button" class="btn btn-custom btn-sm" onclick="buyProduct('Rompi Plastik', 330000)" style="padding: 6px 14px; font-size: 0.85rem; background: #4CAF50; border-color: #4CAF50; color: #fff; border-radius: 20px;">
+          <i class="fa fa-shopping-cart mr-1"></i> Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-4 col-xs-6 product product-grid mb-4">
+    <div class="product-item clearfix" style="border: 1px solid #eee; padding: 15px; border-radius: 8px; background: #fff; height: 100%; display: flex; flex-direction: column;">
+      <div class="product-img hover-trigger" style="position: relative; overflow: hidden; text-align: center;">
+        <a href="#belanja">
+          <img src="img/shop/item10.jpg" alt="Peralatan Makan Kayu" style="width: 100%; height: 220px; object-fit: cover; border-radius: 4px;">
+        </a>
+        
+      </div>
+
+      <div class="product-details mt-3" style="flex-grow: 1;">
+        <h3 class="product-title" style="font-size: 1.05rem; font-weight: 700; margin-bottom: 4px;">
+          <a href="#belanja" style="color: #333; text-decoration: none;">Peralatan Makan Kayu</a>
+        </h3>
+        <span class="category" style="font-size: 0.82rem; color: #777;">
+          Kayu Reclaimed
+        </span>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mt-3 pt-2" style="border-top: 1px solid #f0f0f0;">
+        <span class="price font-weight-bold" style="color: #4CAF50; font-size: 1.1rem;">
+          <span>Rp 50.000</span>
+        </span>
+        <button type="button" class="btn btn-custom btn-sm" onclick="buyProduct('Peralatan Makan Kayu', 50000)" style="padding: 6px 14px; font-size: 0.85rem; background: #4CAF50; border-color: #4CAF50; color: #fff; border-radius: 20px;">
+          <i class="fa fa-shopping-cart mr-1"></i> Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-4 col-xs-6 product product-grid mb-4">
+    <div class="product-item clearfix" style="border: 1px solid #eee; padding: 15px; border-radius: 8px; background: #fff; height: 100%; display: flex; flex-direction: column;">
+      <div class="product-img hover-trigger" style="position: relative; overflow: hidden; text-align: center;">
+        <a href="#belanja">
+          <img src="img/shop/item11.jpg" alt="Gayung Batok kelapa" style="width: 100%; height: 220px; object-fit: cover; border-radius: 4px;">
+        </a>
+        
+      </div>
+
+      <div class="product-details mt-3" style="flex-grow: 1;">
+        <h3 class="product-title" style="font-size: 1.05rem; font-weight: 700; margin-bottom: 4px;">
+          <a href="#belanja" style="color: #333; text-decoration: none;">Gayung Batok kelapa</a>
+        </h3>
+        <span class="category" style="font-size: 0.82rem; color: #777;">
+          Batok Kelapa Organik
+        </span>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mt-3 pt-2" style="border-top: 1px solid #f0f0f0;">
+        <span class="price font-weight-bold" style="color: #4CAF50; font-size: 1.1rem;">
+          <span>Rp 20.000</span>
+        </span>
+        <button type="button" class="btn btn-custom btn-sm" onclick="buyProduct('Gayung Batok kelapa', 20000)" style="padding: 6px 14px; font-size: 0.85rem; background: #4CAF50; border-color: #4CAF50; color: #fff; border-radius: 20px;">
+          <i class="fa fa-shopping-cart mr-1"></i> Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-4 col-xs-6 product product-grid mb-4">
+    <div class="product-item clearfix" style="border: 1px solid #eee; padding: 15px; border-radius: 8px; background: #fff; height: 100%; display: flex; flex-direction: column;">
+      <div class="product-img hover-trigger" style="position: relative; overflow: hidden; text-align: center;">
+        <a href="#belanja">
+          <img src="img/shop/item12.jpg" alt="Tas Rajut Eceng Gondok" style="width: 100%; height: 220px; object-fit: cover; border-radius: 4px;">
+        </a>
+        
+      </div>
+
+      <div class="product-details mt-3" style="flex-grow: 1;">
+        <h3 class="product-title" style="font-size: 1.05rem; font-weight: 700; margin-bottom: 4px;">
+          <a href="#belanja" style="color: #333; text-decoration: none;">Tas Rajut Eceng Gondok</a>
+        </h3>
+        <span class="category" style="font-size: 0.82rem; color: #777;">
+          Eceng Gondok Alami
+        </span>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mt-3 pt-2" style="border-top: 1px solid #f0f0f0;">
+        <span class="price font-weight-bold" style="color: #4CAF50; font-size: 1.1rem;">
+          <span>Rp 299.999</span>
+        </span>
+        <button type="button" class="btn btn-custom btn-sm" onclick="buyProduct('Tas Rajut Eceng Gondok', 299999)" style="padding: 6px 14px; font-size: 0.85rem; background: #4CAF50; border-color: #4CAF50; color: #fff; border-radius: 20px;">
+          <i class="fa fa-shopping-cart mr-1"></i> Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer Start persis dari index.blade.php GitHub -->
   <div class="footer">
     <div class="container">
       <div class="row">
@@ -527,7 +1040,7 @@
           <div class="footer-contact">
             <h2>Tentang Green Ranger</h2>
             <p><i class="fa fa-map-marker-alt"></i>Surabaya, Jawa Timur, Indonesia</p>
-            <p><i class="fa fa-phone-alt"></i>081335446778</p>
+            <p><i class="fa fa-phone-alt"></i>082334556778</p>
             <p><i class="fa fa-envelope"></i>greenranger@gmail.com</p>
           </div>
         </div>
@@ -535,9 +1048,11 @@
           <div class="footer-link">
             <h2>Navigasi Cepat</h2>
             <a href="#home" onclick="showPage('home')">Home</a>
-            <a href="#donasi" onclick="showPage('donasi')">Donasi Midtrans</a>
-            <a href="#belanja" onclick="showPage('belanja')">Eco Marketplace</a>
-            <a href="#volunteer" onclick="showPage('volunteer')">Relawan</a>
+            <a href="#event" onclick="showPage('event')">Acara</a>
+            <a href="#blog" onclick="showPage('blog')">Blog</a>
+            <a href="#donate" onclick="showPage('donate')">Donasi Sekarang</a>
+            <a href="#volunteer" onclick="showPage('volunteer')">Daftar Relawan</a>
+            <a href="#belanja" onclick="showPage('belanja')">Belanja</a>
           </div>
         </div>
       </div>
@@ -547,115 +1062,112 @@
     </div>
   </div>
 
-  <!-- ==================== MIDTRANS SNAP POPUP SIMULATOR ==================== -->
-  <div class="snap-modal-backdrop" id="snapModal">
-    <div class="snap-container-box">
-      <!-- Topbar Midtrans -->
-      <div class="snap-topbar">
-        <div class="snap-brand-badge">
+  <!-- ==================== POPUP MIDTRANS SNAP SIMULATOR ==================== -->
+  <div class="snap-backdrop" id="snapModal">
+    <div class="snap-box">
+      <div class="snap-header">
+        <div class="snap-header-title">
           <svg width="22" height="22" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#0070BA"/><path d="M7 16l6 6L25 10" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <strong style="letter-spacing:0.3px; font-size:1.05rem;">Midtrans</strong>
-          <span class="badge-sandbox">SANDBOX</span>
+          <span class="snap-sandbox-pill">SANDBOX</span>
         </div>
-        <button type="button" class="snap-btn-close" onclick="cancelPaymentPopup()">&times;</button>
+        <button type="button" class="snap-close" onclick="cancelPaymentPopup()">&times;</button>
       </div>
 
-      <!-- Ringkasan Order -->
-      <div class="snap-order-summary">
+      <div class="snap-summary">
         <div>
-          <div class="label">Item Transaksi:</div>
-          <div class="item-title" id="snapItemTitle">Donasi Green Ranger</div>
+          <div style="font-size: 0.78rem; color: #64748b;">Item / Pesanan:</div>
+          <div style="font-size: 0.95rem; font-weight: 700; color: #0f172a;" id="snapItemTitle">Donasi Green Ranger</div>
         </div>
         <div class="text-right">
-          <div class="label">Total Pembayaran:</div>
-          <div class="amount" id="snapTotalDisplay">Rp 50.000</div>
+          <div style="font-size: 0.78rem; color: #64748b;">Total:</div>
+          <div style="font-size: 1.25rem; font-weight: 800; color: #002b49;" id="snapTotal">Rp 50.000</div>
         </div>
       </div>
 
-      <!-- Pilihan Metode Pembayaran Midtrans (View 1) -->
-      <div class="snap-inner-content" id="snapListView">
-        <div class="snap-opt-group-title">Virtual Account (Bank Transfer)</div>
+      <!-- View 1: List Channel Pembayaran -->
+      <div class="snap-body" id="snapList">
+        <div class="snap-group-label">Virtual Account (Bank Transfer)</div>
         
-        <div class="snap-payment-item" onclick="choosePayment('BCA Virtual Account', 'bca_va')">
-          <div class="snap-payment-item-left">
-            <div class="snap-item-icon" style="background:#e0f2fe; color:#0284c7;"><i class="fa fa-university"></i></div>
+        <div class="snap-channel-opt" onclick="selectChannel('BCA Virtual Account', 'bca')">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <i class="fa fa-university text-primary" style="font-size:1.2rem;"></i>
             <div>
-              <div class="snap-item-name">BCA Virtual Account</div>
-              <div class="snap-item-desc">Verifikasi otomatis tanpa upload struk</div>
+              <div style="font-weight:600; font-size:0.9rem;">BCA Virtual Account</div>
+              <div style="font-size:0.75rem; color:#64748b;">Bayar via BCA Mobile / ATM</div>
             </div>
           </div>
           <i class="fa fa-chevron-right text-muted" style="font-size:0.8rem;"></i>
         </div>
 
-        <div class="snap-payment-item" onclick="choosePayment('Mandiri Bill Payment', 'mandiri_bill')">
-          <div class="snap-payment-item-left">
-            <div class="snap-item-icon" style="background:#fef3c7; color:#d97706;"><i class="fa fa-landmark"></i></div>
+        <div class="snap-channel-opt" onclick="selectChannel('Mandiri Bill Payment', 'mandiri')">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <i class="fa fa-landmark text-warning" style="font-size:1.2rem;"></i>
             <div>
-              <div class="snap-item-name">Mandiri Bill Payment</div>
-              <div class="snap-item-desc">Bayar via Livin' by Mandiri / ATM</div>
+              <div style="font-weight:600; font-size:0.9rem;">Mandiri Bill Payment</div>
+              <div style="font-size:0.75rem; color:#64748b;">Bayar via Livin' by Mandiri</div>
             </div>
           </div>
           <i class="fa fa-chevron-right text-muted" style="font-size:0.8rem;"></i>
         </div>
 
-        <div class="snap-opt-group-title mt-3">Dompet Digital & QRIS</div>
+        <div class="snap-group-label mt-3">e-Wallet & QRIS</div>
 
-        <div class="snap-payment-item" onclick="choosePayment('GoPay / QRIS', 'gopay')">
-          <div class="snap-payment-item-left">
-            <div class="snap-item-icon" style="background:#dcfce7; color:#16a34a;"><i class="fa fa-qrcode"></i></div>
+        <div class="snap-channel-opt" onclick="selectChannel('GoPay / QRIS Instan', 'gopay')">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <i class="fa fa-qrcode text-success" style="font-size:1.2rem;"></i>
             <div>
-              <div class="snap-item-name">GoPay / QRIS Instan</div>
-              <div class="snap-item-desc">Scan dengan GoPay, OVO, Dana, BCA Mobile</div>
+              <div style="font-weight:600; font-size:0.9rem;">GoPay / QRIS</div>
+              <div style="font-size:0.75rem; color:#64748b;">Scan QR dengan aplikasi e-Wallet</div>
             </div>
           </div>
           <i class="fa fa-chevron-right text-muted" style="font-size:0.8rem;"></i>
         </div>
 
-        <div class="snap-payment-item" onclick="choosePayment('Kartu Kredit / Debit', 'credit_card')">
-          <div class="snap-payment-item-left">
-            <div class="snap-item-icon" style="background:#fee2e2; color:#dc2626;"><i class="fa fa-credit-card"></i></div>
+        <div class="snap-channel-opt" onclick="selectChannel('Kartu Kredit / Debit', 'cc')">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <i class="fa fa-credit-card text-danger" style="font-size:1.2rem;"></i>
             <div>
-              <div class="snap-item-name">Kartu Kredit / Debit Online</div>
-              <div class="snap-item-desc">Visa, Mastercard, JCB</div>
+              <div style="font-weight:600; font-size:0.9rem;">Kartu Kredit / Debit Online</div>
+              <div style="font-size:0.75rem; color:#64748b;">Visa, Mastercard, JCB</div>
             </div>
           </div>
           <i class="fa fa-chevron-right text-muted" style="font-size:0.8rem;"></i>
         </div>
 
-        <div class="snap-client-key-note">
-          Tersambung dengan Midtrans Client Key GitHub:<br>
-          <code>SB-Mid-client-fq2d83yegG2NGx_f</code>
+        <div class="text-center mt-3 pt-2" style="border-top:1px solid #eee; font-size:0.72rem; color:#64748b;">
+          Client Key Sandbox GitHub: <code>SB-Mid-client-fq2d83yegG2NGx_f</code>
         </div>
       </div>
 
-      <!-- Tampilan Instruksi Bayar Terpilih (View 2) -->
-      <div class="snap-inner-content snap-detail-view" id="snapDetailView">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px; cursor:pointer;" onclick="backToMethods()">
+      <!-- View 2: Instruksi Pembayaran Terpilih -->
+      <div class="snap-body" id="snapDetail" style="display:none;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px; cursor:pointer;" onclick="backToList()">
           <i class="fa fa-arrow-left text-muted" style="font-size:0.85rem;"></i>
-          <span style="font-size:0.82rem; color:#64748b; font-weight:600;">Kembali ke metode lain</span>
+          <span style="font-size:0.82rem; color:#64748b; font-weight:600;">Ganti metode pembayaran</span>
         </div>
 
-        <h5 id="chosenChannelTitle" class="font-weight-bold text-dark mb-1">BCA Virtual Account</h5>
-        <p class="text-muted" style="font-size:0.82rem;">Selesaikan pembayaran Anda sebelum waktu habis (24 Jam).</p>
+        <h5 id="channelTitle" class="font-weight-bold text-dark mb-1">BCA Virtual Account</h5>
+        <p class="text-muted" style="font-size:0.82rem;">Selesaikan pembayaran Anda sebelum batas waktu habis (24 Jam).</p>
 
         <div class="snap-va-box">
-          <div style="font-size:0.75rem; color:#475569; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">Nomor Rekening Virtual Account</div>
-          <div class="snap-va-number" id="snapVaNumber">8901 2345 6789 0123</div>
-          <div style="font-size:0.75rem; color:#64748b; margin-top:4px;"><i class="fa fa-copy"></i> Disalin otomatis saat klik</div>
+          <div style="font-size:0.75rem; color:#475569; text-transform:uppercase; margin-bottom:4px;">Nomor Rekening Virtual Account</div>
+          <div class="snap-va-num" id="vaDisplay">8077 7823 4567 8901</div>
+          <div style="font-size:0.75rem; color:#64748b; margin-top:4px;"><i class="fa fa-copy"></i> Salin nomor VA</div>
         </div>
 
-        <button type="button" class="btn btn-success btn-block py-2 font-weight-bold" onclick="executeSuccessfulPayment()">
+        <button type="button" class="btn btn-success btn-block py-2 font-weight-bold" onclick="finishPaymentSuccess()">
           <i class="fa fa-check-circle mr-1"></i> Simulasi Bayar Berhasil (Sandbox)
         </button>
 
-        <button type="button" class="btn btn-outline-danger btn-block py-2 mt-2" onclick="simulateFailedPayment()">
-          <i class="fa fa-times-circle mr-1"></i> Simulasi Bayar Gagal / Error
+        <button type="button" class="btn btn-outline-danger btn-block py-2 mt-2" onclick="finishPaymentError()">
+          <i class="fa fa-times-circle mr-1"></i> Simulasi Bayar Gagal
         </button>
       </div>
     </div>
   </div>
 
-  <!-- JavaScript Libraries -->
+  <!-- JavaScript Libraries persis dari index.blade.php GitHub -->
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
   <script src="lib/easing/easing.min.js"></script>
@@ -666,9 +1178,8 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="js/main.js"></script>
 
-  <!-- Script Logika SPA & Integrasi Midtrans Sesuai GitHub Repository -->
+  <!-- Logika SPA & Callbacks Midtrans Persis detail_checkout.blade.php -->
   <script>
-    // 1. Single Page Application Navigation
     function showPage(pageId) {
       document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
       const target = document.getElementById('page-' + pageId);
@@ -676,39 +1187,29 @@
         target.classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-      document.querySelectorAll('.navbar-nav .nav-link').forEach(el => el.classList.remove('active-tab'));
+
+      document.querySelectorAll('.navbar-nav .nav-link').forEach(el => el.classList.remove('active-nav'));
       const activeNav = document.getElementById('nav-' + pageId);
-      if (activeNav) activeNav.classList.add('active-tab');
+      if (activeNav) activeNav.classList.add('active-nav');
     }
 
-    // 2. Set Nilai Cepat Donasi
-    function setNominal(val) {
-      document.getElementById('donationAmount').value = val;
-    }
+    let activeOrder = { title: 'Donasi Green Ranger', amount: 50000, type: 'donate' };
 
-    // 3. State Transaksi Midtrans
-    let currentTransaction = {
-      title: 'Donasi Green Ranger',
-      amount: 50000,
-      channel: 'BCA Virtual Account',
-      type: 'donasi'
-    };
+    function openMidtransModal(title, amount, type) {
+      activeOrder.title = title;
+      activeOrder.amount = amount;
+      activeOrder.type = type;
 
-    function openSnapModal(title, amount, type) {
-      currentTransaction.title = title;
-      currentTransaction.amount = amount;
-      currentTransaction.type = type;
-      
       document.getElementById('snapItemTitle').textContent = title;
-      document.getElementById('snapTotalDisplay').textContent = 'Rp ' + amount.toLocaleString('id-ID');
+      document.getElementById('snapTotal').textContent = 'Rp ' + amount.toLocaleString('id-ID');
       
-      backToMethods();
+      backToList();
       document.getElementById('snapModal').classList.add('open');
     }
 
     function cancelPaymentPopup() {
       document.getElementById('snapModal').classList.remove('open');
-      // Callback onClose persis seperti detail_checkout.blade.php
+      // Callback onClose persis dari detail_checkout.blade.php:
       Swal.fire({
         icon: 'warning',
         title: 'Popup Ditutup',
@@ -718,58 +1219,51 @@
       });
     }
 
-    function choosePayment(channelName, channelKey) {
-      currentTransaction.channel = channelName;
-      document.getElementById('chosenChannelTitle').textContent = channelName;
-      
-      const vaEl = document.getElementById('snapVaNumber');
-      if (channelKey === 'bca_va') {
+    function selectChannel(title, key) {
+      document.getElementById('channelTitle').textContent = title;
+      const vaEl = document.getElementById('vaDisplay');
+      if (key === 'bca') {
         vaEl.textContent = '8077 7823 4567 8901';
-      } else if (channelKey === 'mandiri_bill') {
+      } else if (key === 'mandiri') {
         vaEl.textContent = '7001 2004 8912 3456';
-      } else if (channelKey === 'gopay') {
+      } else if (key === 'gopay') {
         vaEl.innerHTML = '<span style="font-size:0.95rem;">[QRIS INSTAN] Scan via e-Wallet</span>';
       } else {
         vaEl.textContent = '4890 2345 6789 0123';
       }
 
-      document.getElementById('snapListView').style.display = 'none';
-      document.getElementById('snapDetailView').style.display = 'block';
+      document.getElementById('snapList').style.display = 'none';
+      document.getElementById('snapDetail').style.display = 'block';
     }
 
-    function backToMethods() {
-      document.getElementById('snapListView').style.display = 'block';
-      document.getElementById('snapDetailView').style.display = 'none';
+    function backToList() {
+      document.getElementById('snapList').style.display = 'block';
+      document.getElementById('snapDetail').style.display = 'none';
     }
 
-    // Callback onSuccess persis seperti detail_checkout.blade.php
-    function executeSuccessfulPayment() {
+    // Callback onSuccess persis dari detail_checkout.blade.php:
+    function finishPaymentSuccess() {
       document.getElementById('snapModal').classList.remove('open');
-      
       Swal.fire({
-        title: 'Menghubungkan Midtrans...',
-        html: 'Memverifikasi transaksi di server Midtrans Sandbox...',
+        title: 'Memproses Pembayaran...',
+        html: 'Menghubungkan ke gateway Midtrans Sandbox...',
         timer: 1200,
         didOpen: () => Swal.showLoading()
       }).then(() => {
         Swal.fire({
           icon: 'success',
           title: 'Pembayaran Berhasil!',
-          text: 'Terima kasih telah melakukan pembayaran untuk ' + currentTransaction.title + ' sebesar Rp ' + currentTransaction.amount.toLocaleString('id-ID') + '. Transaksi telah terverifikasi oleh Midtrans Sandbox.',
+          text: 'Terima kasih telah melakukan pembayaran untuk ' + activeOrder.title + ' sebesar Rp ' + activeOrder.amount.toLocaleString('id-ID') + '. Anda akan diarahkan kembali ke halaman utama.',
           confirmButtonText: 'OK',
-          confirmButtonColor: '#28a745'
+          confirmButtonColor: '#4CAF50'
         }).then(() => {
-          if (currentTransaction.type === 'belanja') {
-            showPage('belanja');
-          } else {
-            showPage('donasi');
-          }
+          showPage(activeOrder.type === 'belanja' ? 'belanja' : 'donate');
         });
       });
     }
 
-    // Callback onError persis seperti detail_checkout.blade.php
-    function simulateFailedPayment() {
+    // Callback onError persis dari detail_checkout.blade.php:
+    function finishPaymentError() {
       document.getElementById('snapModal').classList.remove('open');
       Swal.fire({
         icon: 'error',
@@ -780,33 +1274,48 @@
       });
     }
 
-    // Trigger Donasi
     function startDonationPayment() {
-      const amount = parseInt(document.getElementById('donationAmount').value) || 50000;
-      const target = document.getElementById('donationTarget').value;
-      openSnapModal('Donasi: ' + target, amount, 'donasi');
+      const amount = parseInt(document.getElementById('donate_amount').value) || 50000;
+      const name = document.getElementById('donate_name').value;
+      openMidtransModal('Donasi Lingkungan (' + name + ')', amount, 'donate');
     }
 
-    // Trigger Belanja
-    function buyProduct(productName, price) {
-      openSnapModal('Produk: ' + productName, price, 'belanja');
+    function buyProduct(prodName, price) {
+      openMidtransModal('Beli: ' + prodName, price, 'belanja');
     }
 
-    // Simulasi Logout
     function simulateLogout() {
       Swal.fire({
         icon: 'info',
         title: 'Logout Berhasil',
         text: 'Sesi akun demonstrasi berhasil diakhiri.',
-        confirmButtonColor: '#28a745'
+        confirmButtonColor: '#4CAF50'
       });
     }
 
-    // Hash listener agar tautan #donasi, #belanja, dsb. langsung pindah tab
+    // Hash router listener
     window.addEventListener('hashchange', () => {
       const hash = location.hash.replace('#', '');
-      if (['home', 'donasi', 'belanja', 'volunteer', 'contact'].includes(hash)) {
+      if (['home', 'event', 'blog', 'donate', 'volunteer', 'contact', 'belanja'].includes(hash)) {
         showPage(hash);
+      }
+    });
+
+    // Inisialisasi Carousel Owl
+    $(document).ready(function () {
+      if ($('.owl-carousel').length) {
+        $('.owl-carousel').owlCarousel({
+          autoplay: true,
+          smartSpeed: 1500,
+          items: 1,
+          dots: false,
+          loop: true,
+          nav: true,
+          navText: [
+            '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+            '<i class="fa fa-angle-right" aria-hidden="true"></i>'
+          ]
+        });
       }
     });
   </script>
