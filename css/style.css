@@ -1704,7 +1704,8 @@ em {
   width: 72px
 }
 
-@media(max-width:820px) {
+/* Navbar responsif: tablet / setengah layar laptop ke bawah -> menu stacked (dropdown) di kanan atas */
+@media(max-width:1024px) {
   .nav {
     grid-template-columns: 1fr auto;
     padding-bottom: 14px;
@@ -1765,21 +1766,28 @@ em {
   .nav-open .nav-toggle-bars i:nth-child(2) { opacity: 0 }
   .nav-open .nav-toggle-bars i:nth-child(3) { top: 6px; transform: rotate(-45deg) }
 
-  /* panel menu layar penuh */
+  /* menu stacked di kanan atas */
   #nav {
     position: fixed;
-    inset: 0;
-    z-index: 1;
+    top: calc(62px + env(safe-area-inset-top, 0px));
+    right: var(--g);
+    left: auto;
+    z-index: 3;
     flex-direction: column;
-    justify-content: center;
     gap: 0;
-    padding: calc(84px + env(safe-area-inset-top, 0px)) var(--g) calc(32px + env(safe-area-inset-bottom, 0px));
-    background: #090909;
+    width: min(260px, calc(100vw - 2 * var(--g)));
+    padding: 6px 0;
+    background: #111;
+    border: 1px solid rgba(242, 242, 240, .12);
+    border-radius: 12px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .55);
+    max-height: calc(100vh - 90px);
     overflow-y: auto;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-8px);
-    transition: opacity .3s var(--ease), transform .3s var(--ease), visibility .3s;
+    transform-origin: top right;
+    transition: opacity .25s var(--ease), transform .25s var(--ease), visibility .25s;
   }
 
   .nav-open #nav {
@@ -1791,24 +1799,29 @@ em {
   #nav a {
     display: flex;
     align-items: center;
-    min-height: 56px;
-    padding: 0;
-    font-size: 15px;
+    min-height: 46px;
+    padding: 0 18px;
+    font-size: 12px;
     letter-spacing: .16em;
-    border-bottom: 1px solid rgba(242, 242, 240, .08);
+    border-bottom: 1px solid rgba(242, 242, 240, .06);
+  }
+
+  #nav a:last-child {
+    border-bottom: 0
   }
 
   #nav a::after {
     display: none
   }
 
+  #nav a:hover,
   #nav a.on {
-    color: var(--pop)
+    color: var(--pop);
+    background: rgba(242, 242, 240, .04)
   }
+}
 
-  body.nav-locked {
-    overflow: hidden;
-  }
+@media(max-width:820px) {
 
   .me,
   .me-compact-page,

@@ -14,9 +14,11 @@ window.SITE = {
       email: 'auzan.tama@gmail.com',
       linkedin: 'https://www.linkedin.com/in/firstyatama/',
       github: 'https://github.com/FirstyatamaAuzan',
+      instagram: 'https://www.instagram.com/firstyatamaauzanf_?vrfl=d2JrMjA2eGVrZTRo',
       resume: 'assets/cv-auzan.pdf',
       links: [
         ['LinkedIn', 'https://www.linkedin.com/in/firstyatama/'],
+        ['Instagram', 'https://www.instagram.com/firstyatamaauzanf_?vrfl=d2JrMjA2eGVrZTRo'],
         ['GitHub', 'https://github.com/FirstyatamaAuzan'],
         ['Resume (PDF)', 'assets/cv-auzan.pdf']
       ],
@@ -81,7 +83,7 @@ window.SITE = {
       tags: ['IndoBERT', 'Siamese Bi-Encoder', 'PyTorch', 'Flask', 'PyMuPDF', 'Hugging Face'],
       links: [['GitHub', 'https://github.com/FirstyatamaAuzan'], ['Live Preview', 'assets/previews/semsim_preview.html']],
       evidences: [
-        { type: 'pdf', title: 'Manuskrip Jurnal Ilmiah (Elsevier Format)', desc: 'Draf publikasi akademik sistem SemSim untuk jurnal internasional bereputasi', file: 'assets/evidence/semsim/manuskrip_jurnal_elsevier.pdf' },
+        { type: 'pdf', title: 'Buku Tugas Akhir SemSim (Bab 1–20)', desc: 'Dokumen Tugas Akhir: latar belakang, tinjauan pustaka, metodologi, dan rancangan sistem SemSim', file: 'assets/evidence/semsim/Buku TA_Firstyatama Auzan Farhadi-1-20 (1).pdf' },
         { type: 'image', title: 'Distribusi Anotasi Dataset', desc: 'Grafik distribusi label pasangan kalimat dalam dataset pelatihan model', file: 'assets/evidence/semsim/distribusi_anotasi.png' },
         { type: 'image', title: 'Flowchart Arsitektur Sistem SemSim', desc: 'Diagram alur sistem dari input PDF hingga output skor kemiripan semantik', file: 'assets/evidence/semsim/flowchart_arsitektur.png' }
       ],
@@ -210,7 +212,7 @@ class ConversationalT5Agent:
       }
     },
     {
-      slug: 'green-ranger', title: 'Green Ranger', livePreview: 'assets/previews/green-ranger-app/index.html', kind: 'Aplikasi web', year: '2023 – 2024',
+      slug: 'green-ranger', title: 'Green Ranger', kind: 'Aplikasi web', year: '2023 – 2024',
       meta: [['Peran', 'Backend Developer & Database Architect'], ['Tahun', '2023 – 2024'], ['Bidang', 'Lingkungan & Fin-Tech'], ['Stack', 'Laravel, MySQL, Midtrans Snap, Bootstrap 5']],
       summary: 'Platform pengelolaan donasi lingkungan terpadu, partisipasi aksi relawan hijau, serta eco-marketplace daur ulang yang terintegrasi dengan Midtrans Snap Gateway.',
       points: [
@@ -219,7 +221,7 @@ class ConversationalT5Agent:
         'Pengujian menyeluruh modul backend dan konsistensi transaksi data.'
       ],
       tags: ['Laravel', 'MySQL', 'Midtrans Snap', 'Bootstrap 5', 'REST API', 'Payment Gateway'],
-      links: [['GitHub', 'https://github.com/FirstyatamaAuzan'], ['Live Preview', 'assets/previews/green-ranger-app/index.html']],
+      links: [['GitHub', 'https://github.com/FirstyatamaAuzan']],
       evidences: [
         { type: 'pdf', title: 'Dokumen Spesifikasi Kebutuhan Perangkat Lunak (SRS)', desc: 'Dokumen rekayasa perangkat lunak resmi sistem Green Ranger', file: 'assets/evidence/green-ranger/dokumen_srs_green_ranger.pdf' },
         { type: 'pdf', title: 'Dokumen Final Uji Perangkat Lunak (DUPL)', desc: 'Laporan pengujian menyeluruh modul dan validasi integrasi sistem', file: 'assets/evidence/green-ranger/Final DOKUMEN_UJI_PERANGKAT_LUNAK_DUPL_Sistem.pdf' },
@@ -308,7 +310,10 @@ class PaymentCallbackController extends Controller
       tags: ['Python', 'KNN', 'OpenCV', 'Computer Vision', 'Scikit-learn', 'Pattern Recognition'],
       links: [['GitHub', 'https://github.com/FirstyatamaAuzan/Container-Detector-Use-KNN']],
       evidences: [
-        { type: 'pdf', title: 'Laporan Resmi: Sistem Identifikasi Kontainer Berbasis KNN', desc: 'Laporan lengkap IF0202 — metodologi, implementasi, dan hasil evaluasi model KNN', file: 'assets/evidence/Laporan_IF0202_Firstyatama_Sistem Identifikasi Kontainer Berbasis Warna Menggunakan Algoritma KNN.pdf' }
+        { type: 'pdf', title: 'Laporan Resmi: Sistem Identifikasi Kontainer Berbasis KNN', desc: 'Laporan lengkap IF0202 — metodologi, implementasi, dan hasil evaluasi model KNN', file: 'assets/evidence/Container-Detector-Use-KNN/Laporan_IF0202_Firstyatama_Sistem Identifikasi Kontainer Berbasis Warna Menggunakan Algoritma KNN.pdf' },
+        { type: 'image', title: 'Sampel Citra Kontainer 1 (OCR-AH-A01)', desc: 'Contoh citra kontainer pelabuhan yang digunakan pada dataset klasifikasi warna', file: 'assets/evidence/Container-Detector-Use-KNN/1-122720001-OCR-AH-A01_jpg.rf.fe435e6d553eaf690f5774ef0d1aecd4.jpg' },
+        { type: 'image', title: 'Sampel Citra Kontainer 2 (OCR-AH-A01)', desc: 'Contoh citra kontainer pelabuhan dengan kondisi pencahayaan berbeda', file: 'assets/evidence/Container-Detector-Use-KNN/1-122906001-OCR-AH-A01_jpg.rf.f9300e0155a99d8585b13c8269075c7d.jpg' },
+        { type: 'image', title: 'Sampel Citra Kontainer 3 (OCR-LF-C01)', desc: 'Contoh citra kontainer untuk pengujian deteksi warna dan pembacaan kode', file: 'assets/evidence/Container-Detector-Use-KNN/1-122906001-OCR-LF-C01_jpg.rf.58dba8d9bd8361620be4f1f30feba445.jpg' }
       ],
       caseStudy: {
         role: 'Machine Learning Engineer & Researcher',
@@ -368,6 +373,24 @@ class ContainerColorClassifier:
         ],
         reflection: 'Eksperimen ini mengajarkan saya bahwa pemilihan ruang warna yang tepat (seperti HSV dibanding RGB) sering kali memberikan dampak akurasi yang lebih drastis dibanding menambah kompleksitas model. Proyek ini melatih ketelitian saya dalam praproses data citra dan penyusunan laporan akademik ilmiah berstandar IF0202.'
       }
+    },
+    {
+      slug: 'bakul-omah', title: 'Bakul Omah', kind: 'Company Profile', year: '2024',
+      meta: [['Peran', 'Front-End Developer'], ['Tahun', '2024'], ['Bidang', 'Web Company Profile & Properti'], ['Stack', 'HTML5, CSS3, JavaScript, jQuery, Swiper.js']],
+      summary: 'Website company profile Bakul Omah, pengembang properti dan resort tepi pantai, dengan halaman beranda, profil perusahaan, dan detail properti.',
+      points: [
+        'Halaman beranda dengan video latar, pengenalan perusahaan, visi, dan misi.',
+        'Halaman profil dan detail properti dengan galeri slider interaktif berbasis Swiper.js.',
+        'Tata letak responsif dengan navigasi antarhalaman dan tombol scroll-to-top.'
+      ],
+      tags: ['HTML5', 'CSS3', 'JavaScript', 'jQuery', 'Swiper.js', 'Responsive Design'],
+      links: [['Live Demo', 'assets/evidence/web%20bakul%20omah/beranda.html']],
+      evidences: [
+        { type: 'image', title: 'Logo Bakul Omah', desc: 'Identitas visual perusahaan yang digunakan pada navigasi website', file: 'assets/evidence/web bakul omah/assets/img/omah logo 1.png' },
+        { type: 'image', title: 'Aset Visual: Resort', desc: 'Foto properti resort yang ditampilkan pada galeri halaman profil', file: 'assets/evidence/web bakul omah/assets/img/resort.jpg' },
+        { type: 'image', title: 'Aset Visual: Beach Bar', desc: 'Foto fasilitas tepi pantai pada halaman profil perusahaan', file: 'assets/evidence/web bakul omah/assets/img/beachbar.jpg' },
+        { type: 'image', title: 'Aset Visual: Interior', desc: 'Foto interior hunian pada halaman detail properti', file: 'assets/evidence/web bakul omah/assets/img/interior1.jpg' }
+      ]
     }
   ],
 
@@ -382,7 +405,7 @@ class ContainerColorClassifier:
         { type: 'pdf', title: 'Sertifikat Resmi Kelulusan MBKM WRAP 2025', desc: 'Diterbitkan oleh Telkom University & inkubator Bandung Techno Park', file: 'assets/evidence/cohive/sertifikat_mbkm_wrap.pdf' },
         { type: 'pdf', title: 'Pitch Deck CoHive (Business & System Design)', desc: 'Dokumen presentasi produk di hadapan mentor bisnis dan inkubator', file: 'assets/evidence/cohive/pitchdeck_cohive.pdf' }
       ],
-      links: [['GitHub', 'https://github.com/FirstyatamaAuzan/CoHive-Management-Project'], ['Live Demo', 'assets/previews/cohive_preview.html']],
+      links: [['GitHub', 'https://github.com/FirstyatamaAuzan/CoHive']],
       caseStudy: {
         role: 'Full Stack Developer',
         timeline: 'Feb 2025 – Jun 2026 (WRAP MBKM)',
@@ -461,6 +484,7 @@ class CooperativeTransactionService
       summary: 'Backend untuk platform pemeriksa plagiarisme.',
       points: ['Mengembangkan dan merawat layanan backend dengan Node.js dan MySQL.', 'Merancang struktur basis data dan REST API untuk deteksi kemiripan konten.', 'Meningkatkan performa dan proses deteksi plagiarisme berbasis SEO.', 'Bekerja bersama engineer dan tester untuk platform yang stabil dan skalabel.'],
       tags: ['Node.js', 'MySQL', 'REST API'],
+      links: [['GitHub', 'https://github.com/FirstyatamaAuzan/Plagiarism_Checker']],
       evidences: [
         { type: 'pdf', title: 'Surat Keterangan Selesai Kerja Praktik PT. cmlabs', desc: 'Surat pengesahan resmi selesai magang industri dari cmlabs & Tel-U', file: 'assets/evidence/cmlabs/surat_keterangan_selesai_kp_cmlabs.pdf' },
         { type: 'image', title: 'Dashboard Plagiarism Checker – Overview', desc: 'Tampilan utama platform deteksi plagiarisme berbasis Node.js', file: 'assets/evidence/cmlabs/Screenshot 2025-04-16 121532.png' },
@@ -482,7 +506,12 @@ class CooperativeTransactionService
       meta: [['Posisi', 'Staf Pengembangan SDM'], ['Periode', 'Jan – Des 2024'], ['Lembaga', 'Telkom University Surabaya'], ['Bidang', 'Pengembangan anggota']],
       summary: 'Merancang pelatihan, lokakarya, dan pendampingan bagi mahasiswa.',
       points: ['Menyelenggarakan pelatihan internal, lokakarya, dan mentoring.', 'Terlibat dalam acara besar: TEMATICS, FORTASTICS, dan FUNSPORTIKA 2024.', 'Menjadi pembawa acara (MC) pada Pemilihan Mahasiswa 2024.', 'Ikut mengevaluasi program organisasi.'],
-      tags: ['Kepemimpinan', 'Komunikasi', 'Event']
+      tags: ['Kepemimpinan', 'Komunikasi', 'Event'],
+      evidences: [
+        { type: 'pdf', title: 'Proposal FORTASTICS 2024 HIMA Informatika', desc: 'Proposal kegiatan penyambutan mahasiswa baru Informatika yang disusun bersama panitia', file: 'assets/evidence/Hima/Proporsal Fortastics HIMA Informatika 2024.pdf' },
+        { type: 'pdf', title: 'Proposal TEMATICS 2024 HIMA Informatika', desc: 'Proposal acara tahunan TEMATICS 2024 HIMA Informatika Telkom University Surabaya', file: 'assets/evidence/Hima/Proporsal Tematics 2024 HIMA Informatika 2024.pdf' },
+        { type: 'image', title: 'Sertifikat Kepengurusan HIMA Informatika', desc: 'Sertifikat resmi keanggotaan pengurus Himpunan Mahasiswa Informatika', file: 'assets/evidence/Hima/Sertif.jpeg' }
+      ]
     },
   ],
 
@@ -655,7 +684,7 @@ class CooperativeTransactionService
 
 /* Thumbnail dokumen (halaman pertama PDF / versi kecil gambar) untuk section BUKTI & DOKUMEN. */
 window.EV_THUMBS = {
-  "assets/evidence/semsim/manuskrip_jurnal_elsevier.pdf": "assets/evidence/thumbs/evidence-semsim-manuskrip-jurnal-elsevier.jpg",
+  "assets/evidence/semsim/Buku TA_Firstyatama Auzan Farhadi-1-20 (1).pdf": "assets/evidence/thumbs/evidence-semsim-buku-ta.jpg",
   "assets/evidence/semsim/distribusi_anotasi.png": "assets/evidence/thumbs/evidence-semsim-distribusi-anotasi.jpg",
   "assets/evidence/semsim/flowchart_arsitektur.png": "assets/evidence/thumbs/evidence-semsim-flowchart-arsitektur.jpg",
   "assets/evidence/green-ranger/dokumen_srs_green_ranger.pdf": "assets/evidence/thumbs/evidence-green-ranger-dokumen-srs-green-ranger.jpg",
