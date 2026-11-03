@@ -1085,6 +1085,54 @@ function getProjectSlides(it) {
     }
   }
 
+  // Slide bukti bergambar (dokumen asli) di awal carousel untuk item tertentu
+  const docLead = [];
+  if (it.slug === 'hima') {
+    docLead.push({
+      tag: 'Dokumentasi',
+      title: 'Foto Bersama Pengurus HMIF',
+      bar: 'Foto · Acara Sertijab HMIF',
+      img: 'assets/evidence/Hima/foto%20bersama.jpeg',
+      alt: 'Foto bersama pengurus Himpunan Mahasiswa Informatika (HMIF) Telkom University Surabaya pada acara Sertijab HMIF',
+      facts: [
+        'Dokumentasi bersama pengurus Himpunan Mahasiswa Informatika (HMIF) pada acara Sertijab',
+        'Kegiatan kepengurusan di Telkom University Surabaya'
+      ],
+      chips: ['HMIF', 'Sertijab', 'Telkom University Surabaya'],
+      file: 'assets/evidence/Hima/foto bersama.jpeg'
+    });
+    docLead.push({
+      tag: 'Bukti Kepengurusan',
+      title: 'Sertifikat Staf Dep. PSDM HMIF',
+      bar: 'Dokumen · No. 008/SRT/HMIF-KABCA/I/2025',
+      img: 'assets/previews/hima/sertifikat-hmif.jpg',
+      fit: 'contain',
+      alt: 'Sertifikat Firsyatama Auzan Farhadi sebagai Anggota Departemen PSDM HMIF Telkom University Surabaya',
+      facts: [
+        'Anggota Dep. PSDM Himpunan Mahasiswa Informatika (HMIF) periode 2023/2024',
+        'Disahkan oleh Ketua HMIF, Pembina HMIF, dan Kepala Program Studi Informatika'
+      ],
+      chips: ['HMIF', 'PSDM', 'Telkom University Surabaya'],
+      file: 'assets/evidence/Hima/Sertif.jpeg'
+    });
+  }
+  if (it.slug === 'asisten-riset') {
+    docLead.push({
+      tag: 'Bukti Penelitian',
+      title: 'Penelitian Dana Internal 2024',
+      bar: 'Dokumen · Sistem Penelitian Telkom University',
+      img: 'assets/evidence/Asisten%20Penelitian/bukti%20penelitian.png',
+      fit: 'contain',
+      alt: 'Bukti penelitian: Identifikasi Nomor Kontainer Menggunakan AI Berbasis Mobile App dengan studi kasus PT Pelindo Peti Kemas',
+      facts: [
+        'Identifikasi nomor kontainer menggunakan AI berbasis mobile app, studi kasus PT Pelindo Peti Kemas',
+        'Penelitian dana internal (PD) tahun 2024 dengan status Approved'
+      ],
+      chips: ['Penelitian Internal', 'Computer Vision', 'Mobile App'],
+      file: 'assets/evidence/Asisten Penelitian/bukti penelitian.png'
+    });
+  }
+
   if (!slides.length && it.points) {
     it.points.slice(0, 3).forEach((p, pi) => {
       slides.push({
@@ -1098,7 +1146,117 @@ function getProjectSlides(it) {
     });
   }
 
-  return slides;
+  return docLead.length ? [...docLead, ...slides] : slides;
+}
+
+
+/* ---------- Live Demo Bento (iframe preview, click-to-run) ---------- */
+function liveDemoBento(it) {
+  const ld = it.liveDemo;
+  if (!ld) return '';
+  const tile = (sc) => `
+    <article class="bk-tile bk-${E(sc.size)}" data-bk data-device="${E(sc.device)}" data-vw="${sc.vw}" data-src="${E(sc.src)}">
+      <header class="bk-bar">
+        <span class="bk-dots"><i></i><i></i><i></i></span>
+        <span class="bk-url">${E(sc.url)}</span>
+        <span class="bk-bar-actions">
+          <button type="button" class="bk-lock" data-bk-lock hidden aria-label="Kunci preview">Kunci</button>
+          <a class="bk-open" href="${E(sc.src)}" target="_blank" rel="noopener noreferrer" aria-label="Buka ${E(sc.title)} di tab baru">↗</a>
+        </span>
+      </header>
+      <div class="bk-screen" data-bk-screen>
+        <div class="bk-stage" data-bk-stage></div>
+        <button type="button" class="bk-cover" data-bk-cover style="background-image:url('${E(sc.poster)}')" aria-label="Jalankan preview: ${E(sc.title)}">
+          <span class="bk-play"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Jalankan Live Demo</span>
+        </button>
+        <div class="bk-loading" data-bk-loading hidden>Memuat…</div>
+      </div>
+      <footer class="bk-cap">
+        <span class="bk-cap-tag">${E(sc.tag)}</span>
+        <span class="bk-cap-title">${E(sc.title)}</span>
+      </footer>
+    </article>`;
+  const fact = (f) => `
+    <div class="bk-tile bk-fact">
+      <b class="bk-fact-v">${E(f.v)}</b>
+      <span class="bk-fact-l">${E(f.l)}</span>
+      <span class="bk-fact-s">${E(f.s)}</span>
+    </div>`;
+  return `
+      <section class="prj-sec" aria-label="Preview Live Demo">
+        <div class="prj-sec-head">
+          <div>
+            <span class="prj-kicker">${E(ld.kicker || 'LIVE DEMO')}</span>
+            <h2 class="prj-sec-title">${E(ld.title || 'Preview Live Demo')}</h2>
+          </div>
+          <a class="prj-act-btn" href="${E(ld.screens[0].src)}" target="_blank" rel="noopener noreferrer"><span>Buka Demo Penuh</span><span class="arr">↗</span></a>
+        </div>
+        <div class="bk-grid" id="bkGrid">
+          ${ld.screens.map(tile).join('')}
+          ${(ld.facts || []).map(fact).join('')}
+        </div>
+        <p class="prj-note">${E(ld.note || '')}</p>
+      </section>`;
+}
+
+/* Skala iframe desktop/mobile agar pas dengan kotak bento, dan muat hanya setelah diklik */
+function initLiveDemo(root) {
+  const tiles = [...root.querySelectorAll('[data-bk]')];
+  tiles.forEach((tile) => {
+    const screen = tile.querySelector('[data-bk-screen]');
+    const stage = tile.querySelector('[data-bk-stage]');
+    const cover = tile.querySelector('[data-bk-cover]');
+    const lock = tile.querySelector('[data-bk-lock]');
+    const loading = tile.querySelector('[data-bk-loading]');
+    const vw = +tile.dataset.vw || 1280;
+    let frame = null;
+
+    const fit = () => {
+      if (!frame) return;
+      const w = screen.clientWidth, h = screen.clientHeight;
+      if (!w || !h) return;
+      const k = w / vw;
+      frame.style.width = vw + 'px';
+      frame.style.height = (h / k) + 'px';
+      frame.style.transform = `scale(${k})`;
+    };
+    const ro = new ResizeObserver(() => {
+      if (!tile.isConnected) { ro.disconnect(); return; }
+      fit();
+    });
+    ro.observe(screen);
+
+    const run = () => {
+      if (!frame) {
+        frame = document.createElement('iframe');
+        frame.title = 'Live demo Bakul Omah: ' + (tile.querySelector('.bk-cap-title')?.textContent || '');
+        frame.setAttribute('referrerpolicy', 'no-referrer');
+        frame.className = 'bk-frame';
+        loading.hidden = false;
+        frame.addEventListener('load', () => { loading.hidden = true; });
+        frame.src = tile.dataset.src;
+        stage.appendChild(frame);
+        fit();
+      }
+      tile.classList.add('is-live');
+      cover.hidden = true;
+      lock.hidden = false;
+    };
+    const stop = () => {
+      tile.classList.remove('is-live');
+      lock.hidden = true;
+      if (frame) tile.classList.add('is-loaded');
+    };
+
+    cover.addEventListener('click', run);
+    lock.addEventListener('click', stop);
+    // Pointer mouse meninggalkan kotak: kunci kembali agar scroll halaman tidak tertahan iframe
+    tile.addEventListener('mouseleave', (e) => { if (e.pointerType !== 'touch' && tile.classList.contains('is-live')) stop(); });
+    // Klik pada kotak yang sudah termuat tapi terkunci: aktifkan lagi
+    screen.addEventListener('click', (e) => {
+      if (!tile.classList.contains('is-live') && frame) run();
+    });
+  });
 }
 
 /* Thumbnail untuk dokumen bukti: halaman pertama PDF / versi kecil gambar (lihat window.EV_THUMBS di content.js) */
@@ -1682,7 +1840,7 @@ function openDetail(k, slug) {
        ======================================================== */
     const prjGithub = (it.links && it.links.find(l => l[0].toLowerCase().includes('github'))) || null;
     const prjDemo   = (it.links && it.links.find(l => !l[0].toLowerCase().includes('github'))) || null;
-    const prjSlides = getProjectSlides(it);
+    const prjSlides = it.liveDemo ? [] : getProjectSlides(it);
     const prjEv     = getProjectEvidences(it);
     const metaCards = (it.meta || []).slice(0, 4);
 
@@ -1768,7 +1926,8 @@ function openDetail(k, slug) {
         `).join('')}
       </section>
 
-      <!-- Section 2: Screenshot & Modul Carousel -->
+      <!-- Section 2: Live Demo Bento (jika ada) atau Screenshot & Modul Carousel -->
+      ${it.liveDemo ? liveDemoBento(it) : ''}
       ${prjSlides.length ? `
       <section class="prj-sec" aria-label="Tampilan Modul Aplikasi">
         <div class="prj-sec-head">
@@ -1793,10 +1952,10 @@ function openDetail(k, slug) {
               <div class="prj-slide-frame">
                 <div class="prj-frame-bar">
                   <i></i><i></i><i></i>
-                  <span>localhost${E((s.route || '').split(' ')[0])}</span>
+                  <span>${s.bar ? E(s.bar) : 'localhost' + E((s.route || '').split(' ')[0])}</span>
                 </div>
                 ${s.img ? `
-                  <img src="${E(s.img)}" alt="Tampilan modul ${E(s.title)}" ${si > 0 ? 'loading="lazy"' : ''}>
+                  <img src="${E(s.img)}" alt="${E(s.alt || ('Tampilan modul ' + s.title))}"${s.fit === 'contain' ? ' class="is-doc"' : ''} ${si > 0 ? 'loading="lazy"' : ''}>
                 ` : `
                   <div class="prj-frame-body">
                     <div class="prj-frame-tag">${E(s.tag)}</div>
@@ -1937,6 +2096,7 @@ function openDetail(k, slug) {
 
     // Initialize all interactive components for this project
     initProjectDetailInteractions(prjSlides, prjEv, it);
+    if (it.liveDemo) initLiveDemo(det);
 
 
   } else if (false) {

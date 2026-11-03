@@ -385,6 +385,23 @@ class ContainerColorClassifier:
       ],
       tags: ['HTML5', 'CSS3', 'JavaScript', 'jQuery', 'Swiper.js', 'Responsive Design'],
       links: [['Live Demo', 'assets/evidence/web%20bakul%20omah/beranda.html']],
+      liveDemo: {
+        kicker: 'LIVE DEMO',
+        title: 'Preview Live Demo',
+        note: 'Website asli yang berjalan langsung di dalam kotak ini. Klik sebuah kotak untuk menjalankan dan mencoba interaksinya.',
+        screens: [
+          { id: 'beranda', size: 'hero', device: 'desktop', vw: 1280, tag: 'Beranda', title: 'Hero video & pengenalan perusahaan', url: 'bakulomah.com/beranda', src: 'assets/evidence/web%20bakul%20omah/beranda.html', poster: 'assets/previews/bakul-omah/beranda.jpg' },
+          { id: 'mobile', size: 'phone', device: 'mobile', vw: 390, tag: 'Responsif', title: 'Tampilan mobile', url: 'bakulomah.com/profil', src: 'assets/evidence/web%20bakul%20omah/profil.html', poster: 'assets/previews/bakul-omah/mobile.jpg' },
+          { id: 'details', size: 'wide', device: 'desktop', vw: 1280, tag: 'Detail Properti', title: 'Galeri slider Swiper.js', url: 'bakulomah.com/details', src: 'assets/evidence/web%20bakul%20omah/Details.html', poster: 'assets/previews/bakul-omah/details.jpg' },
+          { id: 'profil', size: 'wide', device: 'desktop', vw: 1280, tag: 'Profil', title: 'Profil perusahaan & fasilitas', url: 'bakulomah.com/profil', src: 'assets/evidence/web%20bakul%20omah/profil.html', poster: 'assets/previews/bakul-omah/profil-wide.jpg' }
+        ],
+        facts: [
+          { v: '3', l: 'Halaman', s: 'Beranda, Profil, Detail' },
+          { v: 'Swiper', l: 'Galeri Slider', s: 'Geser & navigasi panah' },
+          { v: 'Video', l: 'Latar Hero', s: 'Autoplay, loop, muted' },
+          { v: '767px', l: 'Breakpoint', s: 'Layout responsif mobile' }
+        ]
+      },
       evidences: [
         { type: 'image', title: 'Logo Bakul Omah', desc: 'Identitas visual perusahaan yang digunakan pada navigasi website', file: 'assets/evidence/web bakul omah/assets/img/omah logo 1.png' },
         { type: 'image', title: 'Aset Visual: Resort', desc: 'Foto properti resort yang ditampilkan pada galeri halaman profil', file: 'assets/evidence/web bakul omah/assets/img/resort.jpg' },
@@ -499,7 +516,10 @@ class CooperativeTransactionService
       meta: [['Posisi', 'Asisten Riset Mahasiswa'], ['Periode', 'Jan – Jul 2024'], ['Topik', 'Pembaca kode kontainer'], ['Bidang', 'Computer vision']],
       summary: 'Riset sistem pembaca kode kontainer berbasis machine learning.',
       points: ['Mengimplementasikan dan mengoptimalkan algoritma pengenalan objek.', 'Praproses data, pelatihan model, dan evaluasi.', 'Berkontribusi pada penyusunan publikasi dan dokumentasi riset.'],
-      tags: ['Python', 'Keras-OCR', 'TensorFlow']
+      tags: ['Python', 'Keras-OCR', 'TensorFlow'],
+      evidences: [
+        { type: 'image', title: 'Bukti Penelitian Dana Internal 2024', desc: 'Identifikasi nomor kontainer berbasis AI mobile app, studi kasus PT Pelindo Peti Kemas (status Approved)', file: 'assets/evidence/Asisten Penelitian/bukti penelitian.png' }
+      ]
     },
     {
       slug: 'hima', title: 'Himpunan Mahasiswa Informatika', kind: 'Organisasi', year: '2024',
@@ -508,6 +528,7 @@ class CooperativeTransactionService
       points: ['Menyelenggarakan pelatihan internal, lokakarya, dan mentoring.', 'Terlibat dalam acara besar: TEMATICS, FORTASTICS, dan FUNSPORTIKA 2024.', 'Menjadi pembawa acara (MC) pada Pemilihan Mahasiswa 2024.', 'Ikut mengevaluasi program organisasi.'],
       tags: ['Kepemimpinan', 'Komunikasi', 'Event'],
       evidences: [
+        { type: 'image', title: 'Foto Bersama Pengurus HMIF', desc: 'Dokumentasi foto bersama pengurus Himpunan Mahasiswa Informatika pada acara Sertijab HMIF', file: 'assets/evidence/Hima/foto bersama.jpeg' },
         { type: 'pdf', title: 'Proposal FORTASTICS 2024 HIMA Informatika', desc: 'Proposal kegiatan penyambutan mahasiswa baru Informatika yang disusun bersama panitia', file: 'assets/evidence/Hima/Proporsal Fortastics HIMA Informatika 2024.pdf' },
         { type: 'pdf', title: 'Proposal TEMATICS 2024 HIMA Informatika', desc: 'Proposal acara tahunan TEMATICS 2024 HIMA Informatika Telkom University Surabaya', file: 'assets/evidence/Hima/Proporsal Tematics 2024 HIMA Informatika 2024.pdf' },
         { type: 'image', title: 'Sertifikat Kepengurusan HIMA Informatika', desc: 'Sertifikat resmi keanggotaan pengurus Himpunan Mahasiswa Informatika', file: 'assets/evidence/Hima/Sertif.jpeg' }
