@@ -1,0 +1,20 @@
+# OS & Editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Dev scratch files
+*.md
+!README.md
+rencana_*.md
+proyek_siapkerja*
+Profil_SIAPKerja*
+morph_chunk*.js
+detail_project/
+
+# Logs
+*.log
+npm-debug.log*
