@@ -206,9 +206,9 @@ const H = S.home, C = H.contact;
 const home = `<div class="home home-minimal">
   <div class="home-center-card">
     ${H.available ? `<div class="home-badge rise"><span class="badge-dot"></span><span>${E(H.availableNote || 'Open to Work')}</span></div>` : ''}
-    <h1 class="home-title rise" aria-label="I'm Firstyatama Auzan Farhadi, Software Developer">
+    <h1 class="home-title rise" aria-label="I'm Firstyatama Auzan Farhadi, AI Engineer &amp; Software Developer">
       <span class="home-im">I'm</span> <span class="home-name">${E(H.name || S.name)}</span>
-      <span class="home-role">${E(H.role || 'Software Developer')}</span>
+      <span class="home-role">${E(H.role || 'AI Engineer & Software Developer')}</span>
     </h1>
     <p class="home-desc rise">${E(H.shortDesc || H.text || '')}</p>
     
@@ -313,10 +313,6 @@ const me = `<div class="me me-compact-page">
         </svg>
         <img src="${E(M.photo)}" alt="Foto ${E(S.name)}" onerror="this.remove()">
       </figure>
-    </div>
-    <div class="lanyard-hint" aria-hidden="true">
-      <span class="hint-dot"></span>
-      <span class="hint-text">INTERACTIVE PASS — DRAG TO SWING • CLICK TO FLIP</span>
     </div>
   </div>
 
@@ -505,6 +501,28 @@ det.id = 'detail';
 app.appendChild(det);
 
 $('#nav').innerHTML = S.nav.map((n) => `<a href="#/${n[0]}" data-v="${n[0]}">${E(n[1])}</a>`).join('');
+
+/* ---------- Nav mobile (hamburger + panel layar penuh) ---------- */
+(() => {
+  const header = document.querySelector('header.nav');
+  const toggle = $('#navToggle');
+  const navEl = $('#nav');
+  if (!header || !toggle || !navEl) return;
+  const mq = window.matchMedia('(max-width: 820px)');
+  const setOpen = (open) => {
+    const on = !!open && mq.matches;
+    header.classList.toggle('nav-open', on);
+    document.body.classList.toggle('nav-locked', on);
+    toggle.setAttribute('aria-expanded', String(on));
+    toggle.setAttribute('aria-label', on ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+  };
+  toggle.addEventListener('click', () => setOpen(!header.classList.contains('nav-open')));
+  navEl.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false); });
+  header.querySelector('.logo')?.addEventListener('click', () => setOpen(false));
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && header.classList.contains('nav-open')) { setOpen(false); toggle.focus(); } });
+  addEventListener('hashchange', () => setOpen(false));
+  (mq.addEventListener ? mq.addEventListener('change', () => setOpen(false)) : mq.addListener(() => setOpen(false)));
+})();
 
 // Email copy handler with fallback
 $('#copy')?.addEventListener('click', (e) => {
@@ -1072,6 +1090,15 @@ function getProjectSlides(it) {
   return slides;
 }
 
+/* Thumbnail untuk dokumen bukti: halaman pertama PDF / versi kecil gambar (lihat window.EV_THUMBS di content.js) */
+function evThumb(ev) {
+  if (!ev) return '';
+  if (ev.thumb) return ev.thumb;
+  const map = window.EV_THUMBS || {};
+  if (ev.file && map[ev.file]) return map[ev.file];
+  return ev.type === 'image' && ev.file ? ev.file : '';
+}
+
 /* Helper function to get unified evidences */
 function getProjectEvidences(it) {
   if (it.slug === 'cohive' || it.slug === 'bandung-techno-park') {
@@ -1451,7 +1478,7 @@ function openDetail(k, slug) {
   const isOrg = k === 'organization';
   const cs = it.caseStudy;
 
-  if (galleries[k]) galleries[k].vai(i);
+  if (galleries[k] && typeof galleries[k].vai === 'function') galleries[k].vai(i);
 
   const th = getTheme((it.slug || '').toLowerCase());
   const thNx = getTheme((nx.slug || '').toLowerCase());
@@ -1545,8 +1572,10 @@ function openDetail(k, slug) {
                 <div class="org-evidence-grid">
                   ${it.evidences.map(ev => `
                     <a href="${E(ev.file)}" target="_blank" rel="noopener noreferrer" class="org-evidence-card">
-                      <div class="org-evidence-icon">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                      <div class="org-evidence-icon${evThumb(ev) ? ' has-thumb' : ''}">
+                        ${evThumb(ev)
+                          ? `<img src="${E(evThumb(ev))}" class="org-evidence-thumb" loading="lazy" decoding="async" alt="Thumbnail ${E(ev.title)}">`
+                          : `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`}
                       </div>
                       <div class="org-evidence-meta">
                         <div class="org-evidence-title">${E(ev.title)}</div>
@@ -1841,9 +1870,9 @@ function openDetail(k, slug) {
           ${prjEv.map((ev, evIdx) => `
             <button class="prj-proof-tile${ev.wide ? ' wide' : ''}" type="button" data-ev="${evIdx}" aria-label="Buka: ${E(ev.title)}">
               <span class="prj-tile-open">Buka</span>
-              <div class="prj-tile-art">
-                ${ev.type === 'image' && ev.file
-                  ? `<img src="${E(ev.file)}" class="prj-tile-thumb" loading="lazy" alt="${E(ev.title)}">`
+              <div class="prj-tile-art${evThumb(ev) ? ' has-thumb' : ''}${ev.type === 'pdf' ? ' is-doc' : ''}">
+                ${evThumb(ev)
+                  ? `<img src="${E(evThumb(ev))}" class="prj-tile-thumb" loading="lazy" decoding="async" alt="Thumbnail ${E(ev.title)}">`
                   : (ICONS_MAP[ev.type] || ICONS_MAP[ev.kind] || ICONS_MAP.code)
                 }
               </div>

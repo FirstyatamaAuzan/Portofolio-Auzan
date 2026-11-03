@@ -6,7 +6,7 @@ window.SITE = {
   home: {
     greeting: "I'm",
     name: 'Firstyatama Auzan Farhadi',
-    role: 'Software Developer',
+    role: 'AI Engineer & Software Developer',
     shortDesc: 'Mahasiswa Informatika Telkom University Surabaya yang berfokus merancang arsitektur backend andal, REST API terukur, dan rekayasa kecerdasan buatan.',
     available: true,
     availableNote: 'Open to Work',
@@ -650,4 +650,30 @@ class CooperativeTransactionService
     { title: 'Introduction to Web & Machine Learning Track', issuer: 'Google Developer Student Clubs (GDSC)', year: '2023', tag: 'Web & ML', file: 'assets/certs/gdsc.jpg', cover: 'assets/certs/gdsc.jpg' },
     { title: 'Frontend Developer: Coding Camp', issuer: 'Harisenin.com', year: '2023', tag: 'Frontend', file: 'assets/certs/harisenin.jpg', cover: 'assets/certs/harisenin.jpg' }
   ],
+};
+
+
+/* Thumbnail dokumen (halaman pertama PDF / versi kecil gambar) untuk section BUKTI & DOKUMEN. */
+window.EV_THUMBS = {
+  "assets/evidence/semsim/manuskrip_jurnal_elsevier.pdf": "assets/evidence/thumbs/evidence-semsim-manuskrip-jurnal-elsevier.jpg",
+  "assets/evidence/semsim/distribusi_anotasi.png": "assets/evidence/thumbs/evidence-semsim-distribusi-anotasi.jpg",
+  "assets/evidence/semsim/flowchart_arsitektur.png": "assets/evidence/thumbs/evidence-semsim-flowchart-arsitektur.jpg",
+  "assets/evidence/green-ranger/dokumen_srs_green_ranger.pdf": "assets/evidence/thumbs/evidence-green-ranger-dokumen-srs-green-ranger.jpg",
+  "assets/evidence/green-ranger/Final DOKUMEN_UJI_PERANGKAT_LUNAK_DUPL_Sistem.pdf": "assets/evidence/thumbs/evidence-green-ranger-final-dokumen-uji-perangkat-lunak-dupl-sistem.jpg",
+  "assets/evidence/green-ranger/poster_green_ranger.png": "assets/evidence/thumbs/evidence-green-ranger-poster-green-ranger.jpg",
+  "assets/evidence/cohive/sertifikat_mbkm_wrap.pdf": "assets/evidence/thumbs/evidence-cohive-sertifikat-mbkm-wrap.jpg",
+  "assets/evidence/cohive/pitchdeck_cohive.pdf": "assets/evidence/thumbs/evidence-cohive-pitchdeck-cohive.jpg",
+  "assets/evidence/cmlabs/surat_keterangan_selesai_kp_cmlabs.pdf": "assets/evidence/thumbs/evidence-cmlabs-surat-keterangan-selesai-kp-cmlabs.jpg",
+  "assets/evidence/cmlabs/Screenshot 2025-04-16 121532.png": "assets/evidence/thumbs/evidence-cmlabs-screenshot-2025-04-16-121532.jpg",
+  "assets/evidence/cmlabs/Screenshot 2025-04-23 020444.png": "assets/evidence/thumbs/evidence-cmlabs-screenshot-2025-04-23-020444.jpg",
+  "assets/evidence/cmlabs/Screenshot 2025-04-23 020627.png": "assets/evidence/thumbs/evidence-cmlabs-screenshot-2025-04-23-020627.jpg",
+  "assets/evidence/cmlabs/result_audit1.jpg": "assets/evidence/thumbs/evidence-cmlabs-result-audit1.jpg",
+  "assets/evidence/cmlabs/result_audit2.jpg": "assets/evidence/thumbs/evidence-cmlabs-result-audit2.jpg",
+  "assets/certs/baru/Firsyatama Auzan Farhadi hima.jpg": "assets/evidence/thumbs/certs-baru-firsyatama-auzan-farhadi-hima.jpg",
+  "assets/certs/baru/Firsyatama Auzan Farhadi pemira.jpg": "assets/evidence/thumbs/certs-baru-firsyatama-auzan-farhadi-pemira.jpg",
+  "assets/certs/baru/Firsyatama Auzan Farhadi FORTASTIC'24.jpg": "assets/evidence/thumbs/certs-baru-firsyatama-auzan-farhadi-fortastic-24.jpg",
+  "assets/certs/baru/Firsyatama Auzan Farhadi TEMATICS'24.jpg": "assets/evidence/thumbs/certs-baru-firsyatama-auzan-farhadi-tematics-24.jpg",
+  "assets/certs/baru/Firsyatama Auzan Farhadi funsportika.jpg": "assets/evidence/thumbs/certs-baru-firsyatama-auzan-farhadi-funsportika.jpg",
+  "assets/certs/SERTIFIKAT_TEL-U_CAREER_COACH_-_INTRAPRENEUR.pdf": "assets/evidence/thumbs/certs-sertifikat-tel-u-career-coach-intrapreneur.jpg",
+  "assets/certs/sertif diesnatalis.pdf": "assets/evidence/thumbs/certs-sertif-diesnatalis.jpg"
 };

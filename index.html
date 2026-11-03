@@ -64,8 +64,11 @@
   <canvas id="bg" aria-hidden="true"></canvas>
   <header class="nav">
     <a class="logo" href="#/home">Auzan<b>.</b></a>
-    <nav id="nav"></nav>
+    <nav id="nav" aria-label="Navigasi utama"></nav>
     <span class="loc">Surabaya, ID</span>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="nav">
+      <span class="nav-toggle-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
   </header>
   <main id="app"></main>
   <script type="importmap">
