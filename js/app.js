@@ -866,6 +866,22 @@ function getProjectSlides(it) {
     return COHIVE_BENTO_PRESET.slides;
   }
 
+  // cmlabs: build carousel from image evidences (actual screenshots of the web platform)
+  if (it.slug === 'cmlabs') {
+    const imgEvs = (it.evidences || []).filter(e => e.type === 'image');
+    if (imgEvs.length) {
+      return imgEvs.map((ev, idx) => ({
+        tag: idx === 0 ? 'Platform Overview' : idx === 1 ? 'Analisis Konten' : idx === 2 ? 'REST API Response' : `Screenshot ${idx + 1}`,
+        title: ev.title,
+        route: 'cmlabs.id · plagiarism-checker',
+        img: ev.file,
+        facts: [ev.desc || ev.title],
+        chips: ['Node.js', 'MySQL', 'REST API'].slice(0, 2 + (idx % 2)),
+        file: ''
+      }));
+    }
+  }
+
   const cs = it.caseStudy;
   const slides = [];
 
