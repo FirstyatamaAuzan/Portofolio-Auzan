@@ -1,0 +1,418 @@
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+    font-family: 'Karla', sans-serif;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+nav{
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    padding: 32px 200px;
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    transition: .3s;
+    
+}
+nav ul li {
+    display: inline-block;
+}
+ul.menu li{
+    margin-left: 30px; 
+}
+nav ul li a{
+    text-decoration: none;
+    color: white;
+    transition: .2s;
+}
+.logo a{
+    font-size: 34px;
+    line-height: 20px;
+}
+nav a:hover{
+    color: #454D7A;
+}
+.logo{    
+    margin-top: -15px;
+}
+.logo hr {
+    display: inline-block;
+    width: 15px;
+    margin: 2px;
+}
+.logo span {
+    font-size: 14px;
+    margin-left: 2px;
+}
+body{
+    height: 2000px;
+}
+.back-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+}
+
+header {
+    height: 100vh;
+    position: relative;
+
+}
+.judul {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-65%);
+    width: 100%;
+    height: 250px;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 0px 200px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.judul h1 {
+    font-size: 40px;
+    line-height: 50px;
+    color: white;
+    font-weight: lighter;    
+    margin-bottom: 20px;
+}
+.judul h1 b{
+    font-weight: bold;
+    font-size: 80px;
+}
+.judul p{
+    font-size: 20px;
+    color: white;
+}
+button{
+    border: none;
+    width: 200px;
+    height: 40px;
+    background: #FE2154;
+    color: white;
+    font-size: 13px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bolder;
+    transition: .2s;
+}
+button:hover{
+    background-color: #454D7A;
+}
+
+section{
+    height: auto;    
+    padding: 100px 200px;
+}
+.about{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 100px;
+    padding-right: 0;
+    padding-left: 200px;
+
+}
+.gambar{
+    display: flex;
+}
+.kiri{
+    text-align: right;
+    margin-right: 15px;
+}
+img.satu{
+    width: 260px;
+    margin-bottom: 15px;
+}
+img.dua{
+    width: 220px;
+}
+img.tiga{
+    width: 350px;
+}
+h2{
+    font-weight: bold;
+    font-size: 30px;
+    color: #215276;
+}
+p{
+    margin: 30px 0;
+    line-height: 26px;
+    font-size: 15px;
+    color: black;
+}
+.right-content {
+    padding-left: 30px; 
+}
+
+#map iframe {
+    width: 100%; 
+    height: 240px;
+    border: none;
+    margin-top: 20px; 
+}
+
+.right-content {
+    padding: 20px;
+    background-color: #FFFFFF;
+}
+
+#map {
+    padding: 20px;
+    background-color: #FFFFFF;
+}
+
+.map-image img {
+    width: 100%;
+    overflow: hidden;
+  }
+  
+.team {
+    padding: 100px 200px;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.section-title {
+    font-size: 50px; 
+    margin-bottom: 30px; 
+    color: #000000;
+    text-align: center; 
+    font-weight: bold; 
+    font-family: 'Montserrat', sans-serif; 
+}
+
+.team-members {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.team-member {
+    width: 30%;
+    margin-bottom: 50px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #215276;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+.team-member:hover {
+    transform: translateY(-10px); 
+}
+
+.team-member img {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px 8px 0 0; 
+}
+
+.member-info {
+    padding: 20px;
+    text-align: center;
+    background-color: #FFFFFF;
+}
+
+.team-member h3 {
+    font-size: 22px; 
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.team-member p {
+    font-size: 16px;
+    color: #454D7A;
+    text-align: center;
+}
+
+.contact {
+    padding-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    background-size: cover !important;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+
+
+.background-image {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6); 
+}
+
+form {
+    overflow: hidden;
+    background-color: white;
+    padding: 30px 50px 80px 50px;
+    width: 500px;
+    box-shadow: 0px 0px 15px rgba(1, 1, 1, .5);
+}
+label {
+    display: block;
+    margin: 20px 0;
+}
+input,
+textarea {
+    background: #F6F6F6;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    resize: none;
+}
+.contact .kiri {
+    width: 300px;
+    text-align: left;
+    margin-top: 30px;
+}
+.contact .kanan {
+    height: 100%;
+}
+.tombol {
+    position: relative;
+    margin: 20px 0;
+}
+.contact button {
+    position: absolute;
+    width: 120px;
+    right: 0;
+}
+.contact h2 {
+    color: #FE2154;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+
+::-webkit-scrollbar-thumb {
+  background: #E20D4A; 
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4A4B79; 
+}
+
+@media screen and (max-width: 768px) {
+	.contact {
+        display: flex;
+        flex-direction: column;
+        padding: 60px 20px;
+        align-items: center;
+    }
+
+    .form-container {
+        width: 100%;
+        max-width: 500px;
+        margin-top: 30px;
+    }
+
+    form {
+        width: 100%;
+    }
+    nav {
+        padding: 0 10px;
+    }
+
+    .logo a {
+        font-size: 24px;
+    }
+
+    .judul h1 {
+        font-size: 36px;
+    }
+
+    .judul h1 b {
+        font-size: 42px;
+    }
+
+    .judul p {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    .row {
+        display: flex;
+        flex-direction: column;
+    }
+    .col-lg-9, .col-lg-3 {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .team-members {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .team-member {
+        width: 90%;
+    }
+}

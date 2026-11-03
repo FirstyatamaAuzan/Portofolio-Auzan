@@ -1,0 +1,616 @@
+/*RESET CSS*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	box-sizing: border-box;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+	font-family: 'Karla', sans-serif;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/*NAVBAR*/
+nav{
+	height: 70px;
+	display: flex;
+	justify-content: space-between;
+	padding: 20px 8%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	transition: .3s;
+	
+	
+}
+nav ul li {
+	display: inline-block;
+	list-style: none;
+}
+
+nav .logos{
+	width: 75px;
+	height: 50px;
+	line-height: 0;
+}
+
+ul.menu li{
+	margin-left: 30px; 
+}
+nav ul li a{
+	text-decoration: none;
+	color: white;
+	transition: .2s;
+	padding-top: 10px;
+	
+}
+
+nav a:hover{
+	color: black;
+}
+
+body{
+	height: 2000px;
+}
+
+.back-video{
+	width: 100%;
+}
+.judul {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-65%);
+	width: 100%;
+	height: 250px;
+	text-align: center;
+	box-sizing: border-box;
+	padding: 100px 200px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.judul h1 {
+	font-size: 200px;
+	color: white;
+	font-weight: 600;	
+	padding-bottom: 50px;
+}
+
+.judul a{
+	padding: 10px;
+	width: 200px;
+	height: 40px;
+	background: none;
+	color: white;
+	font-size: 13px;
+	border: 2px solid white;
+	border-radius: 20px;
+	cursor: pointer;
+	font-weight: bolder;
+	transition: .2s;
+}
+.judul a:hover{
+	background-color: grey;
+	
+}
+
+/*ABOUT*/
+section{
+	height: auto;	
+	padding: 100px 200px;
+}
+
+.about{
+	display: grid;
+	padding: 200px;
+	text-align: center;
+}
+
+h2{
+	font-weight: bold;
+	font-size: 30px;
+	color: #215276;
+	text-align: center;
+}
+p{
+	margin: 30px 0;
+	line-height: 26px;
+	font-size: 15px;
+	color: black;
+	text-align: center;
+}
+/*SERVICES*/
+.services{
+	background-color: #F9F9F9;
+	text-align: center;
+	padding: 50px 20px; /* Tambahkan padding untuk memberikan ruang di sekitar konten */
+}
+
+.desc{
+	display: inline-block;
+	width: 100%;
+	margin-bottom: 20px; /* Beri jarak antara deskripsi dan cards */
+}
+
+.services-cards{
+	display: grid; 
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Menyesuaikan jumlah kolom dengan lebar layar */
+	grid-gap: 20px; /* Beri jarak antara grid items */
+}
+
+.services-card {
+	width: 100%;
+	height: auto;
+	text-align: center;
+	background-color: rgba(255,255,255,.2);
+	border-radius: 10px; 
+	padding: 20px; 
+	box-sizing: border-box; 
+}
+
+.services-card img{
+	width: 100%;
+	height: auto;
+	margin-bottom: 20px;
+	border-radius: 10px; }
+
+h3{
+	font-weight: bold;
+	font-size: 18px;
+	color: #3B3B3B;
+	margin-bottom: 10px; /* Beri jarak antara judul dan deskripsi */
+}
+
+p {
+	font-size: 14px; 
+	color: #555; 
+	margin-bottom: 20px; 
+}
+
+a {
+	display: inline-block;
+	color: #FE2154;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 14px;
+	transition: color 0.3s ease; /* Efek transisi ketika hover */
+}
+
+a:hover{
+	color: #215276;
+}
+
+.scrollToUp .icon{
+	width: 100px;
+}
+/*FOOTER*/
+
+.row{
+	background-color: #e8e8e8;
+    padding: 70px 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.footer-col{
+	margin-left: 7%;
+   width: 25%;
+   padding: 0 15px;
+   margin-top: 20px;
+   margin-right: 10px;
+}
+.footer-col h4{
+	font-size: 18px;
+	color: #000000;
+	text-transform: capitalize;
+	margin-bottom: 35px;
+	font-weight: 500;
+	position: relative;
+}
+.footer-col h4::before{
+	content: '';
+	position: absolute;
+	left:0;
+	bottom: -10px;
+	background-color: #e91e63;
+	height: 2px;
+	box-sizing: border-box;
+	width: 50px;
+
+}
+.footer-col ul li:not(:last-child){
+	margin-bottom: 10px;
+	margin-right: 0;
+}
+.footer-col ul li a{
+	font-size: 16px;
+	text-transform: capitalize;
+	color: #000000;
+	text-decoration: none;
+	font-weight: 300;
+	color: #797979;
+	display: block;
+	transition: all 0.3s ease;
+	z-index: 1;
+}
+.footer-col ul li a:hover{
+	color: #ffffff;
+	padding-left: 8px;
+}
+.footer-col .social-links a{
+	display: inline-block;
+	height: 40px;
+	width: 40px;
+	background-color: rgba(255,255,255,0.2);
+	margin:0 10px 10px 0;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 50%;
+	color: #ffffff;
+	transition: all 0.5s ease;
+}
+.footer-col .social-links a:hover{
+	color: #24262b;
+	background-color: #ffffff;
+}
+
+  
+/*responsive*/
+@media(max-width: 767px){
+	html, body, div, span, applet, object, iframe,
+	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+	a, abbr, acronym, address, big, cite, code,
+	del, dfn, em, img, ins, kbd, q, s, samp,
+	small, strike, strong, sub, sup, tt, var,
+	b, u, i, center,
+	dl, dt, dd, ol, ul, li,
+	fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td,
+	article, aside, canvas, details, embed, 
+	figure, figcaption, footer, header, hgroup, 
+	menu, nav, output, ruby, section, summary,
+	time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font: inherit;
+		vertical-align: baseline;
+		box-sizing: border-box;
+	}
+	
+	article, aside, details, figcaption, figure, 
+	footer, header, hgroup, menu, nav, section {
+		display: block;
+	}
+	
+	body {
+		line-height: 1;
+		font-family: 'Karla', sans-serif;
+	}
+	
+	ol, ul {
+		list-style: none;
+	}
+	
+	blockquote, q {
+		quotes: none;
+	}
+	
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: '';
+		content: none;
+	}
+	
+	table {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+	
+	nav{
+		height: 80px;
+		display: flex;
+		justify-content: space-between;
+		padding: 20px 8%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 999;
+		transition: .3s;
+	}
+	
+	nav ul li {
+		display: inline-block;
+		list-style: none;
+	}
+	
+	nav .logos{
+		width: 85px;
+		height: 63px;
+		line-height: 0;
+	}
+	
+	ul.menu li{
+		margin-left: 30px; 
+	}
+	
+	nav ul li a{
+		text-decoration: none;
+		color: white;
+		transition: .2s;
+		padding-top: 10px;
+	}
+	
+	nav a:hover{
+		color: black;
+	}
+	
+	.back-video{
+		width: 100%;
+	}
+	
+	.judul {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-65%);
+		width: 100%;
+		height: 250px;
+		text-align: center;
+		box-sizing: border-box;
+		padding: 100px 20px;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	
+	.judul h1 {
+		font-size: 50px;
+		color: white;
+		font-weight: 600;	
+		padding-bottom: 20px;
+	}
+	
+	.judul a{
+		padding: 10px;
+		width: 150px;
+		height: 30px;
+		background: none;
+		color: white;
+		font-size: 13px;
+		border: 2px solid white;
+		border-radius: 20px;
+		cursor: pointer;
+		transition: .2s;
+	}
+	
+	.judul a:hover{
+		background-color: grey;
+	}
+	
+	section{
+		height: auto;	
+		padding: 50px 20px;
+	}
+	
+	.about{
+		display: grid;
+		padding: 20px;
+		text-align: center;
+	}
+	
+	h2{
+		font-weight: bold;
+		font-size: 20px;
+		color: #215276;
+		text-align: center;
+	}
+	
+	p{
+		margin: 20px 0;
+		line-height: 22px;
+		font-size: 13px;
+		color: black;
+		text-align: center;
+	}
+	
+	.services{
+		background-color: #F9F9F9;
+		text-align: center;
+		padding: 50px 20px; /* Tambahkan padding untuk memberikan ruang di sekitar konten */
+	}
+	
+	.desc{
+		display: inline-block;
+		width: 100%;
+		margin-bottom: 20px; /* Beri jarak antara deskripsi dan cards */
+	}
+	
+	.services-cards{
+		display: grid; 
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+		grid-gap: 20px; }
+	
+	.services-card {
+		width: 100%;
+		height: auto;
+		text-align: center;
+		background-color: rgba(255,255,255,.2);
+		border-radius: 10px; 
+		padding: 20px; 
+		box-sizing: border-box; 
+	}
+	
+	.services-card img{
+		width: 100%;
+		height: auto;
+		margin-bottom: 20px;
+		border-radius: 10px;
+	}
+	
+	h3{
+		font-weight: bold;
+		font-size: 18px;
+		color: #3B3B3B;
+		margin-bottom: 10px;
+	}
+	
+	p {
+		font-size: 14px; 
+		color: #555; 
+		margin-bottom: 20px; 
+	}
+	
+	a {
+		display: inline-block; 
+		color: #FE2154;
+		text-decoration: none;
+		font-weight: bold;
+		font-size: 14px;
+		transition: color 0.3s ease; 
+	}
+	
+	a:hover{
+		color: #215276;
+	}
+	
+	.scrollToUp {
+		position: fixed;
+		bottom: 10px;
+		right: 10px;
+		display: none;
+		background-color: #1b2025;
+		color: #fff;
+		border: none;
+		border-radius: 50%;
+		width: 20px;
+		height: 20px;
+		font-size: 20px;
+		cursor: pointer;
+		z-index: 999;
+		text-align: center;
+		line-height: 20px;
+	  }
+	  
+	.scrollToUp:hover {
+		background-color: #070f178a;
+	  }
+	.row{
+		background-color: #74a8f5;
+		padding: 50px 0;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+	
+	.footer-col{
+	   width: 100%;
+	   padding: 0 20px;
+	   margin-top: 20px;
+	}
+	
+	.footer-col h4{
+		font-size: 16px;
+		color: #000000;
+		text-transform: capitalize;
+		margin-bottom: 20px;
+		font-weight: 500;
+		position: relative;
+	}
+	
+	.footer-col h4::before{
+		content: '';
+		position: absolute;
+		left:0;
+		bottom: -10px;
+		background-color: #e91e63;
+		height: 2px;
+		box-sizing: border-box;
+		width: 50px;
+	}
+	
+	.footer-col ul li:not(:last-child){
+		margin-bottom: 10px;
+		margin-right: 0;
+	}
+	
+	.footer-col ul li a{
+		font-size: 16px;
+		text-transform: capitalize;
+		color: #000000;
+		text-decoration: none;
+		font-weight: 300;
+		color: #797979;
+		display: block;
+		transition: all 0.3s ease;
+		z-index: 1;
+	}
+	
+	.footer-col ul li a:hover{
+		color: #ffffff;
+		padding-left: 8px;
+	}
+	
+	.footer-col .social-links a{
+		display: inline-block;
+		height: 40px;
+		width: 40px;
+		background-color: rgba(255,255,255,0.2);
+		margin:0 10px 10px 0;
+		text-align: center;
+		line-height: 40px;
+		border-radius: 50%;
+		color: #ffffff;
+		transition: all 0.5s ease;
+	}
+	
+	.footer-col .social-links a:hover{
+		color: #24262b;
+		background-color: #ffffff;
+	}
+	
+}
+

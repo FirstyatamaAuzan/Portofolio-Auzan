@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Quantor</title>
+	<link rel="stylesheet" href="">
+	<link rel="stylesheet" href="assets/css/services.css">
+	<link href="https://fonts.googleapis.com/css?family=Karla:400,400i,700,700i" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <style>
+		html,
+		body {
+		  position: relative;
+		  height: 100%;
+          padding: 0;
+		}
+	
+		body {
+		  background: #ffffff;
+		  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+		  font-size: 14px;
+		  color: #000;
+		  margin: 0;
+		  padding: 0;
+		}
+	
+		swiper-container {
+		  width: 100%;
+		  height: 60%;
+          display: flex;
+          position: relative;
+		}
+	
+		swiper-slide {
+		  text-align: center;
+		  font-size: 18px;
+		  background: linear-gradient(rgb(82, 80, 80),rgb(231, 224, 224));
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+          padding: 0;
+          position: relative;
+		}
+	
+		swiper-slide img {
+		  display: block;
+		  width: 100%;
+		  height: 100%;
+		  object-fit: cover;
+          padding: 0;
+		}
+        .swiper-button-next,
+        .swiper-button-prev {
+            position: absolute;
+            top: 50%; 
+            transform: translateY(-50%); 
+            width: auto;
+            height: auto;
+            z-index: 10; 
+        }
+
+        .swiper-button-next {
+            right: 10px;
+        }
+        
+        .swiper-button-prev {
+            left: 10px;
+        }
+	  </style>
+</head>
+<body>
+	<nav>
+		<ul>
+			<li class="logo"><a href="#home" class="page-scroll">Bakul Omah <br><hr><span>property</span></a></li>
+		</ul>
+		<ul class="menu">
+			<li><a class="page-scroll" href="beranda.html">Home</a></li>
+			<li><a class="page-scroll" href="profil.html">Profile</a></li>
+			<li><a class="page-scroll" href="#services">Details</a></li>
+
+		</ul>
+	</nav>
+	<header id="home" >
+        <video autoplay loop muted plays-inline class="back-video">
+            <source src="assets/img/vidiobg.mp4" type="video/mp4">
+        </video>
+			<div class="judul">
+                <div>
+                    <h1>BAKUL OMAH </h1>
+                </div>
+                    <a class="page-scroll" href="#about">INTRODUCING</a>
+            </div>
+	</header>
+
+    <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" navigation="true" space-between="30"
+    centered-slides="true" autoplay-delay="2500" autoplay-disable-on-interaction="false">
+    <swiper-slide><img src="assets/img/interior1.jpg" alt="">
+    </swiper-slide>
+    <swiper-slide><img src="assets/img/navbar1.jpg" alt=""></swiper-slide>
+    <swiper-slide><img src="assets/img/interior2.jpg" alt=""></swiper-slide>
+    </swiper-container>
+	
+	<section class="daftarHarga"style="background: url(assets/img/navbar1.jpg);">
+		<h1> Why Must be<p>BAKUL OMAH</p>As a Choice</h1>
+    <table>
+        <tr>
+            <th>Residential Complex</th>
+            <th>Real Estate</th>
+            <th>Price</th>
+            <th>ROI</th>
+        </tr>
+        <tr>
+            <td>Jakarta</td>
+            <td>Dubai Hills Estate</td>
+            <td>Apartments, 1 bedroom, 45 m2</td>
+            <td>$330,000 (7%)</td>
+        </tr>
+        <tr>
+            <td>Surabaya</td>
+            <td>Kundu Kanuon</td>
+            <td>Apartments, 1 bedroom, 90 m2</td>
+            <td>$280,000 (8%)</td>
+        </tr>
+        <tr>
+            <td>Jogja</td>
+            <td>The Ozone Lagunia</td>
+            <td>Duplex Condominium, 2 bedrooms, 88 m2</td>
+            <td>$440,000 (9%)</td>
+        </tr>
+        <tr>
+            <td>Bali</td>
+            <td>Pulau Villas</td>
+            <td>Villa, 2 bedrooms, 150 m2</td>
+            <td>$360,000 (15%)</td>
+        </tr>
+    </table>
+	</section>
+	
+    <section class="infrastructure">
+        <h3>Our FACILITY</h3>
+        <div class="infrastructure-content">
+            <div class="infrastructure-item">
+                <img src="assets/img/golf.jpg" alt="Night club background">
+                <div class="infrastructure-text">
+                    <h3>GOLF Area</h3>
+                    <p>Bakol Omah</p>
+                </div>
+            </div>
+            <div class="infrastructure-item">
+                <img src="assets/img/medical center.jpg" alt="Night club background">
+                <div class="infrastructure-text">
+                    <h3>Medical Center</h3>
+                    <p>Bakol Omah</p>
+                </div>
+            </div>
+            <div class="infrastructure-item">
+                <img src="assets/img/spa.jpg" alt="Night club background">
+                <div class="infrastructure-text">
+                    <h3>SPA</h3>
+                    <p>Bakol Omah</p>
+                </div>
+            </div>
+            <div class="infrastructure-item">
+                <img src="assets/img/GYM.jpg" alt="Image 4">
+                <div class="infrastructure-text">
+                    <h3>GYM Area</h3>
+                    <p>Bakol Omah</p>
+                </div>
+            </div>
+            <div class="infrastructure-item">
+                <img src="assets/img/helipad.jpg" alt="Image 5">
+                <div class="infrastructure-text">
+                    <h3>Helipad</h3>
+                    <p>Bakol Omah</p>
+                </div>
+            </div>
+            <div class="infrastructure-item">
+                <img src="assets/img/beachbar.jpg" alt="Image 6">
+                <div class="infrastructure-text">
+                    <h3>Beach Bar</h3>
+                    <p>Bakol Omah</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="footer-col">
+					<h4>company</h4>
+					<ul>
+						<li><a href="#">about us</a></li>
+						<li><a href="#">our services</a></li>
+						<li><a href="#">privacy policy</a></li>
+						<li><a href="#">affiliate program</a></li>
+					</ul>
+				</div>
+	
+				<div class="footer-col">
+					<h4>our services</h4>
+					<ul>
+						<li><a href="#">beach bar</a></li>
+						<li><a href="#">dock</a></li>
+						<li><a href="#">beach resort</a></li>
+						<li><a href="#">beach apartment</a></li>
+					</ul>
+				</div>
+				<div class="footer-col">
+					<h4>follow us</h4>
+					<div class="social-links">
+						<a href="#"><i class="fab fa-facebook-f"></i></a>
+						<a href="#"><i class="fab fa-twitter"></i></a>
+						<a href="#"><i class="fab fa-instagram"></i></a>
+						<a href="#"><i class="fab fa-linkedin-in"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+   </footer>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+<script src="assets/js/script.js"></script>
+</body>
+</html>
